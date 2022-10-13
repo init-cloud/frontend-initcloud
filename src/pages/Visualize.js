@@ -5,7 +5,6 @@ import sbgnStylesheet from "cytoscape-sbgn-stylesheet";
 import { elements } from "./data";
 function Visualize() {
   const cyStylesheet = sbgnStylesheet(cytoscape);
-
   return (
     <div>
       <h1>Visualize</h1>

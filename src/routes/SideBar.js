@@ -6,7 +6,7 @@ const Side = styled.div`
   flex-shrink: 0;
   flex-grow: 0;
   display: flex;
-  border-right: 3px solid #e0e0e0;
+  border-right: 3px solid gray;
   flex-direction: column;
   align-items: center;
 `
@@ -44,7 +44,9 @@ function SideBar() {
   return (
     <Side>
       <Menu>
-        <Img src={`${process.env.PUBLIC_URL}/initcloud.png`} alt="init.cloud logo" />
+        <NavLink to="/initCloud" key="main">
+          <Img src={`${process.env.PUBLIC_URL}/initcloud.png`} alt="init.cloud logo" />      
+        </NavLink>
         {menus.map((menu, index) => {
           return (
             <NavLink

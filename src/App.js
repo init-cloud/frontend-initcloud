@@ -19,7 +19,7 @@ function App() {
       <Center>
         <SideBar />
         <Routes>
-          <Route path="/" element={<Main />}/>
+          <Route path="/initCloud" element={<Main />}/>
           <Route path="/scan" element={<Scan />}/>
           <Route path="/custom" element={<Custom />}/>
           <Route path="/profile" element={<Profile />}/>
