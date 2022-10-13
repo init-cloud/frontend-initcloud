@@ -22,18 +22,16 @@ function Code() {
     fileReader.readAsText(file);
   }
 
-  // https://api.floodnut.com/api/v1/file
-  // multipart/form-data application/octet-stream
   const submit = async () => {
     const fd = new FormData();
     fd.append("file", tf)
 
-    await axios.post(`file`, fd, {
+    const response = await axios.post(`file`, fd, {
       headers: {
         "Content-Type": `multipart/form-data ;`
-        
       }
     }).catch((error) => console.log(error))
+    console.log(response)
   }
 
   return (

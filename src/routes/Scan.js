@@ -22,14 +22,13 @@ const Box = styled.div`
 `
 
 function Scan() {
-  
   return (
     <Service>
       <Box>
-        <Code />    
+        <Code/>    
       </Box>
       <Box>
-        <Visualize />
+        <Visualize/>
       </Box>
       <Box>
         <Result />
