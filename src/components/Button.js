@@ -10,6 +10,7 @@ const Btn = styled.div`
   font-weight: bold;
   text-align: center; 
   cursor: pointer;
+  box-shadow: 0 0 6px 2px rgba(0,0,0,.1);
   margin-right: 5px;
 
   &:hover {

@@ -12,9 +12,16 @@ const Service = styled.div`
   display: flex;
   padding: 1rem;
   gap: 1rem;
-  flex-wrap: wrap;
   overflow-y: auto;
+  flex-direction: column;
 `
+
+const Layout = styled.div`
+   display: flex;
+   flex-wrap: wrap;
+   gap: 1rem;
+`
+
 const Box = styled.div`
   min-height: 500px;
   flex-basis: 400px;
@@ -47,29 +54,34 @@ function Scan() {
       setError(true)
       setLoding(false)
     });
-    setResult(response.data.body.data);
+    setResult(response.data);
     setLoding(false);
+    console.log(response.data)
   }
 
   return (
     <Service>
-      <Box>
-        <h1>Terraform Scan</h1>
-        <label htmlFor="file">
-          <Button text={tf?"File Selected":"Choose Terraform File"} onClick={(null)} />
-        </label>
-        <input id="file" type="file" onChange={(e) => handleChange(e)} multiple="multiple" style={{display: "none"}}/>
-        <Button text="Scan" onClick={submit} />
-        {loading?<h4 style={{display:"inline"}}>Loading...</h4>:(null)}
-        {error?tf?null:<h4 style={{display:"inline"}}>You should select file</h4>:(null)}
-        <Code terraform={tf}/>    
-      </Box>
-      <Box>
-        <Visualize/>
-      </Box>
-      <Box>
-        <Result result={result?result:(null)}/>
-      </Box>
+      <Layout>
+        <Box>
+          <h1>Terraform Scan</h1>
+          <label htmlFor="file">
+            <Button text={tf?"File Selected":"Choose Terraform File"} onClick={(null)} />
+          </label>
+          <input id="file" type="file" onChange={(e) => handleChange(e)} multiple="multiple" style={{display: "none"}}/>
+          <Button text="Scan" onClick={submit} />
+          {loading?<h4 style={{display:"inline"}}>Loading...</h4>:(null)}
+          {error?tf?null:<h4 style={{display:"inline"}}>You should select file</h4>:(null)}
+          <Code terraform={tf}/>    
+        </Box>
+        <Box>
+          <Visualize/>
+        </Box>
+      </Layout>
+      <Layout>
+        <Box>
+          <Result result={result?result:(null)}/>
+        </Box>
+      </Layout>
     </Service>
   )
 }

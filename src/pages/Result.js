@@ -1,16 +1,20 @@
 import styled from "styled-components";
+import ResultTotal from "../components/ResultTotal";
+import ResultBar from "../components/ResultBar";
 
 const Box = styled.div`
-  padding: 1rem;
-`
-const TextBox = styled.pre`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   border: 1px solid black;
   border-radius: 1rem;
   padding: 1rem;
-  font-weight: bold;
-  height: 415px;
+  gap: 0.5rem;
+  height: 380px;
   overflow: auto;
-  
+  box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
+  justify-content: space-between;
+
   &::-webkit-scrollbar {
     width: 10px;
   }
@@ -24,16 +28,45 @@ const TextBox = styled.pre`
     display: none;
   }
   &::-webkit-scrollbar-track-piece:end {
-    margin-bottom: 10px; 
-}
+    margin-bottom: 10px;
+  }
 `
-function Result({result}) {
 
+function Result({ result }) {
   return (
-    <Box>
+    <div>
       <h1>Result</h1>
-      <TextBox>{result?result:"If you scan Terraform file.\nYou can see it here"}</TextBox>
-    </Box>
+      {result?(      
+        <ResultTotal
+          passed={result.check.passed}
+          skipped={result.check.skipped}
+          failed={result.check.failed}/>
+        ):(
+        <ResultTotal/>
+      )}
+      <Box>
+        <ResultBar
+          ruleId={"CKV_NCP_1"}
+          description={"Ensure HTTP HTTPS Target group defines Healthcheck"}
+          level={"High"}
+        />
+        <ResultBar
+          ruleId={"CKV_NCP_2"}
+          description={"Ensure every access control groups rule has a description"}
+          level={"High"}
+        />
+        <ResultBar
+          ruleId={"CKV_NCP_10"}
+          description={"Ensure no NACL allow inbound from 0.0.0.0:0 to port 20"}
+          level={"Medium"}
+        />
+        <ResultBar
+          ruleId={"CKV_NCP_12"}
+          description={"Ensure no NACL allow inbound from 0.0.0.0:0 to port 3389"}
+          level={"Low"}
+        />
+      </Box>
+    </div>
   );
 }
 

@@ -8,6 +8,8 @@ const TextBox = styled.pre`
   font-weight: bold;
   height: 415px;
   overflow: auto;
+  font-size: large;
+  box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   
   &::-webkit-scrollbar {
     width: 10px;
