@@ -6,7 +6,7 @@ const TextBox = styled.pre`
   border-radius: 1rem;
   padding: 1rem;
   font-weight: bold;
-  height: 415px;
+  height: 466px;
   overflow: auto;
   font-size: large;
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);

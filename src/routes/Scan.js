@@ -11,7 +11,6 @@ const Service = styled.div`
   flex-shrink: 1;
   display: flex;
   padding: 1rem;
-  gap: 1rem;
   overflow-y: auto;
   flex-direction: column;
 `

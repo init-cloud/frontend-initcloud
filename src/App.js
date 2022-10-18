@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Open Sans', sans-serif;
   }
   h1 {
-    text-shadow: 1px 4px 2px rgba(0,0,0,0.2), 0px -3px 20px rgba(255,255,255,0.4);
+    text-shadow: 1px 2px 2px rgba(0,0,0,0.2), 0px -3px 20px rgba(255,255,255,0.4);
   }
 `
 

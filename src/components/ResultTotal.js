@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Total = styled.div`
   display: flex;
-  width: 700px;
+  width: 46%;
   height: 25px;
   border: 1px solid #111;
   border-radius: 10px;
