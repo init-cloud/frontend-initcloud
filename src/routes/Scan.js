@@ -45,7 +45,7 @@ function Scan() {
     const fd = new FormData();
     fd.append("file", tf);
     setLoding(true);
-    const response = await axios.post(`file`, fd, {
+    const response = await axios.post(`https://api.floodnut.com/api/v1/file`, fd, {
       headers: {
         "Content-Type": `multipart/form-data ;`
       }
