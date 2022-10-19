@@ -9,7 +9,7 @@ const Box = styled.div`
 `
 
 const Textbox = styled.pre`
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
 `
 const RuleId = styled.span`
@@ -44,7 +44,7 @@ const Content = styled.div`
     height: 15px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: grey;
+    background-color: #E6E6E6;
     border-radius: 10px;
     background-clip: padding-box;
     border: 2px solid transparent;

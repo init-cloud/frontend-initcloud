@@ -7,10 +7,10 @@ function Visualize() {
   const cyStylesheet = sbgnStylesheet(cytoscape);
   return (
     <div>
-      <h1 style={{marginBottom:"76px"}}>Visualize</h1>
+      <h1 style={{marginBottom:"79px"}}>Visualize</h1>
       <CytoscapeComponent
         elements={CytoscapeComponent.normalizeElements(elements)}
-        style={ { width: '99%', height: '500px', border: '1px solid black', borderRadius: '15px',  boxShadow: "0 0 8px 4px rgba(0,0,0,.1)"} }
+        style={ { width: '99%', height: '498px', border: '1px solid rgba(46,54,80,.125)', borderRadius: '15px',  boxShadow: "0 0 8px 4px rgba(0,0,0,.1)", backgroundColor: "white"} }
         minZoom={0.8}
         maxZoom={3}
         cy={(cy) => cy.style(cyStylesheet)}

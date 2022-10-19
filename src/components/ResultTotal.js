@@ -5,6 +5,7 @@ const Total = styled.div`
   width: 46%;
   height: 25px;
   border: 1px solid #111;
+  border: 1px solid rgba(46,54,80,.125);
   border-radius: 10px;
   margin-bottom: 15px;
   overflow: hidden;
@@ -20,13 +21,13 @@ const Status = styled.div`
   padding: 0px 5px 0px 5px;
 `
 
-function ResultTotal({ passed = 0, skipped = 0, failed = 0}) {
+function ResultTotal({ passed = 0, skipped = 0, failed = 0 }) {
 
   return (
     <Total>
       <Status color={"rgb(46, 204, 113)"} size={passed + 1}>passed :{passed}</Status>
-            <Status color={"rgb(241, 196, 15)"} size={skipped + 1}>skipped :{skipped}</Status>
-            <Status color={"rgb(231, 76, 60)"} size={failed + 1}>failed : {failed}</Status>
+      <Status color={"rgb(241, 196, 15)"} size={skipped + 1}>skipped :{skipped}</Status>
+      <Status color={"rgb(231, 76, 60)"} size={failed + 1}>failed : {failed}</Status>
     </Total>
   );
 }

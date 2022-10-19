@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const TextBox = styled.pre`
-  border: 1px solid black;
+  border: 1px solid rgba(46,54,80,.125);
   border-radius: 1rem;
   padding: 1rem;
   font-weight: bold;
@@ -10,12 +10,14 @@ const TextBox = styled.pre`
   overflow: auto;
   font-size: large;
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
+  background-color: white;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
   
   &::-webkit-scrollbar {
     width: 10px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: grey;
+    background-color: #E6E6E6;
     border-radius: 10px;
     background-clip: padding-box;
     border: 2px solid transparent;
@@ -25,7 +27,7 @@ const TextBox = styled.pre`
   }
   &::-webkit-scrollbar-track-piece:end {
     margin-bottom: 10px; 
-}
+  }
 `
 
 function Code({ terraform }) {
@@ -45,7 +47,7 @@ function Code({ terraform }) {
   
   return (
     <div>
-      <TextBox>{text ? text : "If you upload Terraform file.\nYou can see it here"}</TextBox>
+      <TextBox>{text ? text : "If you upload Terraform file, You can see it here"}</TextBox>
     </div>
   );
 }

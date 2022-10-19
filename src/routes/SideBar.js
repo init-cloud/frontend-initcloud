@@ -6,9 +6,9 @@ const Side = styled.div`
   flex-shrink: 0;
   flex-grow: 0;
   display: flex;
-  border-right: 3px solid gray;
   flex-direction: column;
   align-items: center;
+  background-color: #262b40;
 `
 const Menu = styled.div`
   width: 100%;
@@ -17,9 +17,16 @@ const Menu = styled.div`
   cursor: pointer;
   text-align: center;
 `
+const Circle = styled.div`
+  background-color: white;
+  border-radius: 25px;
+  margin: 10px;
+  height: 80px;
+  overflow: hidden;
+`
+
 const Img = styled.img`
-  width: 70%;
-  padding-top: 10px
+  width: 85%;
 `
 
 function SideBar() {
@@ -30,13 +37,13 @@ function SideBar() {
   ];
 
   const basicStyle = {
-    color: "gray",
+    color: "whitesmoke",
     textDecoration: "none",
     cursor: "pointer"
   }
 
   const activeStyle = {
-    color: "black",
+    color: "white",
     fontWeight: "bold",
     textDecoration: "none"
   }
@@ -45,7 +52,9 @@ function SideBar() {
     <Side>
       <Menu>
         <NavLink to="/initCloud" key="main">
-          <Img src={`${process.env.PUBLIC_URL}/initcloud.png`} alt="init.cloud logo" />      
+          <Circle>
+            <Img src={`${process.env.PUBLIC_URL}/initcloud.png`} alt="init.cloud logo" />
+          </Circle>
         </NavLink>
         {menus.map((menu, index) => {
           return (

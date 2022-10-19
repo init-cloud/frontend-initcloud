@@ -13,6 +13,7 @@ const Service = styled.div`
   padding: 1rem;
   overflow-y: auto;
   flex-direction: column;
+  background-color: #f5f8fb;
 `
 
 const Layout = styled.div`
@@ -45,7 +46,7 @@ function Scan() {
     const fd = new FormData();
     fd.append("file", tf);
     setLoding(true);
-    const response = await axios.post(`https://api.floodnut.com/api/v1/file`, fd, {
+    const response = await axios.post(`file`, fd, {
       headers: {
         "Content-Type": `multipart/form-data ;`
       }

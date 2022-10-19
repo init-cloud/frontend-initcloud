@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Box = styled.div`
-  border: 1px solid #111;
+  border: 1px solid rgba(46,54,80,.125);
   border-radius: 1rem;
   flex-grow: 1;
   height: 100px;
@@ -26,7 +26,7 @@ const Info = styled.div`
 `
 
 const Level = styled.div`
-  border-left: 1px solid #111;
+  border-left: 1px solid rgba(46,54,80,.125);
   text-align: center;
   line-height: 100px;
   width: 100px;
@@ -73,7 +73,7 @@ function ResultCard({ result, onClick }) {
           {result.rule_id}
           <Status status={statusColor[result.status]}>{result.status}</Status>
         </RuleId>
-        <Description>{result.description.length > 90 ? `${result.description.slice(0,90)} ...` : result.description}</Description>
+        <Description>{result.description.length > 80 ? `${result.description.slice(1,80)} ...` : result.description.slice(1,-1)}</Description>
       </Info>
       <Level level={levelColor[result.level]}>
         {result.level}

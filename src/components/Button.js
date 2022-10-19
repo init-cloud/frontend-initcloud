@@ -12,6 +12,7 @@ const Btn = styled.div`
   cursor: pointer;
   box-shadow: 0 0 6px 2px rgba(0,0,0,.1);
   margin-right: 5px;
+  background-color: white;
 
   &:hover {
     background-color: #D8D8D8;

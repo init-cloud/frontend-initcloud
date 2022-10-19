@@ -5,19 +5,20 @@ import Detail from "../components/Detail";
 import { useState } from "react";
 
 const Box = styled.div`
-  border: 1px solid black;
+  border: 1px solid rgba(46,54,80,.125);
   border-radius: 1rem;
   height: 466px;
   width: 50%;
   overflow: auto;
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
+  background-color: white;
 
   &::-webkit-scrollbar {
     width: 10px;
     height: 15px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: grey;
+    background-color: #E6E6E6;
     border-radius: 10px;
     background-clip: padding-box;
     border: 2px solid transparent;
@@ -34,7 +35,7 @@ const CardBox = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding: 1rem;
-  gap: 0.5rem;
+  gap: 1rem;
   justify-content: center;
 `
 
@@ -76,7 +77,7 @@ function Result({ result }) {
             )}
           </CardBox>
         </Box>
-        <Box>
+        <Box style={{overflow:"hidden"}}>
           {detail ? (
             <Detail detail={detail} />
           ) : (

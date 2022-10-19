@@ -7,9 +7,8 @@ import SideBar from "./routes/SideBar";
 import Main from "./routes/Main";
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
   body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
   }
   h1 {
     text-shadow: 1px 2px 2px rgba(0,0,0,0.2), 0px -3px 20px rgba(255,255,255,0.4);
