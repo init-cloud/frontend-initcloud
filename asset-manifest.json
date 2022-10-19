@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/initCloud/static/js/main.cc5d1a0b.js",
+    "main.js": "/initCloud/static/js/main.a5c1fa99.js",
     "index.html": "/initCloud/index.html",
-    "main.cc5d1a0b.js.map": "/initCloud/static/js/main.cc5d1a0b.js.map"
+    "main.a5c1fa99.js.map": "/initCloud/static/js/main.a5c1fa99.js.map"
   },
   "entrypoints": [
-    "static/js/main.cc5d1a0b.js"
+    "static/js/main.a5c1fa99.js"
   ]
 }
