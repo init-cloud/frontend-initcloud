@@ -15,7 +15,7 @@ const Btn = styled.div`
   background-color: white;
 
   &:hover {
-    background-color: black;
+    background-color: #848484;
     color: whitesmoke;
   }
 `

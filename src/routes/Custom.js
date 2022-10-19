@@ -8,6 +8,7 @@ const Service = styled.div`
   gap: 1rem;
   flex-wrap: wrap;
   overflow-y: auto;
+  background-color: #f5f8fb;
 `
 
 function Custom() {

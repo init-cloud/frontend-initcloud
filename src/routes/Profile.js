@@ -8,6 +8,7 @@ const Service = styled.div`
   flex-wrap: wrap;
   overflow-y: auto;
   flex-direction: column;
+  background-color: #f5f8fb;
 `
 const ProfileImg = styled.div`
   width: 150px;
