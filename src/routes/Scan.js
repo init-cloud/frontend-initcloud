@@ -24,7 +24,8 @@ const Layout = styled.div`
 
 const Box = styled.div`
   min-height: 500px;
-  flex-basis: 400px;
+  min-width: 610px;
+  flex-basis: 610px;
   flex-shrink: 1;
   flex-grow: 1;
   flex-direction: column;

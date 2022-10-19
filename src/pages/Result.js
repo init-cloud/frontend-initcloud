@@ -8,7 +8,9 @@ const Box = styled.div`
   border: 1px solid rgba(46,54,80,.125);
   border-radius: 1rem;
   height: 466px;
-  width: 50%;
+  flex-grow: 1;
+  width: 49%;
+  min-width: 610px;
   overflow: auto;
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   background-color: white;
@@ -41,6 +43,7 @@ const CardBox = styled.div`
 
 const Lay = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
 `
 

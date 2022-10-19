@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Btn = styled.div`
-  border: 2px solid black;
+  border: 2px solid rgba(46,54,80,.125);
   border-radius: 1rem;
   padding: 1rem;
   display: inline-block;
@@ -15,7 +15,8 @@ const Btn = styled.div`
   background-color: white;
 
   &:hover {
-    background-color: #D8D8D8;
+    background-color: black;
+    color: whitesmoke;
   }
 `
 
