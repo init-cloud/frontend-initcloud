@@ -1,10 +1,21 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import axios from "axios";
 import Code from "../pages/Code";
 import Visualize from "../pages/Visualize";
 import Result from "../pages/Result";
 import Button from "../components/Button";
 import { useEffect, useState } from "react";
+
+const boxFade = keyframes`
+  0% {
+      opacity: 0;
+      transform: translate3d(0, 3%, 0);
+  }
+  to {
+      opacity: 1;
+      transform: translateZ(0);
+  }
+`
 
 const Service = styled.div`
   flex-grow: 1;
@@ -29,6 +40,7 @@ const Box = styled.div`
   flex-shrink: 1;
   flex-grow: 1;
   flex-direction: column;
+  animation: ${boxFade} 0.5s;
 `
 
 function Scan() {

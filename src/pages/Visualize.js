@@ -49,6 +49,12 @@ function Visualize({ elements }) {
       }
     },
     {
+      selector: ":parent[type='subnet']",
+      style: {
+        "background-color": "#DBF6FA"
+      }
+    },
+    {
       selector : "node[type='vuln']",
       style:{
         "background-color" : "tomato"
