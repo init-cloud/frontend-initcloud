@@ -10,6 +10,7 @@ const Total = styled.div`
   margin-bottom: 15px;
   overflow: hidden;
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
+  transition: all 1s;
 `
 const Status = styled.div`
   background-color: ${(props) => props.color};

@@ -8,15 +8,12 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.1.2",
     "cytoscape": "^3.23.0",
-    "cytoscape-klay": "^3.1.4",
-    "cytoscape-sbgn-stylesheet": "^4.0.2",
     "gh-pages": "^4.0.0",
     "react": "^18.2.0",
     "react-cytoscapejs": "^2.0.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
-    "reagraph": "^4.5.0",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
@@ -46,5 +43,6 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://taeng0204.guithub.io/initCloud"
+  "homepage": "https://taeng0204.guithub.io/initCloud",
+  "proxy": "https://api.floodnut.com/api/v1"
 }

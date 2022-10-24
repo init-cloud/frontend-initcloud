@@ -4,7 +4,7 @@ import Code from "../pages/Code";
 import Visualize from "../pages/Visualize";
 import Result from "../pages/Result";
 import Button from "../components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Service = styled.div`
   flex-grow: 1;
@@ -36,6 +36,7 @@ function Scan() {
   const [error, setError] = useState(false);
   const [tf, setTf] = useState();
   const [result, setResult] = useState();
+  const [vis, setVis] = useState();
 
   const handleChange = (e) => {
     const file = e.target.files[0];
@@ -47,7 +48,7 @@ function Scan() {
     const fd = new FormData();
     fd.append("file", tf);
     setLoding(true);
-    const response = await axios.post(`https://api.floodnut.com/api/v1/file`, fd, {
+    const response = await axios.post(`file`, fd, {
       headers: {
         "Content-Type": `multipart/form-data ;`
       }
@@ -57,8 +58,19 @@ function Scan() {
     });
     setResult(response.data);
     setLoding(false);
-    console.log(response.data)
   }
+
+  useEffect(() => {
+    const fetchVis = async () => {
+      const response = await axios.get(
+        `http://localhost:8080/vis`
+      ).catch((err) => {
+        console.log(err);
+      });
+      setVis(response.data);
+    }
+    fetchVis();
+  }, []);
 
   return (
     <Service>
@@ -75,7 +87,7 @@ function Scan() {
           <Code terraform={tf}/>    
         </Box>
         <Box>
-          <Visualize/>
+          <Visualize elements={vis?vis:(null)}/>
         </Box>
       </Layout>
       <Layout>
