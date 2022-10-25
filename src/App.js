@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import styled,{ createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import Scan from "./routes/Scan"
 import Custom from "./routes/Custom";
 import Profile from "./routes/Profile"
@@ -25,20 +25,20 @@ const Center = styled.div`
 function App() {
   return (
     <>
-    <GlobalStyle/>
-    <Router>
-      <Center>
-        <SideBar />
-        <Routes>
-          <Route path="/initCloud" element={<Main />}/>
-          <Route path="/scan" element={<Scan />}/>
-          <Route path="/custom" element={<Custom />}/>
-          <Route path="/profile" element={<Profile />}/>
-        </Routes>
-      </Center>
-    </Router>
+      <GlobalStyle />
+      <Router>
+        <Center>
+          <SideBar />
+          <Routes>
+            <Route path="/initCloud" element={<Main />} />
+            <Route path="/scan" element={<Scan />} />
+            <Route path="/custom" element={<Custom />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+        </Center>
+      </Router>
     </>
-    );
+  );
 }
 
 export default App;

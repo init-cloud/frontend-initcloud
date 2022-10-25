@@ -10,7 +10,6 @@ const Total = styled.div`
   margin-bottom: 15px;
   overflow: hidden;
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
-  transition: all 1s;
 `
 const Status = styled.div`
   background-color: ${(props) => props.color};
@@ -20,6 +19,7 @@ const Status = styled.div`
   font-weight: bold;
   text-align: center;
   padding: 0px 5px 0px 5px;
+  transition: all 1.5s;
 `
 
 function ResultTotal({ passed = 0, skipped = 0, failed = 0 }) {

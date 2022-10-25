@@ -9,9 +9,20 @@ const Vis = styled(CytoscapeComponent)`
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   background-color: white;
 `
+const Box = styled.div`
+  width: 99%;
+  height: 467px;
+  border: 1px solid rgba(46,54,80,.125);
+  border-radius: 15px;
+  box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
+  background-color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: large;
+  padding: 1rem;
+`
 
 function Visualize({ elements }) {
-  console.log(elements)
   const layout = {
     name: "breadthfirst"
   }
@@ -69,7 +80,7 @@ function Visualize({ elements }) {
   ]
   return (
     <div>
-      <h1 style={{ marginBottom: "79px" }}>Visualize</h1>
+      <h1 style={{ marginBottom: "79px" }}>Visualization</h1>
       {elements?(
         <Vis
         elements={elements}
@@ -80,7 +91,7 @@ function Visualize({ elements }) {
         maxZoom={2}
       />
       ):(
-        "Loading..."
+        <Box>If you upload Terraform file. You can get architecture in here</Box>
       )}
     </div>
   );

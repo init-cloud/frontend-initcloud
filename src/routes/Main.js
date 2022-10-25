@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 const Box = styled.div`
   padding: 1rem;
+  background-color: #f5f8fb;
+  flex-grow: 1;
 `
 
 function Main() {

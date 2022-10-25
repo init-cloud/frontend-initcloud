@@ -35,19 +35,23 @@ function Code({ terraform }) {
 
   const handleText = () => {
     const fileReader = new FileReader();
-  fileReader.onload = () => {
-    setText(fileReader.result);
-  }
-  fileReader.readAsText(terraform);
+    fileReader.onload = () => {
+      setText(fileReader.result);
+    }
+    fileReader.readAsText(terraform);
   }
 
   if (terraform) {
     handleText();
   }
-  
+
   return (
     <div>
-      <TextBox>{text ? text : "If you upload Terraform file, You can see it here"}</TextBox>
+      {text ? (
+        <TextBox>{text}</TextBox>
+      ) : (
+        <TextBox style={{textAlign : "center", lineHeight: "55px"}}>If you upload Terraform file, you can see it here.</TextBox>
+      )}
     </div>
   );
 }

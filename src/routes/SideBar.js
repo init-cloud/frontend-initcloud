@@ -18,7 +18,7 @@ const Menu = styled.div`
   text-align: center;
 `
 const Circle = styled.div`
-  background-color: white;
+  background-color: #f5f8fb;
   border-radius: 25px;
   margin: 10px;
   margin-bottom: 70px;
@@ -40,7 +40,7 @@ const NavStyle = styled(NavLink)`
   &.active {
     padding: 3px 0px;
     height: 40px;
-    color: black;
+    color: #262b40;
     align-items: center;
     justify-content: center;
     display: flex;

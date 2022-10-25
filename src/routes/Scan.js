@@ -25,6 +25,21 @@ const Service = styled.div`
   overflow-y: auto;
   flex-direction: column;
   background-color: #f5f8fb;
+  &::-webkit-scrollbar {
+    width: 15px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #CCD2E3;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  &::-webkit-scrollbar-track {
+    display: none;
+  }
+  &::-webkit-scrollbar-track-piece:end {
+    margin-bottom: 10px; 
+  }
 `
 
 const Layout = styled.div`
@@ -40,7 +55,7 @@ const Box = styled.div`
   flex-shrink: 1;
   flex-grow: 1;
   flex-direction: column;
-  animation: ${boxFade} 0.5s;
+  animation: ${boxFade} ${(props) => props.time};
 `
 
 function Scan() {
@@ -87,7 +102,7 @@ function Scan() {
   return (
     <Service>
       <Layout>
-        <Box>
+        <Box time={"0.3s"}>
           <h1>Terraform Scan</h1>
           <label htmlFor="file">
             <Button text={tf?"File Selected":"Choose Terraform File"} onClick={(null)} />
@@ -98,12 +113,12 @@ function Scan() {
           {error?tf?null:<h4 style={{display:"inline"}}>You should select file</h4>:(null)}
           <Code terraform={tf}/>    
         </Box>
-        <Box>
+        <Box time={"0.45s"}>
           <Visualize elements={vis?vis:(null)}/>
         </Box>
       </Layout>
       <Layout>
-        <Box>
+        <Box time={"0.6s"}>
           <Result result={result?result:(null)}/>
         </Box>
       </Layout>

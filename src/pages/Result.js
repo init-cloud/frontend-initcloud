@@ -76,7 +76,7 @@ function Result({ result }) {
                 />
               ))
             ) : (
-              <h3>{"If you upload Terraform file. You can see result here"}</h3>
+              <h3>If you upload Terraform file, you can see result here.</h3>
             )}
           </CardBox>
         </Box>
@@ -84,7 +84,7 @@ function Result({ result }) {
           {detail ? (
             <Detail detail={detail} />
           ) : (
-            <h3 style={{textAlign:"center"}}>If you click result card, you can show it's detail.</h3>
+            <h3 style={{textAlign:"center", lineHeight:"55px"}}>if you click result card, you can see its detail</h3>
           )}
         </Box>
       </Lay>
