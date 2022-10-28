@@ -19,6 +19,10 @@ const Btn = styled.div`
     background-color: #848484;
     color: whitesmoke;
   }
+  &:active {
+    opacity: 0.3;
+    transform: scale(1.05);
+  }
 `
 
 function Button({ text, onClick }) {

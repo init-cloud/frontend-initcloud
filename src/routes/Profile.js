@@ -76,7 +76,6 @@ function Profile() {
           <h3>E-mail : ggam2@init.cloud</h3>
           <h3>Coporation : initCloud</h3>
           <h3>Department : DevOps</h3>
-
         </Box>
       </Layout>
     </Service>

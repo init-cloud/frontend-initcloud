@@ -4,7 +4,7 @@ import Code from "../pages/Code";
 import Visualize from "../pages/Visualize";
 import Result from "../pages/Result";
 import Button from "../components/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const boxFade = keyframes`
   0% {
@@ -50,7 +50,7 @@ const Layout = styled.div`
 
 const Box = styled.div`
   min-height: 500px;
-  min-width: 610px;
+  min-width: 600px;
   flex-basis: 610px;
   flex-shrink: 1;
   flex-grow: 1;
@@ -63,7 +63,6 @@ function Scan() {
   const [error, setError] = useState(false);
   const [tf, setTf] = useState();
   const [result, setResult] = useState();
-  const [vis, setVis] = useState();
 
   const handleChange = (e) => {
     const file = e.target.files[0];
@@ -83,21 +82,10 @@ function Scan() {
       setError(true)
       setLoding(false)
     });
-    setResult(response.data);
+    setResult(response?.data);
+    console.log(response?.data)
     setLoding(false);
   }
-
-  useEffect(() => {
-    const fetchVis = async () => {
-      const response = await axios.get(
-        `http://localhost:8080/vis`
-      ).catch((err) => {
-        console.log(err);
-      });
-      setVis(response.data);
-    }
-    fetchVis();
-  }, []);
 
   return (
     <Service>
@@ -114,7 +102,7 @@ function Scan() {
           <Code terraform={tf}/>    
         </Box>
         <Box time={"0.45s"}>
-          <Visualize elements={vis?vis:(null)}/>
+          <Visualize elements={result?result.scan.parse.result:(null)}/>
         </Box>
       </Layout>
       <Layout>

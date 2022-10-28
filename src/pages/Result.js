@@ -84,7 +84,7 @@ function Result({ result }) {
           {detail ? (
             <Detail detail={detail} />
           ) : (
-            <h3 style={{textAlign:"center", lineHeight:"55px"}}>if you click result card, you can see its detail</h3>
+            <h3 style={{textAlign:"center", lineHeight:"55px"}}>If you click result card, you can see its detail.</h3>
           )}
         </Box>
       </Lay>

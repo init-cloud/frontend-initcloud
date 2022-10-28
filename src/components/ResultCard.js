@@ -48,6 +48,10 @@ const Status = styled.span`
 `
 const Description = styled.span`
   font-size: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 500px;
 `
 
 function ResultCard({ result, onClick }) {
@@ -73,7 +77,7 @@ function ResultCard({ result, onClick }) {
           {result.rule_id}
           <Status status={statusColor[result.status]}>{result.status}</Status>
         </RuleId>
-        <Description>{result.description.length > 80 ? `${result.description.slice(1,80)} ...` : result.description.slice(1,-1)}</Description>
+        <Description>{result.description.slice(1,-1)}</Description>
       </Info>
       <Level level={levelColor[result.level]}>
         {result.level}

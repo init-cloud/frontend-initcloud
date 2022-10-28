@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const Side = styled.div`
-  flex-basis: 150px;
+  flex-basis: 100px;
   flex-shrink: 0;
   flex-grow: 0;
   display: flex;
@@ -12,18 +12,18 @@ const Side = styled.div`
 `
 const Menu = styled.div`
   width: 100%;
-  height: 40px;
-  line-height: 40px;
+  height: 30px;
+  line-height: 30px;
   cursor: pointer;
   text-align: center;
 `
 const Circle = styled.div`
   background-color: #f5f8fb;
-  border-radius: 25px;
+  border-radius: 15px;
   margin: 10px;
   margin-bottom: 70px;
-  height: 80px;
   overflow: hidden;
+  height: 55px;
 `
 
 const Img = styled.img`
@@ -35,11 +35,11 @@ const NavStyle = styled(NavLink)`
   text-decoration: none;
   cursor: pointer;
   padding: 10px 0px;
-  height: 40px;
+  height: 30px;
   
   &.active {
     padding: 3px 0px;
-    height: 40px;
+    height: 30px;
     color: #262b40;
     align-items: center;
     justify-content: center;

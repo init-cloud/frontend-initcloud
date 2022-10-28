@@ -1,11 +1,16 @@
 import styled, { keyframes } from "styled-components";
 import CheckList from "../pages/CheckList";
+import RuleDetail from "../pages/RuleDeatil";
+import RuleCustom from "../pages/RuleCustom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Service = styled.div`
   flex-grow: 1;
   flex-shrink: 1;
   display: flex;
   padding: 1rem;
+  gap: 1rem;
   overflow-y: auto;
   background-color: #f5f8fb;
   flex-direction: row;
@@ -30,6 +35,8 @@ const Layout = styled.div`
    display: flex;
    flex-direction: column;
    flex-grow: 1;
+   width: 48%;
+   min-width: 700px;
    gap: 1rem;
 `
 const boxFade = keyframes`
@@ -44,32 +51,42 @@ const boxFade = keyframes`
 `
 
 const Box = styled.div`
-  min-height: 500px;
-  min-width: 610px;
-  flex-basis: 610px;
   flex-shrink: 1;
   flex-grow: 1;
   flex-direction: column;
   display: flex;
   animation: ${boxFade} ${(props) => props.time};
-  padding: 0 1rem;
+  overflow: hidden;
 `
 
 function Custom() {
+  const [checkList, setCheckList] = useState();
+
+  useEffect(() => {
+    const req = async () => {
+      const res = await axios.get(
+        'http://localhost:8080/docs'
+        ).catch((err) => {
+          console.log(err);
+        });
+      setCheckList(res?.data);
+    };
+    req();
+  }, []);
 
   return (
     <Service>
-      <Layout style={{flexDirection : "row"}}>
+      <Layout>
         <Box time={"0.3s"}>
-          <CheckList />
+          <CheckList data={checkList}/>
         </Box>
       </Layout>
       <Layout>
-        <Box time={"0.45s"}>
-          <h1>Detail</h1>
+        <Box time={"0.45s"} style={{flexGrow: 2}}>
+          <RuleDetail />
         </Box>
         <Box time={"0.6s"}>
-          <h1>Custom</h1>
+          <RuleCustom />
         </Box>
       </Layout>
     </Service>
