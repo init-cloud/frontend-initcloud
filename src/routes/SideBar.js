@@ -39,7 +39,7 @@ const NavStyle = styled(NavLink)`
   
   &.active {
     padding: 3px 0px;
-    height: 30px;
+    height: 32px;
     color: #262b40;
     align-items: center;
     justify-content: center;
@@ -53,7 +53,8 @@ function SideBar() {
   const menus = [
     { name: "Scan", path: "/scan" },
     { name: "Custom", path: "/custom" },
-    { name: "Profile", path: "/profile" },
+    { name: "module", path: "/module" },
+    { name: "Profile", path: "/profile" }
   ];
 
   return (

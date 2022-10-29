@@ -4,12 +4,12 @@ const Box = styled.div`
   border: 1px solid rgba(46,54,80,.125);
   border-radius: 1rem;
   flex-grow: 1;
-  height: 100px;
+  height: 105px;
   display: flex;
   overflow: hidden;
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   cursor: pointer;
-  min-width: 660px;
+  min-width: 690px;
 
   &:hover {
     background-color: #D8D8D8;
@@ -19,8 +19,8 @@ const Info = styled.div`
   flex-grow: 1;
   padding: 1rem;
   display: flex;
+  gap: 5px;
   flex-direction: column;
-  gap: 10px;
   flex-shrink: 1;
 `
 

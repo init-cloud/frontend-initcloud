@@ -1,20 +1,13 @@
 import styled, { keyframes } from "styled-components";
-import CheckList from "../pages/CheckList";
-import RuleDetail from "../pages/RuleDeatil";
-import RuleCustom from "../pages/RuleCustom";
-import { useEffect, useState } from "react";
-import axios from "axios";
 
 const Service = styled.div`
   flex-grow: 1;
   flex-shrink: 1;
   display: flex;
   padding: 1rem;
-  gap: 1rem;
   overflow-y: auto;
+  flex-direction: column;
   background-color: #f5f8fb;
-  flex-direction: row;
-  flex-wrap: wrap;
   &::-webkit-scrollbar {
     width: 15px;
   }
@@ -33,10 +26,7 @@ const Service = styled.div`
 `
 const Layout = styled.div`
    display: flex;
-   flex-direction: column;
-   flex-grow: 1;
-   width: 40%;
-   min-width: 700px;
+   flex-wrap: wrap;
    gap: 1rem;
 `
 const boxFade = keyframes`
@@ -51,45 +41,26 @@ const boxFade = keyframes`
 `
 
 const Box = styled.div`
+  min-height: 500px;
+  min-width: 610px;
+  flex-basis: 610px;
   flex-shrink: 1;
   flex-grow: 1;
   flex-direction: column;
-  display: flex;
   animation: ${boxFade} ${(props) => props.time};
 `
 
-function Custom() {
-  const [checkList, setCheckList] = useState();
-
-  useEffect(() => {
-    const req = async () => {
-      const res = await axios.get(
-        'http://localhost:8080/docs'
-        ).catch((err) => {
-          console.log(err);
-        });
-      setCheckList(res?.data);
-    };
-    req();
-  }, []);
+function Module() {
 
   return (
     <Service>
       <Layout>
         <Box time={"0.3s"}>
-          <CheckList data={checkList}/>
-        </Box>
-      </Layout>
-      <Layout>
-        <Box time={"0.45s"} style={{flexGrow: 2}}>
-          <RuleDetail />
-        </Box>
-        <Box time={"0.6s"}>
-          <RuleCustom />
+          <h1>This is Module Page</h1>
         </Box>
       </Layout>
     </Service>
   )
 }
 
-export default Custom;
+export default Module;

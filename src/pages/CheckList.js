@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import RuleCard from "../components/RuleCard";
 
@@ -113,7 +113,7 @@ function CheckList({ data }) {
   const [filters, setFilters] = useState([]);
   const [rules, setRules] = useState([]);
 
-  const filtering = () => {
+  const filtering = useCallback(() => {
     let newRules;
     if (data) {
       newRules = [...data];
@@ -122,7 +122,7 @@ function CheckList({ data }) {
       }
     }
     setRules(newRules);
-  };
+  }, [data, filters]);
 
   const onChange = (event) => setFilter(event.target.value);
   const onSubmit = (event) => {
@@ -137,7 +137,7 @@ function CheckList({ data }) {
       setFilter("");
       return;
     }
-    setFilters((current) => [...current, (filter)]);
+    setFilters((current) => [...current, filter]);
     setFilter("");
   };
   const deleteFilter = (event) => {
@@ -150,7 +150,7 @@ function CheckList({ data }) {
 
   useEffect(()=>{
     filtering();
-  },[filters]);
+  }, [filtering]);
   
   return (
     <>
