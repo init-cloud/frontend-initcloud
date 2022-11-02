@@ -8,7 +8,7 @@ const Box = styled.div`
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   background-color: white;
   min-width: 610px;
-  min-height: 320px;
+  min-height: 300px;
   &::-webkit-scrollbar {
     width: 10px;
     height: 15px;

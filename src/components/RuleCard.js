@@ -3,25 +3,24 @@ import styled from "styled-components";
 const Box = styled.div`
   border: 1px solid rgba(46,54,80,.125);
   border-radius: 1rem;
-  flex-grow: 1;
-  height: 105px;
+  height: 100px;
   display: flex;
+  flex-grow: 1;
+  width: 48%;
   overflow: hidden;
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   cursor: pointer;
-  min-width: 690px;
-
+  min-width: 600px;
+  
   &:hover {
     background-color: #D8D8D8;
   }
 `
 const Info = styled.div`
-  flex-grow: 1;
   padding: 1rem;
   display: flex;
   gap: 5px;
   flex-direction: column;
-  flex-shrink: 1;
 `
 
 const RuleId = styled.span`
@@ -34,8 +33,7 @@ const Description = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  flex-grow: 1;
-  max-width: 620px;
+  max-width: 80%;
 `
 
 function RuleCard({ rule }) {

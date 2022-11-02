@@ -35,10 +35,12 @@ const Box = styled.div`
 
 const CardBox = styled.div`
   display: flex;
+  padding: 10px;
+  padding-left: 20px;
   flex-wrap: wrap;
-  padding: 1rem;
   gap: 1rem;
   justify-content: center;
+  align-items: center;
 `
 
 const Lay = styled.div`

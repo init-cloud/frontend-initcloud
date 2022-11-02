@@ -11,9 +11,8 @@ const Service = styled.div`
   display: flex;
   padding: 1rem;
   gap: 1rem;
-  overflow-y: auto;
+  overflow: auto;
   background-color: #f5f8fb;
-  flex-direction: row;
   flex-wrap: wrap;
   &::-webkit-scrollbar {
     width: 15px;
@@ -32,17 +31,17 @@ const Service = styled.div`
   }
 `
 const Layout = styled.div`
-   display: flex;
-   flex-direction: column;
-   flex-grow: 1;
-   width: 40%;
-   min-width: 700px;
-   gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  width: 49%;
+  min-width: 610px;
+  gap: 1rem;
+  flex-grow: 1;
 `
 const boxFade = keyframes`
   0% {
       opacity: 0;
-      transform: translate3d(0, 3%, 0);
+      transform: translate3d(0, 2%, 0);
   }
   to {
       opacity: 1;
@@ -60,7 +59,9 @@ const Box = styled.div`
 
 function Custom() {
   const [checkList, setCheckList] = useState();
-
+  const [detail, setDetail] = useState();
+  const [custom, setCustom] = useState();
+ 
   useEffect(() => {
     const req = async () => {
       const res = await axios.get(
@@ -73,19 +74,24 @@ function Custom() {
     req();
   }, []);
 
+  const onClickCard = (details) => {
+    setDetail(details?.detail);
+    setCustom(details?.custom);
+  };
+
   return (
     <Service>
       <Layout>
         <Box time={"0.3s"}>
-          <CheckList data={checkList}/>
+          <CheckList data={checkList} click={onClickCard}/>
         </Box>
       </Layout>
       <Layout>
-        <Box time={"0.45s"} style={{flexGrow: 2}}>
-          <RuleDetail />
+        <Box time={"0.45s"}>
+          <RuleDetail detail={detail}/>
         </Box>
         <Box time={"0.6s"}>
-          <RuleCustom />
+          <RuleCustom custom={custom}/>
         </Box>
       </Layout>
     </Service>

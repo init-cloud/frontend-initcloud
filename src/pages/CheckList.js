@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import RuleCard from "../components/RuleCard";
+import OnOffStatus from "../components/OnOffStatus";
 
 const filterSlideIn = keyframes`
   0% {
@@ -16,35 +17,13 @@ const Box = styled.div`
   border: 1px solid rgba(46,54,80,.125);
   border-radius: 1rem;
   flex-grow: 1;
-  overflow: auto;
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   background-color: white;
-  min-width: 610px;
+  min-width: 620px;
   min-height: 500px;
-  max-height: 765px;
-  overflow: auto;
+  overflow: hidden;
   display: flex;
-  justify-content: center;
-  align-content: start;
-  padding: 1rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-  &::-webkit-scrollbar {
-    width: 10px;
-    height: 15px;
-  }
-  &::-webkit-scrollbar-thumb {
-    background-color: #E6E6E6;
-    border-radius: 10px;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-  }
-  &::-webkit-scrollbar-track {
-    display: none;
-  }
-  &::-webkit-scrollbar-track-piece:end {
-    margin-bottom: 10px;
-  }
+  flex-direction: column;
 `
 
 const SearchFilter = styled.div`
@@ -99,6 +78,37 @@ const Filter = styled.li`
   animation: ${filterSlideIn} 0.5s;
 `
 
+const Content = styled.div`
+  display: flex;
+  overflow: auto;
+  min-height: 460px;
+  max-height: calc(100vh - 220px);
+  padding: 10px;
+  justify-content: center;
+  align-content: start;
+  padding: 1rem;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  gap: 1rem;
+  
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 15px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #E6E6E6;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  &::-webkit-scrollbar-track {
+    display: none;
+  }
+  &::-webkit-scrollbar-track-piece:end {
+    margin-bottom: 10px;
+  }
+`
+
 const colorTable = [
   "#F9F871",
   "#C1FFA8",
@@ -117,7 +127,7 @@ function CheckList({ data }) {
     let newRules;
     if (data) {
       newRules = [...data];
-      for(let i = 0; i < filters.length; i++) {
+      for (let i = 0; i < filters.length; i++) {
         newRules = newRules.filter(data => data.rule.description.includes(filters[i]));
       }
     }
@@ -141,17 +151,17 @@ function CheckList({ data }) {
     setFilter("");
   };
   const deleteFilter = (event) => {
-    setFilters((current) => current.filter((filter) => filter !== event.target.innerText.slice(0,-2)));
+    setFilters((current) => current.filter((filter) => filter !== event.target.innerText.slice(0, -2)));
   };
 
   useEffect(() => {
     setRules(data)
   }, [data]);
 
-  useEffect(()=>{
+  useEffect(() => {
     filtering();
   }, [filtering]);
-  
+
   return (
     <>
       <h1>Check List</h1>
@@ -177,16 +187,19 @@ function CheckList({ data }) {
         </Filters>
       </SearchFilter>
       <Box>
-        {rules ? (
-          rules.map((data, index) => (
-            <RuleCard
-              key={index}
-              rule={data.rule}
-            />
-          ))
-        ) : (
-          <h2 style={{ textAlign: "center", lineHeight: "55px" }}>Loading...</h2>
-        )}
+        <OnOffStatus />
+        <Content>
+          {rules ? (
+            rules.map((data, index) => (
+              <RuleCard
+                key={index}
+                rule={data.rule}
+              />
+            ))
+          ) : (
+            <h2 style={{ textAlign: "center", lineHeight: "55px" }}>Loading...</h2>
+          )}
+        </Content>
       </Box>
     </>
   );

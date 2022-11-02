@@ -9,7 +9,7 @@ import { useState } from "react";
 const boxFade = keyframes`
   0% {
       opacity: 0;
-      transform: translate3d(0, 3%, 0);
+      transform: translate3d(0, 2%, 0);
   }
   to {
       opacity: 1;
@@ -43,9 +43,9 @@ const Service = styled.div`
 `
 
 const Layout = styled.div`
-   display: flex;
-   flex-wrap: wrap;
-   gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 `
 
 const Box = styled.div`
