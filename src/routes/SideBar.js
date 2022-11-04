@@ -53,7 +53,6 @@ function SideBar() {
   const menus = [
     { name: "Scan", path: "/scan" },
     { name: "Custom", path: "/custom" },
-    { name: "module", path: "/module" },
     { name: "Profile", path: "/profile" }
   ];
 

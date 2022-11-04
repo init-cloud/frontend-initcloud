@@ -27,7 +27,11 @@ const RuleId = styled.span`
   font-size: 24px;
   font-weight: bold;
 `
-
+const State = styled.span`
+  font-size: 20px;
+  color: ${(props) => props.state};
+  margin-left: 10px;
+`
 const Description = styled.span`
   font-size: 18px;
   overflow: hidden;
@@ -36,11 +40,23 @@ const Description = styled.span`
   max-width: 80%;
 `
 
-function RuleCard({ rule }) {
+function RuleCard({ rule, state, onClickCard }) {
+  const sendRule = () => {
+    onClickCard(rule, state);
+  };
+
+  const stateColor = {
+    "On" : "rgb(46, 204, 113)",
+    "Off" : "rgb(231, 76, 60)"
+  };
+
   return (
-    <Box>
+    <Box onClick={sendRule}>
       <Info>
-        <RuleId>{rule.id}</RuleId>
+        <RuleId>
+          {rule.id}
+          <State state={stateColor[state]}>{state}</State>
+        </RuleId>
         <Description>{rule.description}</Description>
       </Info>
     </Box>

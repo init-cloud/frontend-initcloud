@@ -113,23 +113,31 @@ const colorTable = [
   "#F9F871",
   "#C1FFA8",
   "#A1FFDF",
-  "#ADFFFF",
-  "#D5FDFF",
-  "#FFECFF"
+  "#ADFFFF"
 ]
 
-function CheckList({ data }) {
+function CheckList({ data, onClickCard }) {
   const [filter, setFilter] = useState("");
   const [filters, setFilters] = useState([]);
   const [rules, setRules] = useState([]);
+  const [OnCount, setOnCount] = useState(0);
+  const [OffCount, setOffCount] = useState(0);
 
   const filtering = useCallback(() => {
     let newRules;
+    let OnCount;
+    let OffCount;
     if (data) {
       newRules = [...data];
       for (let i = 0; i < filters.length; i++) {
         newRules = newRules.filter(data => data.rule.description.includes(filters[i]));
       }
+      setOnCount(0);
+      setOffCount(0);
+      newRules.map((item) => {
+        if(item.state == 'On') setOnCount((current) => current+=1)
+        else setOffCount((current) => current+=1)
+      })
     }
     setRules(newRules);
   }, [data, filters]);
@@ -138,12 +146,12 @@ function CheckList({ data }) {
   const onSubmit = (event) => {
     event.preventDefault();
     if (filter === "") return;
-    if (filters.length === 3) {
+    if (filters.length === 4) {
       alert("그만해")
       return;
     }
     if (filters.includes(filter)) {
-      alert("그거 이미 했다 이놈아");
+      alert("This tag has already been entered");
       setFilter("");
       return;
     }
@@ -155,7 +163,7 @@ function CheckList({ data }) {
   };
 
   useEffect(() => {
-    setRules(data)
+    setRules(data);
   }, [data]);
 
   useEffect(() => {
@@ -179,7 +187,7 @@ function CheckList({ data }) {
             <Filter
               key={index}
               onClick={deleteFilter}
-              color={colorTable[index % 6]}
+              color={colorTable[index % 4]}
             >
               {item + " x"}
             </Filter>
@@ -187,13 +195,15 @@ function CheckList({ data }) {
         </Filters>
       </SearchFilter>
       <Box>
-        <OnOffStatus />
+        <OnOffStatus count={{'On':OnCount, 'Off': OffCount}}/>
         <Content>
           {rules ? (
             rules.map((data, index) => (
               <RuleCard
                 key={index}
                 rule={data.rule}
+                state={data.state}
+                onClickCard={onClickCard}
               />
             ))
           ) : (

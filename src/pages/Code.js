@@ -1,14 +1,17 @@
 import { useState } from "react";
 import styled from "styled-components";
+import CodeBlock from "../components/CodeBlock";
 
-const TextBox = styled.pre`
+const Box = styled.div`
   border: 1px solid rgba(46,54,80,.125);
   border-radius: 1rem;
+  margin-top: 19px;
   padding: 1rem;
+  line-height: 55px;
   font-weight: bold;
+  font-size: large;
   height: 466px;
   overflow: auto;
-  font-size: large;
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   background-color: white;
   font-family: 'M PLUS Rounded 1c', sans-serif;
@@ -46,13 +49,13 @@ function Code({ terraform }) {
   }
 
   return (
-    <div>
+    <Box>
       {text ? (
-        <TextBox>{text}</TextBox>
+        <CodeBlock code={text} />
       ) : (
-        <TextBox style={{textAlign : "center", lineHeight: "55px"}}>If you upload Terraform file, you can see it here.</TextBox>
+        <div style={{textAlign: 'center'}}>If you upload Terraform file, you can see it here.</div>
       )}
-    </div>
+    </Box>
   );
 }
 

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import CodeBlock from "./CodeBlock";
 
 const Box = styled.div`
   display: flex;
@@ -6,11 +7,6 @@ const Box = styled.div`
   padding: 15px;
   gap: 14px;
   overflow: hidden;
-`
-
-const Textbox = styled.pre`
-  font-size: 16px;
-  font-weight: bold;
 `
 const RuleId = styled.span`
   font-size: 24px;
@@ -72,8 +68,13 @@ function Detail({ detail }) {
         <Item>Description : <span>{detail.description}</span></Item>
         <Item>Lines : <span>{detail.lines}</span></Item>
         <Item>Target Resource : <span>{detail.target_resource}</span></Item>
-        <Item style={{ textAlign: "center", fontSize: "25px", marginTop: "20px" }}>Detail</Item>
-        <Textbox>{detail.detail}</Textbox>
+        {detail.detail != 'No' ? (
+          <>
+            <Item style={{ textAlign: "center", fontSize: "25px", marginTop: "20px" }}>Detail</Item>
+            <CodeBlock code={detail.detail} />
+          </>
+        ) : (
+          null)}
       </Content>
     </Box>
   );

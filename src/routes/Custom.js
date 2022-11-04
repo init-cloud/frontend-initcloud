@@ -74,16 +74,20 @@ function Custom() {
     req();
   }, []);
 
-  const onClickCard = (details) => {
-    setDetail(details?.detail);
-    setCustom(details?.custom);
+  const onClickCard = (rule, state) => {
+    setDetail(rule);
+    setCustom(state);
   };
+
+  const changeCustom = (state) => {
+    setCustom(state);
+  }
 
   return (
     <Service>
       <Layout>
         <Box time={"0.3s"}>
-          <CheckList data={checkList} click={onClickCard}/>
+          <CheckList data={checkList} onClickCard={onClickCard}/>
         </Box>
       </Layout>
       <Layout>
@@ -91,7 +95,7 @@ function Custom() {
           <RuleDetail detail={detail}/>
         </Box>
         <Box time={"0.6s"}>
-          <RuleCustom custom={custom}/>
+          <RuleCustom custom={custom} changeCustom={changeCustom}/>
         </Box>
       </Layout>
     </Service>

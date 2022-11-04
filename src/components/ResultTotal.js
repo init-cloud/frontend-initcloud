@@ -26,8 +26,8 @@ function ResultTotal({ passed = 0, skipped = 0, failed = 0 }) {
 
   return (
     <Total>
-      <Status color={"rgb(46, 204, 113)"} size={passed + 1}>passed :{passed}</Status>
-      <Status color={"rgb(241, 196, 15)"} size={skipped + 1}>skipped :{skipped}</Status>
+      <Status color={"rgb(46, 204, 113)"} size={passed + 1}>passed : {passed}</Status>
+      <Status color={"rgb(241, 196, 15)"} size={skipped + 1}>skipped : {skipped}</Status>
       <Status color={"rgb(231, 76, 60)"} size={failed + 1}>failed : {failed}</Status>
     </Total>
   );

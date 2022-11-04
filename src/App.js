@@ -5,7 +5,6 @@ import Custom from "./routes/Custom";
 import Profile from "./routes/Profile"
 import SideBar from "./routes/SideBar";
 import Main from "./routes/Main";
-import Module from "./routes/Module";
 
 const GlobalStyle = createGlobalStyle`
 
@@ -37,7 +36,6 @@ function App() {
             <Route path="/initCloud" element={<Main />} />
             <Route path="/scan" element={<Scan />} />
             <Route path="/custom" element={<Custom />} />
-            <Route path="/module" element={<Module />} />
             <Route path="/profile" element={<Profile />} />
           </Routes>
         </Center>
