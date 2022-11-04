@@ -33,12 +33,12 @@ function Visualize({ elements }) {
     {
       selector: "node",
       style: {
-        "label": "data(id)",
+        "label": "data(label)",
         "text-valign": "center",
         "text-halign": "center",
         "background-color": "#6E6E6E",
-        "width": "70px",
-        "height": "70px",
+        "width": "200",
+        "height": "70",
         "shape": "round-rectangle",
         "color": "white",
         "font-weight": "bold",

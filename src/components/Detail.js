@@ -68,7 +68,7 @@ function Detail({ detail }) {
         <Item>Description : <span>{detail.description}</span></Item>
         <Item>Lines : <span>{detail.lines}</span></Item>
         <Item>Target Resource : <span>{detail.target_resource}</span></Item>
-        {detail.detail != 'No' ? (
+        {detail.detail !== 'No' ? (
           <>
             <Item style={{ textAlign: "center", fontSize: "25px", marginTop: "20px" }}>Detail</Item>
             <CodeBlock code={detail.detail} />

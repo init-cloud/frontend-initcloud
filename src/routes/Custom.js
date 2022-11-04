@@ -61,6 +61,7 @@ function Custom() {
   const [checkList, setCheckList] = useState();
   const [detail, setDetail] = useState();
   const [custom, setCustom] = useState();
+  const [ruleIndex, setRuleIndex] = useState();
  
   useEffect(() => {
     const req = async () => {
@@ -69,18 +70,27 @@ function Custom() {
         ).catch((err) => {
           console.log(err);
         });
-      setCheckList(res?.data);
+      const newData = res?.data.map((item, index) => {
+        let i = {'index':index}
+        let temp = {...item, ...i}
+        return temp; 
+      })
+      setCheckList(newData);
     };
     req();
   }, []);
 
-  const onClickCard = (rule, state) => {
+  const onClickCard = (index, rule, state) => {
+    setRuleIndex(index);
     setDetail(rule);
     setCustom(state);
   };
 
-  const changeCustom = (state) => {
+  const changeCustom = (index, state) => {
     setCustom(state);
+    const newCheckList = [...checkList];
+    newCheckList[index].state = state;
+    setCheckList(newCheckList);
   }
 
   return (
@@ -95,7 +105,7 @@ function Custom() {
           <RuleDetail detail={detail}/>
         </Box>
         <Box time={"0.6s"}>
-          <RuleCustom custom={custom} changeCustom={changeCustom}/>
+          <RuleCustom custom={custom} ruleIndex={ruleIndex} changeCustom={changeCustom}/>
         </Box>
       </Layout>
     </Service>

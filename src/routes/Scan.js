@@ -83,7 +83,7 @@ function Scan() {
       setLoding(false)
     });
     setResult(response?.data);
-    console.log(response?.data)
+    console.log(response?.data);
     setLoding(false);
   }
 

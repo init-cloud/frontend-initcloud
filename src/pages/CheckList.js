@@ -125,8 +125,6 @@ function CheckList({ data, onClickCard }) {
 
   const filtering = useCallback(() => {
     let newRules;
-    let OnCount;
-    let OffCount;
     if (data) {
       newRules = [...data];
       for (let i = 0; i < filters.length; i++) {
@@ -135,8 +133,9 @@ function CheckList({ data, onClickCard }) {
       setOnCount(0);
       setOffCount(0);
       newRules.map((item) => {
-        if(item.state == 'On') setOnCount((current) => current+=1)
-        else setOffCount((current) => current+=1)
+        if(item.state === 'On') setOnCount((current) => current+=1);
+        else setOffCount((current) => current+=1);
+        return 0;
       })
     }
     setRules(newRules);
@@ -198,9 +197,10 @@ function CheckList({ data, onClickCard }) {
         <OnOffStatus count={{'On':OnCount, 'Off': OffCount}}/>
         <Content>
           {rules ? (
-            rules.map((data, index) => (
+            rules.map((data) => (
               <RuleCard
-                key={index}
+                key={data.index}
+                index={data.index}
                 rule={data.rule}
                 state={data.state}
                 onClickCard={onClickCard}

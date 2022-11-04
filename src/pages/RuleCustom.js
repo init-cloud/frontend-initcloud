@@ -51,16 +51,16 @@ const ToggleBtn = styled.span`
   background: ${(props) => props.color};
   transition: all 0.2s ease-in;
 `
-function RuleCustom({ custom, changeCustom }) {
+function RuleCustom({ custom, ruleIndex, changeCustom }) {
   const toggleColor = {'On':'rgb(46, 204, 113)', 'Off':'#D8D8D8'}
   const toggleBtnColor = {'On':'#fff', 'Off':'#fff'}
   const toggleMove = {'On':'.2rem', 'Off':'calc(100% - 2.8rem);'}
   const toggleClick = () => {
-    if(custom == 'On') {
-      changeCustom('Off');
+    if(custom === 'On') {
+      changeCustom(ruleIndex, 'Off');
     }
     else {
-      changeCustom('On');
+      changeCustom(ruleIndex, 'On');
     }
   }
   return (

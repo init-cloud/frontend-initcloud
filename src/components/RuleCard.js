@@ -40,9 +40,9 @@ const Description = styled.span`
   max-width: 80%;
 `
 
-function RuleCard({ rule, state, onClickCard }) {
+function RuleCard({ index, rule, state, onClickCard }) {
   const sendRule = () => {
-    onClickCard(rule, state);
+    onClickCard(index, rule, state);
   };
 
   const stateColor = {
