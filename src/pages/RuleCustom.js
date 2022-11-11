@@ -52,15 +52,16 @@ const ToggleBtn = styled.span`
   transition: all 0.2s ease-in;
 `
 function RuleCustom({ custom, ruleIndex, changeCustom }) {
-  const toggleColor = {'On':'rgb(46, 204, 113)', 'Off':'#D8D8D8'}
-  const toggleBtnColor = {'On':'#fff', 'Off':'#fff'}
-  const toggleMove = {'On':'.2rem', 'Off':'calc(100% - 2.8rem);'}
+  const toggleColor = {'y':'rgb(46, 204, 113)', 'n':'#D8D8D8'};
+  const toggleBtnColor = {'y':'#fff', 'n':'#fff'};
+  const toggleMove = {'y':'.2rem', 'n':'calc(100% - 2.8rem);'};
+  const onOff = {'y':'On', 'n':'Off'};
   const toggleClick = () => {
-    if(custom === 'On') {
-      changeCustom(ruleIndex, 'Off');
+    if(custom === 'y') {
+      changeCustom(ruleIndex, 'n');
     }
     else {
-      changeCustom(ruleIndex, 'On');
+      changeCustom(ruleIndex, 'y');
     }
   }
   return (
@@ -72,7 +73,7 @@ function RuleCustom({ custom, ruleIndex, changeCustom }) {
             <Toggle onClick={toggleClick} color={toggleColor[custom]}>
               <ToggleBtn color={toggleBtnColor[custom]} move={toggleMove[custom]}></ToggleBtn>
             </Toggle>
-            <h2>{custom}</h2>
+            <h2>{onOff[custom]}</h2>
           </>
         ) : (
           <h3 style={{ textAlign: "center", lineHeight: "55px" }}>If you click rule card, you can see its detail.</h3>

@@ -40,22 +40,25 @@ const Description = styled.span`
   max-width: 80%;
 `
 
-function RuleCard({ index, rule, state, onClickCard }) {
+function RuleCard({ rule, onClickCard }) {
   const sendRule = () => {
-    onClickCard(index, rule, state);
+    onClickCard(rule);
   };
 
   const stateColor = {
-    "On" : "rgb(46, 204, 113)",
-    "Off" : "rgb(231, 76, 60)"
+    "y" : "rgb(46, 204, 113)",
+    "n" : "rgb(231, 76, 60)"
   };
-
+  const stateLetter = {
+    "y" : "On",
+    "n" : "Off"
+  };
   return (
     <Box onClick={sendRule}>
       <Info>
         <RuleId>
           {rule.id}
-          <State state={stateColor[state]}>{state}</State>
+          <State state={stateColor[rule.state]}>{stateLetter[rule.state]}</State>
         </RuleId>
         <Description>{rule.description}</Description>
       </Info>

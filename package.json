@@ -44,7 +44,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "homepage": "https://taeng0204.guithub.io/initCloud",
-  "proxy": "https://api.floodnut.com/api/v1"
+  }
 }

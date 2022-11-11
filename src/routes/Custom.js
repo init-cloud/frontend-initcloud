@@ -4,6 +4,7 @@ import RuleDetail from "../pages/RuleDeatil";
 import RuleCustom from "../pages/RuleCustom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useRef } from "react";
 
 const Service = styled.div`
   flex-grow: 1;
@@ -62,28 +63,31 @@ function Custom() {
   const [detail, setDetail] = useState();
   const [custom, setCustom] = useState();
   const [ruleIndex, setRuleIndex] = useState();
- 
+  const onOff = useRef([]);
+
   useEffect(() => {
     const req = async () => {
       const res = await axios.get(
-        'http://localhost:8080/docs'
+        'https://api.floodnut.com/api/v1/checklist'
         ).catch((err) => {
           console.log(err);
-        });
-      const newData = res?.data.map((item, index) => {
-        let i = {'index':index}
-        let temp = {...item, ...i}
-        return temp; 
-      })
-      setCheckList(newData);
+      });
+      setCheckList(res.data.data.docs);
+      res.data.data.docs.map((data)=>(
+        onOff.current.push({'id':data.seq, 'ruleId':data.id, 'ruleOnOff':data.state})
+      ));
     };
+
     req();
+    return () => {
+      axios.post('https://api.floodnut.com/api/v1/checklist/state', onOff.current);      
+    };
   }, []);
 
-  const onClickCard = (index, rule, state) => {
-    setRuleIndex(index);
+  const onClickCard = (rule) => {
+    setRuleIndex(rule.seq - 1);
     setDetail(rule);
-    setCustom(state);
+    setCustom(rule.state);
   };
 
   const changeCustom = (index, state) => {
@@ -91,6 +95,7 @@ function Custom() {
     const newCheckList = [...checkList];
     newCheckList[index].state = state;
     setCheckList(newCheckList);
+    onOff.current[index].ruleOnOff = state;
   }
 
   return (

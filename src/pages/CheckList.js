@@ -128,12 +128,12 @@ function CheckList({ data, onClickCard }) {
     if (data) {
       newRules = [...data];
       for (let i = 0; i < filters.length; i++) {
-        newRules = newRules.filter(data => data.rule.description.includes(filters[i]));
+        newRules = newRules.filter(data => data.description.includes(filters[i]));
       }
       setOnCount(0);
       setOffCount(0);
       newRules.map((item) => {
-        if(item.state === 'On') setOnCount((current) => current+=1);
+        if(item.state === 'y') setOnCount((current) => current+=1);
         else setOffCount((current) => current+=1);
         return 0;
       })
@@ -157,6 +157,7 @@ function CheckList({ data, onClickCard }) {
     setFilters((current) => [...current, filter]);
     setFilter("");
   };
+
   const deleteFilter = (event) => {
     setFilters((current) => current.filter((filter) => filter !== event.target.innerText.slice(0, -2)));
   };
@@ -199,10 +200,8 @@ function CheckList({ data, onClickCard }) {
           {rules ? (
             rules.map((data) => (
               <RuleCard
-                key={data.index}
-                index={data.index}
-                rule={data.rule}
-                state={data.state}
+                key={data.seq}
+                rule={data}
                 onClickCard={onClickCard}
               />
             ))

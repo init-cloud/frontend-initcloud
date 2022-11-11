@@ -59,7 +59,7 @@ function SideBar() {
   return (
     <Side>
       <Menu>
-        <NavLink to="/initCloud" key="main">
+        <NavLink to="/service" key="main">
           <Circle>
             <Img src={`${process.env.PUBLIC_URL}/initcloud.png`} alt="init.cloud logo" />
           </Circle>
@@ -67,7 +67,7 @@ function SideBar() {
         {menus.map((menu, index) => {
           return (
             <NavStyle
-              to={menu.path}
+              to={`/service${menu.path}`}
               key={index}
             >
               <h4>{menu.name}</h4>

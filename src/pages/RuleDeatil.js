@@ -98,7 +98,7 @@ function RuleDetail({ detail }) {
             <Top>
               <RuleID>{detail.id}</RuleID>
               <Filters>
-                {detail.tags.map((item, index) => (
+                {detail.tags?.map((item, index) => (
                   <Filter
                     key={index}
                     color={colorTable(item)}>
