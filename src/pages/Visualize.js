@@ -1,5 +1,9 @@
 import CytoscapeComponent from "react-cytoscapejs";
 import styled from "styled-components";
+import cytoscape from 'cytoscape';
+import coseBilkent from 'cytoscape-cose-bilkent';
+ 
+cytoscape.use( coseBilkent );
 
 const Vis = styled(CytoscapeComponent)`
   width: 99%;
@@ -24,10 +28,11 @@ const Box = styled.div`
 
 function Visualize({ elements }) {
   const layout = {
-    name: "breadthfirst",
+    name: "cose-bilkent",
     directed: true,
     spacingFactor: 1.1,
-    fit: true
+    fit: true,
+    padding: 30
   }
   const style = [
     {
@@ -91,7 +96,7 @@ function Visualize({ elements }) {
         stylesheet={style}
         zoom={1}
         minZoom={0.2}
-        maxZoom={2}
+        maxZoom={1.5}
       />
       ):(
         <Box>If you upload Terraform file. You can get architecture in here.</Box>

@@ -1,6 +1,6 @@
 {
   "name": "initcloud",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.1.2",
     "cytoscape": "^3.23.0",
+    "cytoscape-cose-bilkent": "^4.1.0",
     "gh-pages": "^4.0.0",
     "react": "^18.2.0",
     "react-code-blocks": "^0.0.9-0",
@@ -44,5 +45,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },"homepage": "https://taeng0204.guithub.io/initcloud"
 }

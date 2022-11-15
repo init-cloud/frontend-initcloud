@@ -63,6 +63,7 @@ function Scan() {
   const [error, setError] = useState(false);
   const [tf, setTf] = useState();
   const [result, setResult] = useState();
+  const [parse, setParse] = useState()
 
   const handleChange = (e) => {
     const file = e.target.files[0];
@@ -85,6 +86,17 @@ function Scan() {
     setResult(response?.data);
     console.log(response?.data);
     setLoding(false);
+
+    let vulnResource = [];
+    response?.data.scan.result.map((item) => (
+      (item.status === 'failed') ? (vulnResource.push(item.target_resource)) : (null)
+    ));
+    setParse(response?.data.scan.parse.result.map((item) => {
+      if (vulnResource.includes(item.data.id)) item.data['type'] = 'vuln';
+      return item;
+    }));
+
+
   }
 
   return (
@@ -102,7 +114,7 @@ function Scan() {
           <Code terraform={tf}/>    
         </Box>
         <Box time={"0.45s"}>
-          <Visualize elements={result?result.scan.parse.result:(null)}/>
+          <Visualize elements={parse?parse:(null)}/>
         </Box>
       </Layout>
       <Layout>

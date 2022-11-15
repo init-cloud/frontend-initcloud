@@ -29,8 +29,9 @@ const Header = styled.header`
   background-color: #262b40;
   color: whitesmoke;
   display: flex;
-  justify-content: first baseline;
-  align-items: baseline;
+  justify-content: first center;
+  align-items: center;
+  padding: 10px;
   gap: 1rem;
 `
 
@@ -50,7 +51,7 @@ const Circle = styled.div`
   overflow: hidden;
 `
 const Img = styled.img`
-  height: 0px;
+  height: 50px;
 `
 const Sec = styled.section`
   background-color: #f5f8fb;
@@ -66,7 +67,7 @@ function Landing() {
         <Circle>
           <Img src={`${process.env.PUBLIC_URL}/initcloud.png`} alt="init.cloud logo" />
         </Circle>
-        <h1>Fucking Cloud</h1>
+        <h1 style={{paddingTop:'5px'}}>initCloud</h1>
         <NewLink to="/service">
           Go to Service
         </NewLink>
