@@ -8,6 +8,7 @@ const Box = styled.div`
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   background-color: white;
   min-width: 610px;
+  //justify-content: space-between;
   padding: 10px;
   display: flex;
   gap: 1rem;
@@ -39,6 +40,9 @@ const Toggle = styled.label`
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   cursor: pointer;
   transition: all 0.2s ease-in;
+`
+const ToggleLabel = styled.h2`
+  width: 40px;
 `
 const ToggleBtn = styled.span`
   width: 2.6rem;
@@ -73,7 +77,8 @@ function RuleCustom({ custom, ruleIndex, changeCustom }) {
             <Toggle onClick={toggleClick} color={toggleColor[custom]}>
               <ToggleBtn color={toggleBtnColor[custom]} move={toggleMove[custom]}></ToggleBtn>
             </Toggle>
-            <h2>{onOff[custom]}</h2>
+            <ToggleLabel>{onOff[custom]}</ToggleLabel>
+       
           </>
         ) : (
           <h3 style={{ textAlign: "center", lineHeight: "55px" }}>If you click rule card, you can see its detail.</h3>

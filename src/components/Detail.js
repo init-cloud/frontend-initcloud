@@ -67,7 +67,9 @@ function Detail({ detail }) {
       <Content>
         <Item>Description : <span>{detail.description}</span></Item>
         <Item>Lines : <span>{detail.lines}</span></Item>
+        <Item>Level : <span>{detail.level}</span></Item>
         <Item>Target Resource : <span>{detail.target_resource}</span></Item>
+        <Item>Target File : <span>{detail.target_file}</span></Item>
         {detail.detail !== 'No' ? (
           <>
             <Item style={{ textAlign: "center", fontSize: "25px", marginTop: "20px" }}>Detail</Item>

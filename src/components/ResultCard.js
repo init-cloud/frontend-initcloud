@@ -11,9 +11,15 @@ const Box = styled.div`
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   cursor: pointer;
   min-width: 660px;
+  transition: 200ms;
 
   &:hover {
-    background-color: #D8D8D8;
+    filter: brightness(90%);
+    background-color: #FAFAFA;
+  }
+  &:active {
+    opacity: 0.9;
+    transform: scale(1.008);
   }
 `
 const Info = styled.div`

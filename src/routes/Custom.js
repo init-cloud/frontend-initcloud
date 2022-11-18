@@ -16,7 +16,7 @@ const Service = styled.div`
   background-color: #f5f8fb;
   flex-wrap: wrap;
   &::-webkit-scrollbar {
-    width: 15px;
+    width: 12px;
   }
   &::-webkit-scrollbar-thumb {
     background-color: #C3C5C7;
@@ -72,12 +72,13 @@ function Custom() {
         ).catch((err) => {
           console.log(err);
       });
+      console.log(res.data);
       setCheckList(res.data.data.docs);
       res.data.data.docs.map((data)=>(
         onOff.current.push({'id':data.seq, 'ruleId':data.id, 'ruleOnOff':data.state})
       ));
     };
-
+    
     req();
     return () => {
       axios.post('https://api.floodnut.com/api/v1/checklist/state', onOff.current);      

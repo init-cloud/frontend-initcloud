@@ -4,7 +4,9 @@ import Code from "../pages/Code";
 import Visualize from "../pages/Visualize";
 import Result from "../pages/Result";
 import Button from "../components/Button";
+import ResourceModal from "../components/ResourceModal";
 import { useState } from "react";
+import { useCallback } from "react";
 
 const boxFade = keyframes`
   0% {
@@ -26,10 +28,10 @@ const Service = styled.div`
   flex-direction: column;
   background-color: #f5f8fb;
   &::-webkit-scrollbar {
-    width: 15px;
+    width: 12px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #CCD2E3;
+    background-color: #C3C5C7;
     border-radius: 10px;
     background-clip: padding-box;
     border: 2px solid transparent;
@@ -63,7 +65,9 @@ function Scan() {
   const [error, setError] = useState(false);
   const [tf, setTf] = useState();
   const [result, setResult] = useState();
-  const [parse, setParse] = useState()
+  const [parse, setParse] = useState();
+  const [modalOn, setModalOn] = useState(false);
+  const [modalData, setModalData] = useState();
 
   const handleChange = (e) => {
     const file = e.target.files[0];
@@ -95,8 +99,22 @@ function Scan() {
       if (vulnResource.includes(item.data.id)) item.data['type'] = 'vuln';
       return item;
     }));
+  }
+  
+  const onNodeClick = useCallback((id) => {
+    const results = [];
+    result.scan.result.map((item)=>{
+      if (item.target_resource === id) {
+        results.push(item)
+      }
+      return 0
+    })
+    setModalOn(true);
+    setModalData(results);
+  }, [result])
 
-
+  const modalClose = () => {
+    setModalOn(false);
   }
 
   return (
@@ -114,7 +132,8 @@ function Scan() {
           <Code terraform={tf}/>    
         </Box>
         <Box time={"0.45s"}>
-          <Visualize elements={parse?parse:(null)}/>
+          <Visualize elements={parse?parse:(null)} onNodeClick={onNodeClick}/>
+          <ResourceModal openModal={modalOn} closeModal={modalClose} data={modalData} />
         </Box>
       </Layout>
       <Layout>

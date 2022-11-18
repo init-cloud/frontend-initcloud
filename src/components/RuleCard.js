@@ -5,15 +5,22 @@ const Box = styled.div`
   border-radius: 1rem;
   height: 100px;
   display: flex;
+  justify-content: space-between;
   flex-grow: 1;
   width: 48%;
   overflow: hidden;
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   cursor: pointer;
   min-width: 600px;
+  transition: 200ms;
   
   &:hover {
-    background-color: #D8D8D8;
+    filter: brightness(80%);
+    background-color: #FAFAFA;
+  }
+  &:active {
+    opacity: 0.9;
+    transform: scale(1.008);
   }
 `
 const Info = styled.div`
@@ -21,6 +28,7 @@ const Info = styled.div`
   display: flex;
   gap: 5px;
   flex-direction: column;
+  flex-shrink: 1;
 `
 
 const RuleId = styled.span`
@@ -37,14 +45,29 @@ const Description = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 80%;
+  max-width: 540px;
+`
+const Level = styled.div`
+  border-left: 1px solid rgba(46,54,80,.125);
+  text-align: center;
+  line-height: 100px;
+  width: 100px;
+  background-color: whitesmoke;
+  font-size: 23px;
+  font-weight: bold;
+  color: ${(props) => props.level};
+  flex-shrink: 0;
 `
 
 function RuleCard({ rule, onClickCard }) {
   const sendRule = () => {
     onClickCard(rule);
   };
-
+  const levelColor = {
+    "Low" : "rgb(46, 204, 113)",
+    "Medium" : "rgb(241, 196, 15)",
+    "High" : "rgb(231, 76, 60)"
+  };
   const stateColor = {
     "y" : "rgb(46, 204, 113)",
     "n" : "rgb(231, 76, 60)"
@@ -62,6 +85,9 @@ function RuleCard({ rule, onClickCard }) {
         </RuleId>
         <Description>{rule.description}</Description>
       </Info>
+      <Level level={levelColor[rule.level]}>
+        {rule.level}
+      </Level>
     </Box>
   );
 }

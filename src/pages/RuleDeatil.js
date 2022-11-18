@@ -9,7 +9,7 @@ const Box = styled.div`
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   background-color: white;
   min-width: 610px;
-  height: 56vh;
+  height: 57vh;
   display: flex;
   flex-direction: column;
   padding: 10px;

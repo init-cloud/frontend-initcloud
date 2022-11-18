@@ -2,8 +2,10 @@ import CytoscapeComponent from "react-cytoscapejs";
 import styled from "styled-components";
 import cytoscape from 'cytoscape';
 import coseBilkent from 'cytoscape-cose-bilkent';
- 
-cytoscape.use( coseBilkent );
+import { useRef } from "react";
+import { useEffect } from "react";
+
+cytoscape.use(coseBilkent);
 
 const Vis = styled(CytoscapeComponent)`
   width: 99%;
@@ -26,13 +28,20 @@ const Box = styled.div`
   line-height: 55px;
 `
 
-function Visualize({ elements }) {
+function Visualize({ elements, onNodeClick }) {
+  const cyRef = useRef();
   const layout = {
     name: "cose-bilkent",
     directed: true,
-    spacingFactor: 1.1,
+    randomize: false,
     fit: true,
-    padding: 30
+    padding: 30,
+    idealEdgeLength: 70,
+    refresh: 80,
+    nodeDimensionsIncludeLabels: false,
+    initialEnergyOnIncremental: 0.1,
+    nestingFactor: 0.0002,
+    gravity: 10,
   }
   const style = [
     {
@@ -41,15 +50,15 @@ function Visualize({ elements }) {
         "label": "data(label)",
         "text-valign": "center",
         "text-halign": "center",
-        "background-color": "#6E6E6E",
+        "background-color": "#393E46",
         "width": "200",
         "height": "70",
         "shape": "round-rectangle",
-        "color": "white",
+        "color": "#EEEEEE",
         "font-weight": "bold",
         "border-width": "1px",
         "border-style": "solid",
-        "border-color": "rgba(46,54,80,.125)"
+        "border-color": "#222831"
       }
     },
     {
@@ -57,48 +66,66 @@ function Visualize({ elements }) {
       style: {
         "text-valign": "top",
         "text-halign": "center",
-        "background-color": "whitesmoke",
-        "color": "black",
+        "background-color": "#EEEEEE",
+        "color": "#222831",
         "font-size": "25px",
         "font-weight": "bold",
         "border-style": "dashed",
         "border-width": "3px",
-        "border-color": "black",
+        "border-color": "#222831",
         "padding": "20px"
       }
     },
     {
       selector: ":parent[type='subnet']",
       style: {
-        "background-color": "#DBF6FA"
+        "background-color": "#EEEEEE"
       }
     },
     {
-      selector : "node[type='vuln']",
-      style:{
-        "background-color" : "tomato"
+      selector: "node[type='vuln']",
+      style: {
+        "background-color": "#FD7014"
       }
     },
     {
       selector: "edge",
       style: {
-        "curve-style": "bezier"
+        "curve-style": "bezier",
+        'width': 4,
+        'line-color': '#222831',
+        'target-arrow-color': '#222831',
+        'target-arrow-shape': 'triangle'
       }
     }
-  ]
+  ];
+
+  useEffect(() => {
+    const cy = cyRef.current;
+    if (!cy) {
+      return;
+    }
+    cy.on("click", "node", (event) => {
+      onNodeClick(event.target[0].data().id);
+    });
+  },[elements, onNodeClick])
+
   return (
     <div>
       <h1 style={{ marginBottom: "68px" }}>Visualization</h1>
-      {elements?(
+      {elements ? (
         <Vis
-        elements={elements}
-        layout={layout}
-        stylesheet={style}
-        zoom={1}
-        minZoom={0.2}
-        maxZoom={1.5}
-      />
-      ):(
+          elements={elements}
+          layout={layout}
+          stylesheet={style}
+          zoom={1}
+          minZoom={0.2}
+          maxZoom={1.5}
+          cy={(cy) => {
+            cyRef.current = cy;
+          }}
+        />
+      ) : (
         <Box>If you upload Terraform file. You can get architecture in here.</Box>
       )}
     </div>
