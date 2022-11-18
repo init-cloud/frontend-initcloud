@@ -33,15 +33,10 @@ function Visualize({ elements, onNodeClick }) {
   const layout = {
     name: "cose-bilkent",
     directed: true,
-    randomize: false,
     fit: true,
     padding: 30,
     idealEdgeLength: 70,
-    refresh: 80,
     nodeDimensionsIncludeLabels: false,
-    initialEnergyOnIncremental: 0.1,
-    nestingFactor: 0.0002,
-    gravity: 10,
   }
   const style = [
     {
