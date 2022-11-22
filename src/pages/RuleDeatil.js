@@ -101,8 +101,8 @@ function RuleDetail({ detail }) {
                 {detail.tags?.map((item, index) => (
                   <Filter
                     key={index}
-                    color={colorTable(item)}>
-                    {item}
+                    color={colorTable(item.tag)}>
+                    {item.tag}
                   </Filter>
                 ))}
               </Filters>

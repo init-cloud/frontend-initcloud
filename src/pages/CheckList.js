@@ -122,6 +122,7 @@ function CheckList({ data, onClickCard }) {
   const [rules, setRules] = useState([]);
   const [OnCount, setOnCount] = useState(0);
   const [OffCount, setOffCount] = useState(0);
+  const [customCount, setCustomCount] = useState(0);
 
   const filtering = useCallback(() => {
     let newRules;
@@ -132,9 +133,11 @@ function CheckList({ data, onClickCard }) {
       }
       setOnCount(0);
       setOffCount(0);
+      setCustomCount(0);
       newRules.map((item) => {
-        if(item.state === 'y') setOnCount((current) => current+=1);
-        else setOffCount((current) => current+=1);
+        if (item.state === 'y') setOnCount((current) => current += 1);
+        else setOffCount((current) => current += 1);
+        if (item.isModified === 'y') setCustomCount((current) => current += 1);
         return 0;
       })
     }
@@ -195,7 +198,7 @@ function CheckList({ data, onClickCard }) {
         </Filters>
       </SearchFilter>
       <Box>
-        <OnOffStatus count={{'On':OnCount, 'Off': OffCount}}/>
+        <OnOffStatus count={{ 'On': OnCount, 'Off': OffCount, 'custom': customCount }} />
         <Content>
           {rules ? (
             rules.map((data) => (

@@ -1,11 +1,14 @@
 import CytoscapeComponent from "react-cytoscapejs";
 import styled from "styled-components";
 import cytoscape from 'cytoscape';
+import dagre from "cytoscape-dagre";
 import coseBilkent from 'cytoscape-cose-bilkent';
 import { useRef } from "react";
 import { useEffect } from "react";
 
 cytoscape.use(coseBilkent);
+cytoscape.use(dagre);
+
 
 const Vis = styled(CytoscapeComponent)`
   width: 99%;
@@ -31,12 +34,8 @@ const Box = styled.div`
 function Visualize({ elements, onNodeClick }) {
   const cyRef = useRef();
   const layout = {
-    name: "cose-bilkent",
-    directed: true,
-    fit: true,
-    padding: 30,
-    idealEdgeLength: 70,
-    nodeDimensionsIncludeLabels: false,
+    name: "dagre",
+    randomize: false
   }
   const style = [
     {

@@ -61,57 +61,74 @@ const Box = styled.div`
 function Custom() {
   const [checkList, setCheckList] = useState();
   const [detail, setDetail] = useState();
-  const [custom, setCustom] = useState();
-  const [ruleIndex, setRuleIndex] = useState();
   const onOff = useRef([]);
 
   useEffect(() => {
     const req = async () => {
       const res = await axios.get(
         'https://api.floodnut.com/api/v1/checklist'
-        ).catch((err) => {
-          console.log(err);
+      ).catch((err) => {
+        console.log(err);
       });
       console.log(res.data);
       setCheckList(res.data.data.docs);
-      res.data.data.docs.map((data)=>(
-        onOff.current.push({'id':data.seq, 'ruleId':data.id, 'ruleOnOff':data.state})
+      res.data.data.docs.map((data) => (
+        onOff.current.push({
+          'id': data.seq,
+          'ruleId': data.id,
+          'ruleOnOff': data.state,
+          'isModified': data.isModified,
+          'customDetail': data.customDetail
+        })
       ));
     };
-    
+
     req();
     return () => {
-      axios.post('https://api.floodnut.com/api/v1/checklist/state', onOff.current);      
+      console.log(onOff.current)
+      axios.post('https://api.floodnut.com/api/v1/checklist/state', onOff.current);
     };
   }, []);
 
   const onClickCard = (rule) => {
-    setRuleIndex(rule.seq - 1);
     setDetail(rule);
-    setCustom(rule.state);
   };
 
-  const changeCustom = (index, state) => {
-    setCustom(state);
+  const changeCustom = (detail) => {
+    console.log(detail)
+    setDetail(detail);
     const newCheckList = [...checkList];
-    newCheckList[index].state = state;
+    newCheckList[detail.seq-1] = detail;
     setCheckList(newCheckList);
-    onOff.current[index].ruleOnOff = state;
+    onOff.current[detail.seq-1].ruleOnOff = detail.state;
+  }
+
+  const changeRuleCustom = (detail) => {
+    const newCheckList = [...checkList];
+    newCheckList[detail.seq-1].isModified = detail.isModified;
+    newCheckList[detail.seq-1].customDetail = detail.customDetail;
+    setCheckList(newCheckList)
+    onOff.current[detail.seq-1].isModified = detail.isModified;
+    onOff.current[detail.seq-1].customDetail = detail.customDetail;
   }
 
   return (
     <Service>
       <Layout>
         <Box time={"0.3s"}>
-          <CheckList data={checkList} onClickCard={onClickCard}/>
+          <CheckList data={checkList} onClickCard={onClickCard} />
         </Box>
       </Layout>
       <Layout>
         <Box time={"0.45s"}>
-          <RuleDetail detail={detail}/>
+          <RuleDetail detail={detail} />
         </Box>
         <Box time={"0.6s"}>
-          <RuleCustom custom={custom} ruleIndex={ruleIndex} changeCustom={changeCustom}/>
+          <RuleCustom
+            detail={detail}
+            changeCustom={changeCustom}
+            changeRuleCustom={changeRuleCustom}
+          />
         </Box>
       </Layout>
     </Service>

@@ -28,7 +28,7 @@ const Info = styled.div`
   display: flex;
   gap: 5px;
   flex-direction: column;
-  flex-shrink: 1;
+  flex-grow: 1;
 `
 
 const RuleId = styled.span`
@@ -45,7 +45,8 @@ const Description = styled.span`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 540px;
+  max-width: 400px;
+  flex-shrink: 1;
 `
 const Level = styled.div`
   border-left: 1px solid rgba(46,54,80,.125);
@@ -82,6 +83,7 @@ function RuleCard({ rule, onClickCard }) {
         <RuleId>
           {rule.id}
           <State state={stateColor[rule.state]}>{stateLetter[rule.state]}</State>
+          <State state="darkorange">{rule.isModified === 'y'?"Custom":null}</State>
         </RuleId>
         <Description>{rule.description}</Description>
       </Info>

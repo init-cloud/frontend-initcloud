@@ -69,6 +69,19 @@ function Scan() {
   const [modalOn, setModalOn] = useState(false);
   const [modalData, setModalData] = useState();
 
+  const aws = {
+    'CKV_AWS_130' : 'Medium',
+    'CKV_AWS_135' : 'Low',
+    'CKV_AWS_8' : 'High',
+    'CKV_AWS_126' : 'Medium',
+    'CKV_AWS_79' : 'Medium',
+    'CKV2_AWS_11' : 'Medium',
+    'CKV2_AWS_12' : 'Low',
+    'CKV2_AWS_41' : 'High',
+    'CKV_AWS_88' : 'High',
+    'CKV_AWS_46' : 'High'
+  }
+
   const handleChange = (e) => {
     const file = e.target.files[0];
     setTf(file);
@@ -87,6 +100,13 @@ function Scan() {
       setError(true)
       setLoding(false)
     });
+    // aws 심각도 static하게 박아넣음
+    response?.data.scan.result.map((item) => {
+      if(item.level == null) {
+        item.level = aws[item.rule_id];
+      }
+      return item;
+    })
     setResult(response?.data);
     console.log(response?.data);
     setLoding(false);

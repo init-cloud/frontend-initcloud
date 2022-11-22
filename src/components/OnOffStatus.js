@@ -18,7 +18,7 @@ function OnOffStatus({ count }) {
     <Box>
       <Status color="rgb(46, 204, 113)">On: {count.On}</Status>
       <Status color="rgb(231, 76, 60)">OFF: {count.Off}</Status>
-      <Status color="darkorange">Custom: 0</Status>
+      <Status color="darkorange">Custom: {count.custom}</Status>
     </Box>
   );
 }
