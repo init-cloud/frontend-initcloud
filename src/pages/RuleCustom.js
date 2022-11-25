@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 
 const Box = styled.div`
@@ -32,9 +33,13 @@ const Box = styled.div`
     margin-bottom: 10px;
   }
 `
+const Top = styled.div`
+  display: flex;
+  align-items: center;
+`
 const Toggle = styled.label`
-  width: 6rem;
-  height: 3rem;
+  width: 3.6rem;
+  height: 2.2rem;
   display: block;
   border-radius: 2rem;
   position: relative;
@@ -42,13 +47,15 @@ const Toggle = styled.label`
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   cursor: pointer;
   transition: all 0.2s ease-in;
+  margin-left: 20px;
 `
 const ToggleLabel = styled.h2`
+  margin-left: 10px;
   width: 40px;
 `
 const ToggleBtn = styled.span`
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 1.6rem;
+  height: 1.6rem;
   position: absolute;
   top: 50%;
   left: ${(props) => props.move};
@@ -78,6 +85,7 @@ const CustomInput = styled.input`
   border: 2px solid black;
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);  
 `
+
 const Save = styled.button`
   background-color: white;
   padding: 5px;
@@ -106,7 +114,7 @@ function RuleCustom({ detail, changeCustom, changeRuleCustom }) {
   const [customData, setCustomData] = useState();
   const toggleColor = { 'y': 'rgb(46, 204, 113)', 'n': '#D8D8D8' };
   const toggleBtnColor = { 'y': '#fff', 'n': '#fff' };
-  const toggleMove = { 'y': '.2rem', 'n': 'calc(100% - 2.8rem);' };
+  const toggleMove = { 'y': '.2rem', 'n': 'calc(100% - 1.9rem);' };
   const onOff = { 'y': 'On', 'n': 'Off' };
   const toggleClick = () => {
     if (detail.state === 'y') {
@@ -127,37 +135,83 @@ function RuleCustom({ detail, changeCustom, changeRuleCustom }) {
 
   const onSave = (event) => {
     event.preventDefault();
-    const json = JSON.stringify(customData);
-    const newDetail = {...detail};
-    newDetail.customDetail = json;
+    const json = {
+      'ruleId': detail.id,
+      'custom': customData
+    };
+    const newDetail = { ...detail };
+    newDetail.customDetail = JSON.stringify(json);
     newDetail.isModified = 'y';
+    changeRuleCustom(newDetail);
+
+    const data = [{
+      'id': detail.seq,
+      'ruleId': detail.id,
+      'ruleOnOff': detail.state,
+      'custom': {
+        'customDetail': detail.customDetail
+      }
+    }]
+    axios.post('https://api.floodnut.com/api/v1/checklist/state', data);
+  };
+
+  const onReset = async (event) => {
+    event.preventDefault();
+    const res = await axios.post('https://api.floodnut.com/api/v1/checklist/reset',
+      {
+        'id': detail.seq,
+        'ruleId': detail.id,
+        'ruleOnOff': 'n',
+        'custom': {
+          'isModified': detail.isModified,
+          'customDetail': detail.customDetail
+        }
+      });
+    alert('reset');
+    const temp = JSON.parse(res?.data.data.custom.customDetail).custom;
+    console.log(temp);
+    setCustomData(temp);
+    const json = {
+      'ruleId': detail.id,
+      'custom': customData
+    };
+    const newDetail = { ...detail };
+    newDetail.customDetail = JSON.stringify(json);
+    newDetail.isModified = 'n';
     changeRuleCustom(newDetail);
   };
 
-  const onReset = (event) => {
-    event.preventDefault();
-    alert('reset');
-  }
-
   useEffect(() => {
-    if (detail && detail.customDetail) setCustomData(JSON.parse(detail.customDetail.replace(/\//g, '')));
-    else setCustomData(null);
+    console.log(detail)
+    if (detail && detail.customDetail) {
+      setCustomData(JSON.parse(detail.customDetail).custom);
+      console.log(customData);
+    }
+    else {
+      setCustomData(null);
+    };
   }, [detail]);
 
   return (
     <>
-      <h1>Custom</h1>
-      <Box>
+      <Top>
+        <h1>Custom</h1>
         {detail ? (
           <>
             <Toggle onClick={toggleClick} color={toggleColor[detail.state]}>
               <ToggleBtn color={toggleBtnColor[detail.state]} move={toggleMove[detail.state]}></ToggleBtn>
             </Toggle>
             <ToggleLabel>{onOff[detail.state]}</ToggleLabel>
-            {Array.isArray(customData) ? (
+          </>
+        ) : (null)}
+      </Top>
+      <Box>
+        {detail ? (
+          <>
+            {customData ? (
               <Form>
                 {customData?.map((item, index) => (
-                  <CustomLabel key={index}>
+                  <CustomLabel type='reset' key={index}>
                     {item.name} :
                     <CustomInput
                       onChange={(event) => (onChange(event, index))}
@@ -165,10 +219,14 @@ function RuleCustom({ detail, changeCustom, changeRuleCustom }) {
                     />
                   </CustomLabel>
                 ))}
-                <Save onClick={onSave}>Save</Save>
+                <h3>{customData[0].value}</h3>
+                <Save onClick={onSave}>
+                  <span>Save</span>
+                  <i></i>
+                </Save>
                 <Reset onClick={onReset}>Reset</Reset>
               </Form>
-            ) : (null)}
+            ) : (<h3 style={{ textAlign: "center", lineHeight: "55px" }}>This rule does not support cusomizaion</h3>)}
           </>
         ) : (
           <h3 style={{ textAlign: "center", lineHeight: "55px" }}>If you click rule card, you can see its detail.</h3>

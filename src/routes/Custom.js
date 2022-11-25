@@ -49,7 +49,6 @@ const boxFade = keyframes`
       transform: translateZ(0);
   }
 `
-
 const Box = styled.div`
   flex-shrink: 1;
   flex-grow: 1;
@@ -76,16 +75,13 @@ function Custom() {
         onOff.current.push({
           'id': data.seq,
           'ruleId': data.id,
-          'ruleOnOff': data.state,
-          'isModified': data.isModified,
-          'customDetail': data.customDetail
+          'ruleOnOff': data.state
         })
       ));
     };
 
     req();
     return () => {
-      console.log(onOff.current)
       axios.post('https://api.floodnut.com/api/v1/checklist/state', onOff.current);
     };
   }, []);
@@ -95,22 +91,25 @@ function Custom() {
   };
 
   const changeCustom = (detail) => {
-    console.log(detail)
     setDetail(detail);
     const newCheckList = [...checkList];
-    newCheckList[detail.seq-1] = detail;
+    newCheckList[detail.seq - 1] = detail;
     setCheckList(newCheckList);
-    onOff.current[detail.seq-1].ruleOnOff = detail.state;
-  }
+    onOff.current[detail.seq - 1].ruleOnOff = detail.state;
+  };
 
-  const changeRuleCustom = (detail) => {
+  const changeRuleCustom = (newDetail) => {
+    
     const newCheckList = [...checkList];
-    newCheckList[detail.seq-1].isModified = detail.isModified;
-    newCheckList[detail.seq-1].customDetail = detail.customDetail;
-    setCheckList(newCheckList)
-    onOff.current[detail.seq-1].isModified = detail.isModified;
-    onOff.current[detail.seq-1].customDetail = detail.customDetail;
-  }
+    newCheckList[newDetail.seq - 1].isModified = newDetail.isModified;
+    newCheckList[newDetail.seq - 1].customDetail = newDetail.customDetail;
+    let temp = {...detail};    
+    temp.isModified = newDetail.isModified;
+    temp.customDetail = newDetail.customDetail;
+
+    setDetail(temp);
+    setCheckList(newCheckList);
+  };
 
   return (
     <Service>

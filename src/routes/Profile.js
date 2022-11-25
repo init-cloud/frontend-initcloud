@@ -62,24 +62,17 @@ const ProfileImg = styled.div`
   }
 `
 
-function Profile() {
+function Report() {
 
   return (
     <Service>
       <Layout>
         <Box time={"0.3s"}>
-          <h1>This is Profile Page</h1>
-          <ProfileImg>
-            <img src={`${process.env.PUBLIC_URL}/profile.jpg`} alt="Profile" />
-          </ProfileImg>
-          <h3>ID : GGam._.2</h3>
-          <h3>E-mail : ggam2@init.cloud</h3>
-          <h3>Coporation : initCloud</h3>
-          <h3>Department : DevOps</h3>
+          <h1>Report</h1>
         </Box>
       </Layout>
     </Service>
   )
 }
 
-export default Profile;
+export default Report;
