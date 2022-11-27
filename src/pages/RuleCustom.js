@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import CustomInput from "../components/CustomInput";
 
 const Box = styled.div`
   border: 1px solid rgba(46,54,80,.125);
@@ -10,8 +11,8 @@ const Box = styled.div`
   overflow: auto;
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   background-color: white;
+  height: 10vh;
   min-width: 610px;
-  //justify-content: space-between;
   padding: 10px;
   display: flex;
   gap: 1rem;
@@ -71,21 +72,6 @@ const Form = styled.form`
   gap: 1rem;
 `
 
-const CustomLabel = styled.label`
-  font-size: 22px;
-  font-weight: bold;
-`
-
-const CustomInput = styled.input`
-  width: 120px;
-  height: 25px;
-  margin-left: 10px;
-  border-radius: 0.5rem;
-  padding-left: 10px;
-  border: 2px solid black;
-  box-shadow: 0 0 8px 4px rgba(0,0,0,.1);  
-`
-
 const Save = styled.button`
   background-color: white;
   padding: 5px;
@@ -110,24 +96,26 @@ const Reset = styled.button`
   cursor: pointer;
 `
 
-function RuleCustom({ detail, changeCustom, changeRuleCustom }) {
+function RuleCustom({ detail, changeOnOff, changeRuleCustom }) {
   const [customData, setCustomData] = useState();
+  const [clear, setClear] = useState(false);
   const toggleColor = { 'y': 'rgb(46, 204, 113)', 'n': '#D8D8D8' };
   const toggleBtnColor = { 'y': '#fff', 'n': '#fff' };
   const toggleMove = { 'y': '.2rem', 'n': 'calc(100% - 1.9rem);' };
   const onOff = { 'y': 'On', 'n': 'Off' };
   const toggleClick = () => {
+    let newDetail = {...detail};
     if (detail.state === 'y') {
-      detail.state = 'n'
-      changeCustom(detail);
+      newDetail.state = 'n'
+     changeOnOff(newDetail);
     }
     else {
-      detail.state = 'y'
-      changeCustom(detail);
+      newDetail.state = 'y'
+     changeOnOff(newDetail);
     }
   }
 
-  const onChange = (event, index) => {
+  const inputChange = (event, index) => {
     const newCustom = [...customData];
     newCustom[index].value = event.target.value;
     setCustomData(newCustom);
@@ -139,20 +127,21 @@ function RuleCustom({ detail, changeCustom, changeRuleCustom }) {
       'ruleId': detail.id,
       'custom': customData
     };
-    const newDetail = { ...detail };
+    let newDetail = { ...detail };
     newDetail.customDetail = JSON.stringify(json);
     newDetail.isModified = 'y';
     changeRuleCustom(newDetail);
 
     const data = [{
-      'id': detail.seq,
-      'ruleId': detail.id,
-      'ruleOnOff': detail.state,
+      'id': newDetail.seq,
+      'ruleId': newDetail.id,
+      'ruleOnOff': newDetail.state,
       'custom': {
-        'customDetail': detail.customDetail
+        'customDetail': newDetail.customDetail
       }
     }]
     axios.post('https://api.floodnut.com/api/v1/checklist/state', data);
+    setClear(true);
   };
 
   const onReset = async (event) => {
@@ -169,23 +158,21 @@ function RuleCustom({ detail, changeCustom, changeRuleCustom }) {
       });
     alert('reset');
     const temp = JSON.parse(res?.data.data.custom.customDetail).custom;
-    console.log(temp);
-    setCustomData(temp);
     const json = {
       'ruleId': detail.id,
-      'custom': customData
+      'custom': temp
     };
-    const newDetail = { ...detail };
+    let newDetail = { ...detail };
     newDetail.customDetail = JSON.stringify(json);
     newDetail.isModified = 'n';
     changeRuleCustom(newDetail);
+    setClear(true);
   };
 
   useEffect(() => {
-    console.log(detail)
+    setClear(false);
     if (detail && detail.customDetail) {
       setCustomData(JSON.parse(detail.customDetail).custom);
-      console.log(customData);
     }
     else {
       setCustomData(null);
@@ -211,19 +198,16 @@ function RuleCustom({ detail, changeCustom, changeRuleCustom }) {
             {customData ? (
               <Form>
                 {customData?.map((item, index) => (
-                  <CustomLabel type='reset' key={index}>
-                    {item.name} :
-                    <CustomInput
-                      onChange={(event) => (onChange(event, index))}
-                      placeholder={item.value}
-                    />
-                  </CustomLabel>
+                  <CustomInput
+                    key={index}
+                    custom={item}
+                    index={index}
+                    clear={clear}
+                    inputChange={inputChange}
+                  />
                 ))}
                 <h3>{customData[0].value}</h3>
-                <Save onClick={onSave}>
-                  <span>Save</span>
-                  <i></i>
-                </Save>
+                <Save onClick={onSave}>Save</Save>
                 <Reset onClick={onReset}>Reset</Reset>
               </Form>
             ) : (<h3 style={{ textAlign: "center", lineHeight: "55px" }}>This rule does not support cusomizaion</h3>)}

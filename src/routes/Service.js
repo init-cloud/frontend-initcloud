@@ -4,7 +4,7 @@ import Scan from "./Scan";
 import Custom from "./Custom";
 import SideBar from "./SideBar";
 import Main from "./Main";
-import Report from "./Profile";
+import Report from "./Report";
 
 const Center = styled.div`
   display: flex;

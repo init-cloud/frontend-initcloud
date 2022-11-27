@@ -10,7 +10,7 @@
     "cytoscape": "^3.23.0",
     "cytoscape-cose-bilkent": "^4.1.0",
     "cytoscape-dagre": "^2.5.0",
-    "gh-pages": "^4.0.0",
+    "jspdf": "^2.5.1",
     "react": "^18.2.0",
     "react-code-blocks": "^0.0.9-0",
     "react-cytoscapejs": "^2.0.0",

@@ -1,4 +1,6 @@
 import styled, { keyframes } from "styled-components";
+import Pdf from "../components/Pdf";
+import ReportPdf from "../components/ReportPdf";
 
 const Service = styled.div`
   flex-grow: 1;
@@ -6,7 +8,6 @@ const Service = styled.div`
   display: flex;
   padding: 1rem;
   overflow-y: auto;
-  flex-direction: column;
   background-color: #f5f8fb;
   &::-webkit-scrollbar {
     width: 15px;
@@ -28,6 +29,7 @@ const Layout = styled.div`
    display: flex;
    flex-wrap: wrap;
    gap: 1rem;
+   overflow: auto;
 `
 const boxFade = keyframes`
   0% {
@@ -39,7 +41,6 @@ const boxFade = keyframes`
       transform: translateZ(0);
   }
 `
-
 const Box = styled.div`
   min-height: 500px;
   min-width: 610px;
@@ -49,27 +50,27 @@ const Box = styled.div`
   flex-direction: column;
   animation: ${boxFade} ${(props) => props.time};
 `
-
-const ProfileImg = styled.div`
-  width: 150px;
-  height: 150px;
-  border-radius: 100px;
-  overflow: hidden;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+const Button = styled.button`
 `
 
 function Report() {
+  const pdf = Pdf();
+
+  const makePdf = async (e) => {
+    e.preventDefault()
+    await pdf.viewWithPdf()
+  };
 
   return (
     <Service>
       <Layout>
         <Box time={"0.3s"}>
           <h1>Report</h1>
+          <Button onClick={makePdf}>Make Report</Button>
         </Box>
+      </Layout>
+      <Layout>
+        <ReportPdf/>
       </Layout>
     </Service>
   )

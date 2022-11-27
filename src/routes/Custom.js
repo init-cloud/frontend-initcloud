@@ -90,24 +90,19 @@ function Custom() {
     setDetail(rule);
   };
 
-  const changeCustom = (detail) => {
-    setDetail(detail);
+  const changeOnOff = (newDetail) => {
+    setDetail(newDetail);
     const newCheckList = [...checkList];
-    newCheckList[detail.seq - 1] = detail;
+    newCheckList[newDetail.seq - 1] = newDetail;
     setCheckList(newCheckList);
-    onOff.current[detail.seq - 1].ruleOnOff = detail.state;
+    onOff.current[newDetail.seq - 1].ruleOnOff = newDetail.state;
   };
 
   const changeRuleCustom = (newDetail) => {
-    
+    console.log(newDetail, detail);
+    setDetail(newDetail);    
     const newCheckList = [...checkList];
-    newCheckList[newDetail.seq - 1].isModified = newDetail.isModified;
-    newCheckList[newDetail.seq - 1].customDetail = newDetail.customDetail;
-    let temp = {...detail};    
-    temp.isModified = newDetail.isModified;
-    temp.customDetail = newDetail.customDetail;
-
-    setDetail(temp);
+    newCheckList[newDetail.seq - 1] = newDetail;
     setCheckList(newCheckList);
   };
 
@@ -125,7 +120,7 @@ function Custom() {
         <Box time={"0.6s"}>
           <RuleCustom
             detail={detail}
-            changeCustom={changeCustom}
+            changeOnOff={changeOnOff}
             changeRuleCustom={changeRuleCustom}
           />
         </Box>
