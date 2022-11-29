@@ -69,7 +69,7 @@ function Custom() {
       ).catch((err) => {
         console.log(err);
       });
-      console.log(res.data);
+      //console.log(res.data);
       setCheckList(res.data.data.docs);
       res.data.data.docs.map((data) => (
         onOff.current.push({
@@ -99,7 +99,6 @@ function Custom() {
   };
 
   const changeRuleCustom = (newDetail) => {
-    console.log(newDetail, detail);
     setDetail(newDetail);    
     const newCheckList = [...checkList];
     newCheckList[newDetail.seq - 1] = newDetail;

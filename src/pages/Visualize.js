@@ -48,11 +48,11 @@ function Visualize({ elements, onNodeClick }) {
         "width": "200",
         "height": "70",
         "shape": "round-rectangle",
-        "color": "#EEEEEE",
+        "color": "#f4f5f9",
         "font-weight": "bold",
-        "border-width": "1px",
+        "border-width": "3px",
         "border-style": "solid",
-        "border-color": "#222831"
+        "border-color": "#black"
       }
     },
     {
@@ -60,26 +60,26 @@ function Visualize({ elements, onNodeClick }) {
       style: {
         "text-valign": "top",
         "text-halign": "center",
-        "background-color": "#EEEEEE",
+        "background-color": "#dddfe6",
         "color": "#222831",
         "font-size": "25px",
         "font-weight": "bold",
         "border-style": "dashed",
         "border-width": "3px",
-        "border-color": "#222831",
+        "border-color": "#252c41",
         "padding": "20px"
       }
     },
     {
-      selector: ":parent[type='subnet']",
+      selector: ":parent[label*='subnet']",
       style: {
-        "background-color": "#EEEEEE"
+        "background-color": "#f4f5f9"
       }
     },
     {
       selector: "node[type='vuln']",
       style: {
-        "background-color": "#FD7014"
+        "background-color": "#f1404b"
       }
     },
     {
@@ -87,8 +87,8 @@ function Visualize({ elements, onNodeClick }) {
       style: {
         "curve-style": "bezier",
         'width': 4,
-        'line-color': '#222831',
-        'target-arrow-color': '#222831',
+        'line-color': '#252c41',
+        'target-arrow-color': '#252c41',
         'target-arrow-shape': 'triangle'
       }
     }
@@ -113,7 +113,7 @@ function Visualize({ elements, onNodeClick }) {
           layout={layout}
           stylesheet={style}
           zoom={1}
-          minZoom={0.2}
+          minZoom={0.1}
           maxZoom={1.5}
           cy={(cy) => {
             cyRef.current = cy;

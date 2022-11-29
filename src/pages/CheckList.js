@@ -40,10 +40,12 @@ const Search = styled.input`
   height: 35px;
   border-radius: 0.5rem;
   padding-left: 10px;
-  border: 1px solid rgba(46,54,80,.125);
+  border: 2px solid rgba(46,54,80,.125);
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   transition: all 0.5s;
-  &:hover {
+
+  &:focus {
+    outline: 0;
     border: 2px solid black;
   }
 `
@@ -129,7 +131,7 @@ function CheckList({ data, onClickCard }) {
     if (data) {
       newRules = [...data];
       for (let i = 0; i < filters.length; i++) {
-        newRules = newRules.filter(data => data.description.includes(filters[i]));
+        newRules = newRules.filter(data => data.description.toLowerCase().includes(filters[i].toLowerCase()));
       }
       setOnCount(0);
       setOffCount(0);
@@ -149,7 +151,7 @@ function CheckList({ data, onClickCard }) {
     event.preventDefault();
     if (filter === "") return;
     if (filters.length === 4) {
-      alert("그만해")
+      alert("Too many filters!!")
       return;
     }
     if (filters.includes(filter)) {

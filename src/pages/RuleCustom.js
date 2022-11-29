@@ -206,7 +206,6 @@ function RuleCustom({ detail, changeOnOff, changeRuleCustom }) {
                     inputChange={inputChange}
                   />
                 ))}
-                <h3>{customData[0].value}</h3>
                 <Save onClick={onSave}>Save</Save>
                 <Reset onClick={onReset}>Reset</Reset>
               </Form>

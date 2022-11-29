@@ -96,7 +96,7 @@ function ResourceModal({ openModal, closeModal, data }) {
         }
       }}
     >
-      <h2>{data ? data[0]?.target_resource : ('wow')}</h2>
+      <h2>{data ? (data[0]?.target_resource ? data[0]?.target_resource : "No Result") : (null)}</h2>
       <hr />
       {data ? (data.map((detail, index) => (
         <Content key={index}>
@@ -117,7 +117,10 @@ function ResourceModal({ openModal, closeModal, data }) {
           ) : (
             null)}
         </Content>
-      ))) : (null)}
+      ))
+      ) : (
+        <h1>No Data</h1>
+      )}
     </Modal >
   );
 }

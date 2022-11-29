@@ -27,6 +27,7 @@ const Service = styled.div`
   overflow-y: auto;
   flex-direction: column;
   background-color: #f5f8fb;
+  gap: 1rem;
   &::-webkit-scrollbar {
     width: 12px;
   }
@@ -60,53 +61,67 @@ const Box = styled.div`
   animation: ${boxFade} ${(props) => props.time};
 `
 
+const ButtonBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`
+
+const Provider = styled.select`
+  padding: 3px 5px;
+  font-size: 20px;
+  background-color: white;
+  color: ${(props) => props.color};
+  border: 2px solid rgba(46,54,80,.125);
+  box-shadow: 0 0 6px 2px rgba(0,0,0,.1);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  &:focus {
+    outline: 0;
+  }
+`
+
+const Message = styled.span`
+  margin-left: 5px;
+  font-size: 20px;
+  font-weight: bold;
+`
+
 function Scan() {
   const [loading, setLoding] = useState(false);
-  const [error, setError] = useState(false);
   const [tf, setTf] = useState();
+  const [provider, setProvider] = useState();
   const [result, setResult] = useState();
   const [parse, setParse] = useState();
   const [modalOn, setModalOn] = useState(false);
   const [modalData, setModalData] = useState();
-
-  const aws = {
-    'CKV_AWS_130' : 'Medium',
-    'CKV_AWS_135' : 'Low',
-    'CKV_AWS_8' : 'High',
-    'CKV_AWS_126' : 'Medium',
-    'CKV_AWS_79' : 'Medium',
-    'CKV2_AWS_11' : 'Medium',
-    'CKV2_AWS_12' : 'Low',
-    'CKV2_AWS_41' : 'High',
-    'CKV_AWS_88' : 'High',
-    'CKV_AWS_46' : 'High'
-  }
-
+  const providerColor = {
+    'aws': 'darkorange',
+    'ncloud': 'rgb(46, 204, 113)'
+  };
   const handleChange = (e) => {
     const file = e.target.files[0];
     setTf(file);
+    setParse(null);
+    setResult(null);
   }
 
   const submit = async () => {
-    setError(false)
+    if (!provider) {
+      alert('You shold select provider');
+      return;
+    }
     const fd = new FormData();
     fd.append("file", tf);
     setLoding(true);
-    const response = await axios.post(`https://api.floodnut.com/api/v1/file`, fd, {
+    const response = await axios.post(`https://api.floodnut.com/api/v1/file/${provider}`, fd, {
       headers: {
         "Content-Type": `multipart/form-data ;`
       }
     }).catch(() => {
-      setError(true)
       setLoding(false)
     });
-    // aws 심각도 static하게 박아넣음
-    response?.data.scan.result.map((item) => {
-      if(item.level == null) {
-        item.level = aws[item.rule_id];
-      }
-      return item;
-    })
     setResult(response?.data);
     console.log(response?.data);
     setLoding(false);
@@ -120,10 +135,10 @@ function Scan() {
       return item;
     }));
   }
-  
+
   const onNodeClick = useCallback((id) => {
     const results = [];
-    result.scan.result.map((item)=>{
+    result.scan.result.map((item) => {
       if (item.target_resource === id) {
         results.push(item)
       }
@@ -137,28 +152,38 @@ function Scan() {
     setModalOn(false);
   }
 
+  const providerChange = (event) => {
+    setProvider(event.target.value);
+  }
+
   return (
     <Service>
       <Layout>
         <Box time={"0.3s"}>
           <h1>Terraform Scan</h1>
-          <label htmlFor="file">
-            <Button text={tf?"File Selected":"Choose Terraform File"} onClick={(null)} />
-          </label>
-          <input id="file" type="file" onChange={(e) => handleChange(e)} multiple="multiple" style={{display: "none"}}/>
-          <Button text="Scan" onClick={submit} />
-          {loading?<h4 style={{display:"inline"}}>Loading...</h4>:(null)}
-          {error?tf?null:<h4 style={{display:"inline"}}>You should select file</h4>:(null)}
-          <Code terraform={tf}/>    
+          <ButtonBox>
+            <label htmlFor="file">
+              <Button text={tf ? "File Selected" : "Choose Terraform File"} onClick={(null)} />
+            </label>
+            <input id="file" type="file" onChange={(e) => handleChange(e)} multiple="multiple" style={{ display: "none" }} />
+            <Button text="Scan" onClick={submit} />
+            <Provider onChange={(event) => providerChange(event)} color={providerColor[provider]}>
+              <option value={null}>Select Provider</option>
+              <option value="aws">aws</option>
+              <option value="ncloud">ncloud</option>
+            </Provider>
+            {loading ? <Message>Loading...</Message> : (null)}
+          </ButtonBox>
+          <Code terraform={tf} />
         </Box>
         <Box time={"0.45s"}>
-          <Visualize elements={parse?parse:(null)} onNodeClick={onNodeClick}/>
+          <Visualize elements={parse ? parse : (null)} onNodeClick={onNodeClick} />
           <ResourceModal openModal={modalOn} closeModal={modalClose} data={modalData} />
         </Box>
       </Layout>
       <Layout>
         <Box time={"0.6s"}>
-          <Result result={result?result:(null)}/>
+          <Result result={result ? result : (null)} />
         </Box>
       </Layout>
     </Service>

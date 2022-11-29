@@ -18,10 +18,11 @@ const Header = styled.header`
   justify-content: first center;
   align-items: center;
   padding: 8px;
-  gap: 1rem;
+  gap: 2rem;
 `
 
 const NewLink = styled(Link)`
+  font-weight: bold;
   border-radius: 1rem;
   background-color: whitesmoke;
   color: #262b40;
@@ -30,6 +31,12 @@ const NewLink = styled(Link)`
   padding: 10px;
   height: 20px;
   line-height: 20px;
+  transition: all 0.3s;
+  &:hover {
+    background-color: #262b40;
+    border: 4px solid white;
+    color: white;
+  }
 `
 const Circle = styled.div`
   background-color: #f5f8fb;

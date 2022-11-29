@@ -13,12 +13,12 @@ const Img = styled.img`
   width: inherit;
 `
 
-function ReportPdf() {
+function ReportPdf({title}) {
   return (
     <A4>
       <Img src={`${process.env.PUBLIC_URL}/graph.png`} alt="graph" />
       <h1>initCloud Document</h1>
-      <h3>Scan Result</h3>
+      <h3>{title?title:"title"}</h3>
       <span>Don't do that</span>
       <h3>Statistics</h3>
       <span>IaC 1: 0%</span>

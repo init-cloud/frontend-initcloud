@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Pdf from "../components/Pdf";
 import ReportPdf from "../components/ReportPdf";
@@ -29,7 +30,6 @@ const Layout = styled.div`
    display: flex;
    flex-wrap: wrap;
    gap: 1rem;
-   overflow: auto;
 `
 const boxFade = keyframes`
   0% {
@@ -54,12 +54,16 @@ const Button = styled.button`
 `
 
 function Report() {
+  const [option, setOption] = useState();
   const pdf = Pdf();
 
   const makePdf = async (e) => {
     e.preventDefault()
     await pdf.viewWithPdf()
   };
+  const onChange = (e) => {
+    setOption(e.target.value);
+  }
 
   return (
     <Service>
@@ -67,10 +71,11 @@ function Report() {
         <Box time={"0.3s"}>
           <h1>Report</h1>
           <Button onClick={makePdf}>Make Report</Button>
+          <input onChange={onChange}/>
         </Box>
       </Layout>
       <Layout>
-        <ReportPdf/>
+        <ReportPdf title={option}/>
       </Layout>
     </Service>
   )
