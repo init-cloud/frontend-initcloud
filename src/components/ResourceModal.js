@@ -96,7 +96,7 @@ function ResourceModal({ openModal, closeModal, data }) {
         }
       }}
     >
-      <h2>{data ? (data[0]?.target_resource ? data[0]?.target_resource : "No Result") : (null)}</h2>
+      <h2>{data ? (data[0]?.target_resource ? data[0]?.target_resource : "There are no scan results for this resource.") : (null)}</h2>
       <hr />
       {data ? (data.map((detail, index) => (
         <Content key={index}>

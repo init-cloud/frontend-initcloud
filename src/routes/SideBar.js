@@ -52,7 +52,7 @@ const NavStyle = styled(NavLink)`
 function SideBar() {
   const menus = [
     { name: "Scan", path: "/scan" },
-    { name: "Custom", path: "/custom" },
+    { name: "Checklist", path: "/checklist" },
     { name: "Report", path: "/report" }
   ];
 

@@ -2,6 +2,8 @@ import { useCallback, useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import RuleCard from "../components/RuleCard";
 import OnOffStatus from "../components/OnOffStatus";
+import Swal from "sweetalert2";
+import React from "react";
 
 const filterSlideIn = keyframes`
   0% {
@@ -79,7 +81,6 @@ const Filter = styled.li`
   }
   animation: ${filterSlideIn} 0.5s;
 `
-
 const Content = styled.div`
   display: flex;
   overflow: auto;
@@ -110,7 +111,6 @@ const Content = styled.div`
     margin-bottom: 10px;
   }
 `
-
 const colorTable = [
   "#F9F871",
   "#C1FFA8",
@@ -118,7 +118,7 @@ const colorTable = [
   "#ADFFFF"
 ]
 
-function CheckList({ data, onClickCard }) {
+const RuleList = React.memo(({ data, onClickCard }) => {
   const [filter, setFilter] = useState("");
   const [filters, setFilters] = useState([]);
   const [rules, setRules] = useState([]);
@@ -131,7 +131,9 @@ function CheckList({ data, onClickCard }) {
     if (data) {
       newRules = [...data];
       for (let i = 0; i < filters.length; i++) {
-        newRules = newRules.filter(data => data.description.toLowerCase().includes(filters[i].toLowerCase()));
+        newRules = newRules.filter(data => 
+          data.description.toLowerCase().includes(filters[i].toLowerCase()) || data.id.toLowerCase().includes(filters[i].toLowerCase())
+        );
       }
       setOnCount(0);
       setOffCount(0);
@@ -151,11 +153,11 @@ function CheckList({ data, onClickCard }) {
     event.preventDefault();
     if (filter === "") return;
     if (filters.length === 4) {
-      alert("Too many filters!!")
+      Swal.fire("Too many filters!!");
       return;
     }
     if (filters.includes(filter)) {
-      alert("This tag has already been entered");
+      Swal.fire("This tag has already been entered");
       setFilter("");
       return;
     }
@@ -200,7 +202,7 @@ function CheckList({ data, onClickCard }) {
         </Filters>
       </SearchFilter>
       <Box>
-        <OnOffStatus count={{ 'On': OnCount, 'Off': OffCount, 'custom': customCount }} />
+        <OnOffStatus On={OnCount} Off={OffCount} custom={customCount} />
         <Content>
           {rules ? (
             rules.map((data) => (
@@ -217,6 +219,6 @@ function CheckList({ data, onClickCard }) {
       </Box>
     </>
   );
-}
+});
 
-export default CheckList;
+export default RuleList;

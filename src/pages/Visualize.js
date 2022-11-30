@@ -52,7 +52,7 @@ function Visualize({ elements, onNodeClick }) {
         "font-weight": "bold",
         "border-width": "3px",
         "border-style": "solid",
-        "border-color": "#black"
+        "border-color": "black"
       }
     },
     {
@@ -100,7 +100,7 @@ function Visualize({ elements, onNodeClick }) {
       return;
     }
     cy.on("click", "node", (event) => {
-      onNodeClick(event.target[0].data().id);
+      onNodeClick(event.target[0].data().id.split('\n')[1]);
     });
   },[elements, onNodeClick])
 

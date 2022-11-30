@@ -7,6 +7,7 @@ import Button from "../components/Button";
 import ResourceModal from "../components/ResourceModal";
 import { useState } from "react";
 import { useCallback } from "react";
+import Swal from "sweetalert2";
 
 const boxFade = keyframes`
   0% {
@@ -109,7 +110,7 @@ function Scan() {
 
   const submit = async () => {
     if (!provider) {
-      alert('You shold select provider');
+      Swal.fire('You shold select provider');
       return;
     }
     const fd = new FormData();
@@ -123,7 +124,7 @@ function Scan() {
       setLoding(false)
     });
     setResult(response?.data);
-    console.log(response?.data);
+    //console.log(response?.data);
     setLoding(false);
 
     let vulnResource = [];
@@ -131,7 +132,7 @@ function Scan() {
       (item.status === 'failed') ? (vulnResource.push(item.target_resource)) : (null)
     ));
     setParse(response?.data.scan.parse.result.map((item) => {
-      if (vulnResource.includes(item.data.id)) item.data['type'] = 'vuln';
+      if (vulnResource.includes(item.data.id.split('\n')[1])) item.data['type'] = 'vuln';
       return item;
     }));
   }

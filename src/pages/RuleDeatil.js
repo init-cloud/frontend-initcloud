@@ -108,19 +108,47 @@ function RuleDetail({ detail }) {
               </Filters>
             </Top>
             <Content>
-              <Item>Description</Item>
-              <Description>{detail.description}</Description>
-              <Item>Explanation</Item>
-              <Description>{detail.explanation}</Description>
-              <Item>Possible Impact</Item>
-              <Description>{detail.possibleImpact}</Description>
-              <Item>Insecure Example</Item>
-              <CodeBlock code={detail.insecureExample} />
-              <Item>Secure Example</Item>
-              <CodeBlock code={detail.secureExample} />
-              <Item>Solution</Item>
-              <Description>{detail.solution.sol}</Description>
-              <CodeBlock code={detail.solution.code} />
+              {detail.description === "" ? (null) :
+                <>
+                  <Item>Description</Item>
+                  <Description>{detail.description}</Description>
+                </>
+              }
+              {detail.explanation === "" ? (null) :
+                <>
+                  <Item>Explanation</Item>
+                  <Description>{detail.explanation}</Description>
+                </>
+              }
+              {detail.possibleImpact === "\n" ? (null) :
+                <>
+                  <Item>Possible Impact</Item>
+                  <Description>{detail.possibleImpact}</Description>
+                </>
+              }
+              {detail.insecureExample === "" ? (null) :
+                <>
+                  <Item>Insecure Example</Item>
+                  <CodeBlock code={detail.insecureExample} />
+                </>
+              }
+              {detail.secureExample === "" ? (null) :
+                <>
+                  <Item>Secure Example</Item>
+                  <CodeBlock code={detail.secureExample} />
+                </>
+              }
+              {detail.solution ? (null) :
+                <>
+                  <Item>Solution</Item>
+                  {detail.solution.sol === ""?(null):                  
+                  <Description>{detail.solution.sol}</Description>
+                  }
+                  {detail.solution.code === ""?(null):                  
+                  <CodeBlock code={detail.solution.code} />
+                  }
+                </>
+              }
             </Content>
           </>
         ) : (

@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import CheckList from "../pages/CheckList";
+import RuleList from "../pages/RuleList";
 import RuleDetail from "../pages/RuleDeatil";
 import RuleCustom from "../pages/RuleCustom";
 import { useEffect, useState } from "react";
@@ -57,7 +57,7 @@ const Box = styled.div`
   animation: ${boxFade} ${(props) => props.time};
 `
 
-function Custom() {
+function Checklist() {
   const [checkList, setCheckList] = useState();
   const [detail, setDetail] = useState();
   const onOff = useRef([]);
@@ -109,7 +109,7 @@ function Custom() {
     <Service>
       <Layout>
         <Box time={"0.3s"}>
-          <CheckList data={checkList} onClickCard={onClickCard} />
+          <RuleList data={checkList} onClickCard={onClickCard} />
         </Box>
       </Layout>
       <Layout>
@@ -128,4 +128,4 @@ function Custom() {
   )
 }
 
-export default Custom;
+export default Checklist;

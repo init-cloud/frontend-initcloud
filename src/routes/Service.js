@@ -1,11 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import Scan from "./Scan";
-import Custom from "./Custom";
 import SideBar from "./SideBar";
 import Main from "./Main";
 import Report from "./Report";
-
+import Checklist from "./Checklist";
 const Center = styled.div`
   display: flex;
   width : 100vw;
@@ -16,15 +15,15 @@ const Center = styled.div`
 function Service() {
   return (
     <>
-        <Center>
-          <SideBar />
-          <Routes>
-            <Route path="" element={<Main />} />
-            <Route path="scan" element={<Scan />} />
-            <Route path="custom" element={<Custom />} />
-            <Route path="report" element={<Report />} />
-          </Routes>
-        </Center>
+      <Center>
+        <SideBar />
+        <Routes>
+          <Route path="" element={<Main />} />
+          <Route path="scan" element={<Scan />} />
+          <Route path="checklist" element={<Checklist />} />
+          <Route path="report" element={<Report />} />
+        </Routes>
+      </Center>
     </>
   );
 }

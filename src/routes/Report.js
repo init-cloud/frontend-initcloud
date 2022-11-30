@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Pdf from "../components/Pdf";
 import ReportPdf from "../components/ReportPdf";
+import Button from "../components/Button"
 
 const Service = styled.div`
   flex-grow: 1;
@@ -28,6 +29,7 @@ const Service = styled.div`
 `
 const Layout = styled.div`
    display: flex;
+   flex-grow: 1;
    flex-wrap: wrap;
    gap: 1rem;
 `
@@ -49,8 +51,29 @@ const Box = styled.div`
   flex-grow: 1;
   flex-direction: column;
   animation: ${boxFade} ${(props) => props.time};
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  gap: 1rem;
 `
-const Button = styled.button`
+const Label = styled.label`
+  font-size: 20px;
+  font-weight: bold;
+`
+const Input = styled.input`
+  width: 240px;
+  height: 35px;
+  border-radius: 0.5rem;
+  padding-left: 10px;
+  font-weight: bold;
+  border: 2px solid rgba(46,54,80,.125);
+  box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
+  transition: all 0.5s;
+  margin-left: 10px;
+  &:focus {
+    outline: 0;
+    border: 2px solid black;
+  }
 `
 
 function Report() {
@@ -70,12 +93,16 @@ function Report() {
       <Layout>
         <Box time={"0.3s"}>
           <h1>Report</h1>
-          <Button onClick={makePdf}>Make Report</Button>
-          <input onChange={onChange}/>
+          <Button text="Generate Report PDF" onClick={makePdf}></Button>
+          <Label>
+            Account : 
+            <Input onChange={onChange} />
+          </Label>
         </Box>
       </Layout>
-      <Layout>
-        <ReportPdf title={option}/>
+      <Layout><Box time={"0.45s"}>
+        <ReportPdf option={option} />
+      </Box>
       </Layout>
     </Service>
   )

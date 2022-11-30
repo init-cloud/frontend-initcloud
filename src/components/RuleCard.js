@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import React from "react";
 
 const Box = styled.div`
   border: 1px solid rgba(46,54,80,.125);
@@ -30,7 +31,6 @@ const Info = styled.div`
   flex-direction: column;
   flex-grow: 1;
 `
-
 const RuleId = styled.span`
   font-size: 24px;
   font-weight: bold;
@@ -60,7 +60,7 @@ const Level = styled.div`
   flex-shrink: 0;
 `
 
-function RuleCard({ rule, onClickCard }) {
+const RuleCard = React.memo(({ rule, onClickCard }) => {
   const sendRule = () => {
     onClickCard(rule);
   };
@@ -92,6 +92,6 @@ function RuleCard({ rule, onClickCard }) {
       </Level>
     </Box>
   );
-}
+});
 
 export default RuleCard;
