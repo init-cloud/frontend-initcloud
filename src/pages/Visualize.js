@@ -2,11 +2,9 @@ import CytoscapeComponent from "react-cytoscapejs";
 import styled from "styled-components";
 import cytoscape from 'cytoscape';
 import dagre from "cytoscape-dagre";
-import coseBilkent from 'cytoscape-cose-bilkent';
 import { useRef } from "react";
 import { useEffect } from "react";
 
-cytoscape.use(coseBilkent);
 cytoscape.use(dagre);
 
 

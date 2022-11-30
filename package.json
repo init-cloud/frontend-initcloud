@@ -12,6 +12,7 @@
     "cytoscape-cose-bilkent": "^4.1.0",
     "cytoscape-dagre": "^2.5.0",
     "jspdf": "^2.5.1",
+    "jszip": "^3.10.1",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
     "react-code-blocks": "^0.0.9-0",

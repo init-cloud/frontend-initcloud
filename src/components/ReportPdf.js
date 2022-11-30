@@ -158,7 +158,7 @@ function ReportPdf({option}) {
             <Label>Fail Status by Severity</Label>
             <ApexChart
               type="donut"
-              series={[6, 2]}
+              series={[6, 2, 3]}
               options={{
                 chart: {
                   height: 200,
