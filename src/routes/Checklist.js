@@ -5,6 +5,7 @@ import RuleCustom from "../pages/RuleCustom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRef } from "react";
+import BaseURL from "../BaseURL"
 
 const Service = styled.div`
   flex-grow: 1;
@@ -64,9 +65,8 @@ function Checklist() {
 
   useEffect(() => {
     const req = async () => {
-      console.log(process.env.REACT_APP_BASE_URL)
       const res = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/checklist`
+        `${BaseURL}/checklist`
       ).catch((err) => {
         console.log(err);
       });
@@ -83,7 +83,7 @@ function Checklist() {
 
     req();
     return () => {
-      axios.post(`${process.env.REACT_APP_BASE_URL}/state`, onOff.current);
+      axios.post(`${BaseURL}/state`, onOff.current);
     };
   }, []);
 
