@@ -5,10 +5,9 @@ import Visualize from "../pages/Visualize";
 import Result from "../pages/Result";
 import Button from "../components/Button";
 import ResourceModal from "../components/ResourceModal";
-import { useState } from "react";
-import { useCallback } from "react";
-import Swal from "sweetalert2";
 import BaseURL from "../BaseURL";
+import { useState, useCallback } from "react";
+import Swal from "sweetalert2";
 
 const boxFade = keyframes`
   0% {
