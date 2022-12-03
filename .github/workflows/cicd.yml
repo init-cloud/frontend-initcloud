@@ -1,0 +1,30 @@
+name: FRONTEND-DEV CI/CD
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Install Dependencies
+        uses: npm install
+
+      - name: React Build
+        uses: npm run build
+
+      - name: Image Build
+        uses: actions/checkout@master
+        with:
+          script: |
+            DATE=$(date "+%y.%m.%d")
+            docker login -u ${{ secrets.REGISTRY_USER }} -p ${{ secrets.REGISTRY_PW }}
+            docker build -t ${{ secrets.REGISTRY_USER }}/initcloud_board:$DATE .
+            docker push ${{ secrets.REGISTRY_USER }}/initcloud_board:$DATE 
+            
