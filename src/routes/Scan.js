@@ -8,6 +8,7 @@ import ResourceModal from "../components/ResourceModal";
 import { useState } from "react";
 import { useCallback } from "react";
 import Swal from "sweetalert2";
+import BaseURL from "../BaseURL";
 
 const boxFade = keyframes`
   0% {
@@ -116,7 +117,7 @@ function Scan() {
     const fd = new FormData();
     fd.append("file", tf);
     setLoding(true);
-    const response = await axios.post(`${process.env.BASE_URL}/file/${provider}`, fd, {
+    const response = await axios.post(`${BaseURL}/file/${provider}`, fd, {
       headers: {
         "Content-Type": `multipart/form-data ;`
       }
