@@ -45,6 +45,11 @@ const FileName = styled.div`
   padding: 0px 10px;
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   animation: ${boxFade} 0.35s;
+  transition: all .15s;
+  &:hover {
+    background-color: ${(props) => props.bg};
+    color: ${(props) => props.c};
+  }
 `
 const CodeBox = styled.div`
   position: relative;
@@ -78,9 +83,10 @@ const DropBar = styled.div`
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   border-radius: 1rem;
   line-height: 25px;
-
+  transition: all .15s;
   position: relative;
   z-index: 998;
+  cursor: pointer;
   &:hover {
     background-color: #848484;
     color: whitesmoke;
@@ -157,7 +163,13 @@ function Code({ terraform }) {
           <FileName>{terraform.name}</FileName>
         ) : (
           <>
-            <FileName onClick={e => setDropdownVis((current) => !current)}>{zips[currentIndex]}</FileName>
+            <FileName
+              onClick={e => setDropdownVis((current) => !current)}
+              bg={zips.length === 1 ? "white" : "#848484"}
+              c={zips.length === 1 ? "black" : "whitesmoke"}
+            >
+              {zips[currentIndex]}
+              </FileName>
             <Dropdown visibility={dropdownVis}>
               {zips.map((item, index) => (
                 index === currentIndex ? (null) : (

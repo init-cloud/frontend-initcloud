@@ -209,7 +209,7 @@ function RuleCustom({ detail, changeOnOff, changeRuleCustom }) {
                 <Save onClick={onSave}>Save</Save>
                 <Reset onClick={onReset}>Reset</Reset>
               </Form>
-            ) : (<h3 style={{ textAlign: "center", lineHeight: "55px" }}>This rule does not support cusomizaion</h3>)}
+            ) : (<h3 style={{ textAlign: "center", lineHeight: "55px" }}>This rule does not support cusomization</h3>)}
           </>
         ) : (
           <h3 style={{ textAlign: "center", lineHeight: "55px" }}>If you click rule card, you can see its detail.</h3>

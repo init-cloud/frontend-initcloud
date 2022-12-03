@@ -110,18 +110,18 @@ function Scan() {
 
   const submit = async () => {
     if (!provider) {
-      Swal.fire('You shold select provider');
+      Swal.fire('You should select provider');
       return;
     }
     const fd = new FormData();
     fd.append("file", tf);
     setLoding(true);
-    const response = await axios.post(`https://api.floodnut.com/api/v1/file/${provider}`, fd, {
+    const response = await axios.post(`${process.env.BASE_URL}/file/${provider}`, fd, {
       headers: {
         "Content-Type": `multipart/form-data ;`
       }
     }).catch(() => {
-      setLoding(false)
+      setLoding(false);
     });
     setResult(response?.data);
     console.log(response?.data);

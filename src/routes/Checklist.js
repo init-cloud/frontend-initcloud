@@ -64,8 +64,9 @@ function Checklist() {
 
   useEffect(() => {
     const req = async () => {
+      console.log(process.env.REACT_APP_BASE_URL)
       const res = await axios.get(
-        'https://api.floodnut.com/api/v1/checklist'
+        `${process.env.REACT_APP_BASE_URL}/checklist`
       ).catch((err) => {
         console.log(err);
       });
@@ -82,7 +83,7 @@ function Checklist() {
 
     req();
     return () => {
-      axios.post('https://api.floodnut.com/api/v1/checklist/state', onOff.current);
+      axios.post(`${process.env.REACT_APP_BASE_URL}/state`, onOff.current);
     };
   }, []);
 

@@ -81,7 +81,7 @@ function ResultCard({ result, onClick }) {
       <Info>
         <RuleId>
           {result.rule_id}
-          <Status status={statusColor[result.status]}>{result.status}</Status>
+          <Status status={statusColor[result.status]}>{result.status === ""?"UnknowN":result.status}</Status>
         </RuleId>
         <Description>{result.description.slice(1,-1)}</Description>
       </Info>
