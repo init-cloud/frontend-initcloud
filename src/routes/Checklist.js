@@ -80,7 +80,7 @@ function Checklist() {
         })
       ));
     };
-
+    console.log(BaseURL);
     req();
     return () => {
       axios.post(`${BaseURL}/checklist/state`, onOff.current);
