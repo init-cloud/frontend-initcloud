@@ -71,6 +71,7 @@ function Checklist() {
         console.log(err);
       });
       //console.log(res.data);
+      console.log(BaseURL);
       setCheckList(res.data.data.docs);
       res.data.data.docs.map((data) => (
         onOff.current.push({
