@@ -1,0 +1,65 @@
+services:
+  initcloud_nginx:
+    container_name: initcloud_nginx
+    image: floodnut/initcloud_nginx
+    ports:
+      - ${NGINX_PORT}:80
+    depends_on:
+      - initcloud_board
+      - initcloud_scaner
+    restart: always
+  initcloud_board:
+    build:
+      context: ./
+    env_file:
+     - .env
+    container_name: initcloud_board
+    ports:
+     - ${BOARD_PORT}:80
+    depends_on:
+     - initcloud_scanner
+    restart: always
+  initcloud_db:
+    image: floodnut/initcloud_db
+    container_name: initcloud_db
+    volumes:
+      - ./db/data:/var/lib/mariadb:rw
+    env_file:
+     - .env
+    environment:
+      TZ: Asia/Seoul
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+    command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    ports:
+      - ${DB_PORT}:3306
+    restart: always
+  initcloud_parser:
+    container_name: initcloud_parser
+    image: floodnut/parser_api 
+    volumes:
+      - ./backend_scanner/uploads:/app/uploads
+    ports:
+      - ${PARSER_PORT}:8000
+    env_file:
+     - .env
+  initcloud_scanner:
+    container_name: initcloud_scanner
+    image: floodnut/scanner_api
+    volumes:
+      - ./backend_scanner/uploads:/app/uploads
+    ports:
+      - ${SCANNER_PORT}:8080
+    env_file:
+     - .env
+    environment:
+      TZ: Asia/Seoul
+      SPRING_DATASOURCE_URL: jdbc:mariadb://initcloud_db:3306/initcloud
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    restart: always
+    depends_on:     
+     - initcloud_db
+     - initcloud_parser
