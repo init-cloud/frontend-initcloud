@@ -6,7 +6,7 @@ services:
       - ${NGINX_PORT}:80
     depends_on:
       - initcloud_board
-      - initcloud_scaner
+      - initcloud_scanner
     restart: always
   initcloud_board:
     build:
