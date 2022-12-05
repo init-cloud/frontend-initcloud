@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import CustomInput from "../components/CustomInput";
+import BaseURL from "../BaseURL"
 
 const Box = styled.div`
   border: 1px solid rgba(46,54,80,.125);
@@ -140,13 +141,13 @@ function RuleCustom({ detail, changeOnOff, changeRuleCustom }) {
         'customDetail': newDetail.customDetail
       }
     }]
-    axios.post('https://api.floodnut.com/api/v1/checklist/state', data);
+    axios.post(`${BaseURL}/checklist/state`, data);
     setClear(true);
   };
 
   const onReset = async (event) => {
     event.preventDefault();
-    const res = await axios.post('https://api.floodnut.com/api/v1/checklist/reset',
+    const res = await axios.post(`${BaseURL}/checklist/reset`,
       {
         'id': detail.seq,
         'ruleId': detail.id,
