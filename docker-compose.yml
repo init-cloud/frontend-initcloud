@@ -13,6 +13,8 @@ services:
       context: ./
     env_file:
      - .env
+    environment:
+     - REACT_APP_BASE_URL=http://backend
     container_name: initcloud_board
     ports:
      - ${BOARD_PORT}:80
