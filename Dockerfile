@@ -1,8 +1,10 @@
 FROM node:alpine as builder
 
+WORKDIR /usr/src/app
+
 ARG REACT_APP_BASE_URL
 
-WORKDIR /usr/src/app
+ENV REACT_APP_BASE_URL=${REACT_APP_BASE_URL}
 
 COPY package.json .
 

@@ -66,11 +66,11 @@ function Checklist() {
   useEffect(() => {
     const req = async () => {
       const res = await axios.get(
-        `${BaseURL}/checklist`
+        `${BaseURL}/api/v1/checklist`
       ).catch((err) => {
         console.log(err);
       });
-      //console.log(res.data);
+      console.log(BaseURL);
       setCheckList(res.data.data.docs);
       res.data.data.docs.map((data) => (
         onOff.current.push({
@@ -83,7 +83,7 @@ function Checklist() {
 
     req();
     return () => {
-      axios.post(`${BaseURL}/checklist/state`, onOff.current);
+      axios.post(`${BaseURL}/api/v1/checklist/state`, onOff.current);
     };
   }, []);
 

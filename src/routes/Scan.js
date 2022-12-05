@@ -116,7 +116,7 @@ function Scan() {
     const fd = new FormData();
     fd.append("file", tf);
     setLoding(true);
-    const response = await axios.post(`${BaseURL}/file/${provider}`, fd, {
+    const response = await axios.post(`${BaseURL}/api/v1/file/${provider}`, fd, {
       headers: {
         "Content-Type": `multipart/form-data ;`
       }

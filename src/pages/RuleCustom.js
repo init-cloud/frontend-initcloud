@@ -141,13 +141,13 @@ function RuleCustom({ detail, changeOnOff, changeRuleCustom }) {
         'customDetail': newDetail.customDetail
       }
     }]
-    axios.post(`${BaseURL}/checklist/state`, data);
+    axios.post(`${BaseURL}/api/v1/checklist/state`, data);
     setClear(true);
   };
 
   const onReset = async (event) => {
     event.preventDefault();
-    const res = await axios.post(`${BaseURL}/checklist/reset`,
+    const res = await axios.post(`${BaseURL}/api/v1/checklist/reset`,
       {
         'id': detail.seq,
         'ruleId': detail.id,

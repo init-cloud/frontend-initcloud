@@ -1,6 +1,8 @@
 services:
   initcloud_nginx:
-    image: floodnut/nginx
+    image: nginx:1.21.5-alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
     container_name: initcloud_nginx
     environment:
       - TZ=Asia/Seoul
@@ -11,12 +13,13 @@ services:
       - initcloud_scanner
     restart: always
   initcloud_board:
-    image: floodnut/initcloud_board
+    build:
+      context: ./
+    environment:
+     - REACT_APP_BASE_URL=http://backend/api/v1
     container_name: initcloud_board
     env_file:
      - .env
-    environment:
-     - TZ=Asia/Seoul
     ports:
      - ${BOARD_PORT}:80
     depends_on:
