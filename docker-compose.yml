@@ -64,8 +64,8 @@ services:
     environment:
       TZ: Asia/Seoul
       SPRING_DATASOURCE_URL: jdbc:mariadb://initcloud_db:3306/initcloud
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_USERNAME: ${MARIADB_ROOT}
+      SPRING_DATASOURCE_PASSWORD: ${MARIADB_ROOT_PASSWORD}
     volumes:
       - ./volume/uploads:/app/uploads
     restart: always
