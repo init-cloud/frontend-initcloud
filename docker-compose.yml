@@ -2,7 +2,7 @@ services:
   initcloud_nginx:
     image: nginx:1.21.5-alpine
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./volume/nginx.conf:/etc/nginx/nginx.conf
     container_name: initcloud_nginx
     environment:
       - TZ=Asia/Seoul
@@ -15,13 +15,13 @@ services:
   initcloud_board:
     build:
       context: ./
-    environment:
-     - REACT_APP_BASE_URL=http://backend/api/v1
     container_name: initcloud_board
     env_file:
      - .env
     ports:
      - ${BOARD_PORT}:80
+    volumes:
+      - ./volume/00-init.sh:/docker-entrypoint.d/00-init.sh
     depends_on:
      - initcloud_scanner
     restart: always
@@ -38,7 +38,7 @@ services:
       MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
     command: ['--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
     volumes:
-      - ./db/data:/var/lib/mariadb:rw
+      - ./volume/db/data:/var/lib/mariadb:rw
     ports:
       - ${DB_PORT}:3306
     restart: always
@@ -52,7 +52,7 @@ services:
     environment:
       - TZ=Asia/Seoul
     volumes:
-      - ./backend_scanner/uploads:/app/uploads
+      - ./volume/uploads:/app/uploads
     restart: always
   initcloud_scanner:
     image: floodnut/scanner_api
@@ -67,7 +67,7 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
     volumes:
-      - ./backend_scanner/uploads:/app/uploads
+      - ./volume/uploads:/app/uploads
     restart: always
     depends_on:     
      - initcloud_db

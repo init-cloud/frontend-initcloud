@@ -1,7 +1,7 @@
 import { BaseURL, LocalBaseURL } from "./api";
 
 function isLocalhost() {
-  const currentURL = window.location.href.split('/')[2].includes('localhost' || '127.0.0.1')
+  let currentURL = window.location.href.split('/')[2].includes('localhost' || '127.0.0.1')
   return (currentURL ? LocalBaseURL : BaseURL);
 }
 
