@@ -5,7 +5,7 @@ import RuleCustom from "../pages/RuleCustom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRef } from "react";
-import BaseURL from "../BaseURL"
+import isLocalhost from "../apis/isLocalhost"
 
 const Service = styled.div`
   flex-grow: 1;
@@ -63,14 +63,15 @@ function Checklist() {
   const [detail, setDetail] = useState();
   const onOff = useRef([]);
 
+
+
   useEffect(() => {
     const req = async () => {
       const res = await axios.get(
-        `${BaseURL}/api/v1/checklist`
+        `${isLocalhost()}/api/v1/checklist`
       ).catch((err) => {
         console.log(err);
       });
-      console.log(BaseURL);
       setCheckList(res.data.data.docs);
       res.data.data.docs.map((data) => (
         onOff.current.push({
@@ -80,10 +81,9 @@ function Checklist() {
         })
       ));
     };
-
     req();
     return () => {
-      axios.post(`${BaseURL}/api/v1/checklist/state`, onOff.current);
+      axios.post(`${isLocalhost()}/api/v1/checklist/state`, onOff.current);
     };
   }, []);
 
@@ -100,7 +100,7 @@ function Checklist() {
   };
 
   const changeRuleCustom = (newDetail) => {
-    setDetail(newDetail);    
+    setDetail(newDetail);
     const newCheckList = [...checkList];
     newCheckList[newDetail.seq - 1] = newDetail;
     setCheckList(newCheckList);

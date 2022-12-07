@@ -5,7 +5,7 @@ import Visualize from "../pages/Visualize";
 import Result from "../pages/Result";
 import Button from "../components/Button";
 import ResourceModal from "../components/ResourceModal";
-import BaseURL from "../BaseURL";
+import isLocalhost from "../apis/isLocalhost";
 import { useState, useCallback } from "react";
 import Swal from "sweetalert2";
 
@@ -116,7 +116,7 @@ function Scan() {
     const fd = new FormData();
     fd.append("file", tf);
     setLoding(true);
-    const response = await axios.post(`${BaseURL}/api/v1/file/${provider}`, fd, {
+    const response = await axios.post(`${isLocalhost()}/api/v1/file/${provider}`, fd, {
       headers: {
         "Content-Type": `multipart/form-data ;`
       }

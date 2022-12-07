@@ -1,8 +1,13 @@
 import { useState } from "react";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 import styled, { keyframes } from "styled-components";
 import Pdf from "../components/Pdf";
 import ReportPdf from "../components/ReportPdf";
 import Button from "../components/Button"
+import RulePdf from "../components/RulePdf";
+import TablePdf from "../components/TablePdf"
 
 const Service = styled.div`
   flex-grow: 1;
@@ -75,18 +80,31 @@ const Input = styled.input`
     border: 2px solid black;
   }
 `
+const PdfSlider = styled(Slider)`
+  width: 620px;
+  height: fit-content;
+`
+const PdfBox = styled(Box)`
+  transform: scale(0.9);
+`
 
 function Report() {
   const [option, setOption] = useState();
   const pdf = Pdf();
-
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1
+  };
   const makePdf = async (e) => {
     e.preventDefault()
     await pdf.viewWithPdf()
   };
   const onChange = (e) => {
     setOption(e.target.value);
-  }
+  };
 
   return (
     <Service>
@@ -95,14 +113,20 @@ function Report() {
           <h1>Report</h1>
           <Button text="Generate Report PDF" onClick={makePdf}></Button>
           <Label>
-            Account : 
+            Account :
             <Input onChange={onChange} />
           </Label>
         </Box>
       </Layout>
-      <Layout><Box time={"0.45s"}>
-        <ReportPdf option={option} />
-      </Box>
+      <Layout>
+        <PdfBox time={"0.45s"}>
+          <PdfSlider {...settings}>
+            <ReportPdf option={option} />
+            <TablePdf option={option} />
+            <RulePdf option={option} />
+            <RulePdf option={option} />
+          </PdfSlider>
+        </PdfBox>
       </Layout>
     </Service>
   )

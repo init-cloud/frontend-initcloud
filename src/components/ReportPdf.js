@@ -109,7 +109,7 @@ function ReportPdf({option}) {
       <Header />
       <Content>
         <Title>Scan Report</Title>
-        <SubTitle>0.1 Summary</SubTitle>
+        <SubTitle>01. Summary</SubTitle>
         <Table >
           <tbody>
             <Tr>
@@ -148,23 +148,27 @@ function ReportPdf({option}) {
               series={[8, 11]}
               options={{
                 chart: {
-                  height: 200,
-                  width: 200,
-                }
+                  width: 200
+                },
+                labels: ["Passed", "Failed"],
               }}
+              width="250"
+              height="250"
             />
           </Graph>
           <Graph>
             <Label>Fail Status by Severity</Label>
             <ApexChart
               type="donut"
+              dataLabels={['Fail', 'Success']}
               series={[6, 2, 3]}
               options={{
                 chart: {
-                  height: 200,
-                  width: 200,
-                }
+                },
+                labels: ["High", "Medium", "Low"],
               }}
+              width="250"
+              height="250"
             />
           </Graph>
         </Graphs>
