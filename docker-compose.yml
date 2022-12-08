@@ -54,7 +54,7 @@ services:
       - ./volume/uploads:/app/uploads
     restart: always
   initcloud_scanner:
-    image: floodnut/scanner_api
+    image: floodnut/scanner_api:v2
     container_name: initcloud_scanner
     ports:
       - ${SCANNER_PORT}:8080
