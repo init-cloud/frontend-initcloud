@@ -16,4 +16,5 @@ COPY ./ ./
 
 FROM nginx
 
+COPY ./00-init.sh /docker-entrypoint.d/00-init.sh
 COPY --from=builder /usr/src/app /usr/share/nginx/app
