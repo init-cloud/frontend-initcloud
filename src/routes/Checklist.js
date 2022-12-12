@@ -73,6 +73,7 @@ function Checklist() {
         console.log(err);
       });
       setCheckList(res.data.data.docs);
+      console.log(res.data.data.docs);
       res.data.data.docs.map((data) => (
         onOff.current.push({
           'id': data.seq,

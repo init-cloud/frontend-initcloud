@@ -8,13 +8,7 @@ import ReportPdf from "../components/ReportPdf";
 import Button from "../components/Button"
 import RulePdf from "../components/RulePdf";
 import TablePdf from "../components/TablePdf"
-import SyntaxHighlighter from "react-syntax-highlighter";
-import CodeBlock from "../components/CodeBlock"
-import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-
-const CodeBox = styled(SyntaxHighlighter)`
-  border-radius: 10px;
-`
+import jsonData from "../components/json"
 
 const Service = styled.div`
   flex-grow: 1;
@@ -92,6 +86,7 @@ const PdfSlider = styled(Slider)`
   height: fit-content;
 `
 const PdfBox = styled(Box)`
+  transition: all 1s;
   transform: scale(0.9);
 `
 
@@ -100,20 +95,18 @@ function Report() {
   const pdf = Pdf();
   const settings = {
     dots: true,
-    infinite: true,
-    speed: 500,
+    infinite: false,
     slidesToShow: 1,
     slidesToScroll: 1
   };
 
   const makePdf = async (e) => {
-    e.preventDefault()
-    await pdf.viewWithPdf()
+    e.preventDefault();
+    await pdf.viewWithPdf();
   };
   const onChange = (e) => {
     setOption(e.target.value);
   };
-  const codeEx = 'data "template_file" "user_data" {\n    template = "${file("user_data.sh")}"\n}\n\nresource "ncloud_login_key" "loginkey" {\n  key_name = "cand1"\n}'
   return (
     <Service>
       <Layout>
@@ -124,21 +117,19 @@ function Report() {
             Account :
             <Input onChange={onChange} />
           </Label>
-          <CodeBox
-            language="hcl"
-            showLineNumbers={true}
-            style={atomOneDark}>
-            {codeEx}
-          </CodeBox>
         </Box>
       </Layout>
       <Layout>
         <PdfBox time={"0.45s"}>
           <PdfSlider {...settings}>
-            <ReportPdf option={option} />
-            <TablePdf option={option} />
-            <RulePdf option={option} />
-            <RulePdf option={option} />
+            <ReportPdf option={option} data={jsonData.summary} />
+            <TablePdf data={jsonData.details} />
+            {jsonData.details.map((item) => (
+              <RulePdf
+                key={item.ruleID}
+                data={item}
+              />
+            ))}
           </PdfSlider>
         </PdfBox>
       </Layout>

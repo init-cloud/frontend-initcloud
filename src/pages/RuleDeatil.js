@@ -77,7 +77,11 @@ const Item = styled.span`
 const Description = styled.span`
   font-size: 15px;
   font-weight : lighter;
-  
+`
+const ItemBox = styled.div`
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
 `
 
 function RuleDetail({ detail }) {
@@ -109,45 +113,47 @@ function RuleDetail({ detail }) {
             </Top>
             <Content>
               {detail.description === "" ? (null) :
-                <>
+                <ItemBox>
                   <Item>Description</Item>
                   <Description>{detail.description}</Description>
-                </>
+                </ItemBox>
               }
               {detail.explanation === "" ? (null) :
-                <>
+                <ItemBox>
                   <Item>Explanation</Item>
                   <Description>{detail.explanation}</Description>
-                </>
+                </ItemBox>
               }
-              {detail.possibleImpact === "\n" ? (null) :
-                <>
+              {detail.possibleImpact === "" || detail.possibleImpact === "\n" ? (null) :
+                <ItemBox>
                   <Item>Possible Impact</Item>
                   <Description>{detail.possibleImpact}</Description>
-                </>
+                </ItemBox>
               }
-              {detail.insecureExample === "" ? (null) :
-                <>
+              {detail.insecureExample === "" || detail.insecureExample === "\n" ? (null) :
+                <ItemBox>
                   <Item>Insecure Example</Item>
                   <CodeBlock code={detail.insecureExample} />
-                </>
+                </ItemBox>
               }
-              {detail.secureExample === "" ? (null) :
-                <>
+              {detail.secureExample === "" || detail.secureExample === "\n" ? (null) :
+                <ItemBox>
                   <Item>Secure Example</Item>
                   <CodeBlock code={detail.secureExample} />
-                </>
+                </ItemBox>
               }
-              {detail.solution ? (null) :
-                <>
+              {detail.solution && (detail.solution.sol !== "" || detail.solution.code !== "") ? (
+                <ItemBox>
                   <Item>Solution</Item>
-                  {detail.solution.sol === ""?(null):                  
-                  <Description>{detail.solution.sol}</Description>
+                  {detail.solution.sol === "" ? (null) :
+                    <Description>{detail.solution.sol}</Description>
                   }
-                  {detail.solution.code === ""?(null):                  
-                  <CodeBlock code={detail.solution.code} />
+                  {detail.solution.code === "" ? (null) :
+                    <CodeBlock code={detail.solution.code} />
                   }
-                </>
+                </ItemBox>
+              ) :
+                (null)
               }
             </Content>
           </>

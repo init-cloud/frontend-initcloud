@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import ApexChart from "react-apexcharts"
+
 const A4 = styled.article`
   background-color: white;
   width: 620px;
@@ -11,7 +12,7 @@ const Content = styled.div`
   padding: 0px 58px;
   display: flex;
   flex-direction: column;
-  gap: 6px
+  gap: 6px;
 `
 const Header = styled.div`
   width: 100%;
@@ -94,16 +95,8 @@ const Formular = styled.div`
   color: #9E9E9E;
   font-size: 10px;
 `
-function ReportPdf({option}) {
-  const data = {
-    "date": "22.11.29",
-    "account": "Taein",
-    "csp": "ncloud",
-    "target": "initCloud.tf",
-    "total": 19,
-    "passed": 11,
-    "failed": 8
-  }
+function ReportPdf({option, data}) {
+  
   return (
     <A4>
       <Header />
@@ -120,9 +113,9 @@ function ReportPdf({option}) {
             </Tr>
             <Tr>
               <TdBold>Cloud Service Provider</TdBold>
-              <Td>{data.csp}</Td>
+              <Td>{data.CSP}</Td>
               <TdBold>Scan Target</TdBold>
-              <Td>{data.target}</Td>
+              <Td>{data.scanTarget}</Td>
             </Tr>
           </tbody>
         </Table>
@@ -130,12 +123,14 @@ function ReportPdf({option}) {
           <tbody>
             <Tr>
               <TdBold>Total Scanned Rules</TdBold>
-              <TdBold>Pass Rules</TdBold>
+              <TdBold>Passed Rules</TdBold>
+              <TdBold>Skipped Rules</TdBold>
               <TdBold>Failed Rules</TdBold>
             </Tr>
             <Tr>
-              <Td>{data.total}</Td>
+              <Td>{Number(data.passed) + Number(data.skipped) + Number(data.failed)}</Td>
               <Td>{data.passed}</Td>
+              <Td>{data.skipped}</Td>
               <Td>{data.failed}</Td>
             </Tr>
           </tbody>
@@ -145,12 +140,12 @@ function ReportPdf({option}) {
             <Label>Scan Result</Label>
             <ApexChart
               type="donut"
-              series={[8, 11]}
+              series={[Number(data.passed), Number(data.skipped),Number(data.failed)]}
               options={{
                 chart: {
                   width: 200
                 },
-                labels: ["Passed", "Failed"],
+                labels: ["Passed", "Skipped" ,"Failed"],
               }}
               width="250"
               height="250"
@@ -160,7 +155,6 @@ function ReportPdf({option}) {
             <Label>Fail Status by Severity</Label>
             <ApexChart
               type="donut"
-              dataLabels={['Fail', 'Success']}
               series={[6, 2, 3]}
               options={{
                 chart: {
@@ -230,7 +224,7 @@ function ReportPdf({option}) {
         <Futter>
           <Score>
             <span>Secure score : </span>
-            60.7
+            {data.score}
           </Score>
           <Formular>Vulnerable (lowx1 + medium x 2 + high x 3) / Total</Formular>
         </Futter>
