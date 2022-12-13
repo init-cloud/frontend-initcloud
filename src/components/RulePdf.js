@@ -122,7 +122,7 @@ function RulePdf({ data }) {
             </Tr>
           </tbody>
         </Table>
-        <SubTitle>Draw Back</SubTitle>
+        <SubTitle>DrawBack</SubTitle>
         <Box>
           <Label>Problematic Code</Label>
           <CodeBlock

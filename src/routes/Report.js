@@ -94,6 +94,9 @@ const Content = styled.div`
   background-color: white;
   overflow: hidden;
   flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
 
   &::-webkit-scrollbar {
     width: 10px;
@@ -123,11 +126,11 @@ const PdfBox = styled(Box)`
 const RecentBox = styled.div`
   border: 1px solid rgba(46,54,80,.125);
   border-radius: 1rem;
-  height: 100px;
+  height: 50px;
   display: flex;
   justify-content: space-between;
   flex-grow: 1;
-  width: 48%;
+  width: 300px;
   overflow: hidden;
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   cursor: pointer;
@@ -147,6 +150,7 @@ const RecentBox = styled.div`
 function Report() {
   const [option, setOption] = useState();
   const [lists, setLists] = useState();
+  const [ReportData, setReportData] = useState();
   const pdf = Pdf();
 
   const settings = {
@@ -163,7 +167,24 @@ function Report() {
   const onChange = (e) => {
     setOption(e.target.value);
   };
+  const loadReport = async (e) => {
+    const req = async (id) => {
+      const res = await axios.get(
+        `${isLocalhost()}/api/v1/report/${id}`
+      ).catch((err) => {
+        console.log(err);
+      });
+      setReportData(res.data.scan);
+      console.log(res.data.scan);
+    };
 
+    let id = 0
+    lists.map((item) => {
+      if (item.scanDateTime === e.target.innerHTML)
+        id = item.id;
+    })
+    req(id);
+  }
   useEffect(() => {
     const req = async () => {
       const res = await axios.get(
@@ -171,8 +192,8 @@ function Report() {
       ).catch((err) => {
         console.log(err);
       });
-      //setLists(res);
-      console.log(res);
+      setLists(res.data.scan);
+      console.log(res.data.scan);
     };
     req();
   }, []);
@@ -193,8 +214,9 @@ function Report() {
               lists?.map((item) => (
                 <RecentBox
                   key={item.id}
+                  onClick={loadReport}
                 >
-                {item.scanDateTime}
+                  {item.scanDateTime}
                 </RecentBox>
               ))
             ) : (
@@ -205,16 +227,18 @@ function Report() {
       </Layout>
       <Layout>
         <PdfBox time={"0.45s"}>
-          <PdfSlider {...settings}>
-            <ReportPdf option={option} data={jsonData.summary} />
-            <TablePdf data={jsonData.details} />
-            {jsonData.details.map((item) => (
-              <RulePdf
-                key={item.ruleID}
-                data={item}
-              />
-            ))}
-          </PdfSlider>
+          {ReportData ? (
+            <PdfSlider {...settings}>
+              <ReportPdf option={option} data={ReportData.summary} />
+              <TablePdf data={ReportData.details} />
+              {ReportData.details?.map((item) => (
+                <RulePdf
+                  key={item.ruleID}
+                  data={item}
+                />
+              ))}
+            </PdfSlider>) : (
+            null)}
         </PdfBox>
       </Layout>
     </Service>
