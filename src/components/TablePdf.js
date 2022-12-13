@@ -75,7 +75,7 @@ function RulePdf({ data }) {
               <Th>ControlName</Th>
               <Th>Article</Th>
             </Tr>
-            {data.map((item) => (
+            {data?.map((item) => (
               <Tr key={item.ruleID}>
                 <Th>{item.ruleID}</Th>
                 <Td>{item.description}</Td>

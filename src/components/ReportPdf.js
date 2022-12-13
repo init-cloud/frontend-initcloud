@@ -113,7 +113,7 @@ function ReportPdf({option, data}) {
             </Tr>
             <Tr>
               <TdBold>Cloud Service Provider</TdBold>
-              <Td>{data.CSP}</Td>
+              <Td>{data.csp}</Td>
               <TdBold>Scan Target</TdBold>
               <Td>{data.scanTarget}</Td>
             </Tr>
