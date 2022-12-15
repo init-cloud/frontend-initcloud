@@ -87,11 +87,7 @@ const ItemBox = styled.div`
 function RuleDetail({ detail }) {
   const colorTable = (item) => {
     const SECURITY_TYPE = ["INCIDENT RESPONSE", "ACCESS CONTROL", "MEDIA PROTECTION", "IDENTIFICATION AND AUTHENTICATION", "AUDIT AND ACCOUNTABILITY", "CONFIGURATION MANAGEMENT", "SYSTEM AND INFORMATION INTEGRITY", "SYSTEM AND COMMUNICATIONS PROTECTION", "CONTINGENCY PLANNING", "PERFORMANCE IMPROVEMENTS"];
-    const RESOURCE = ["ncloud_lb_target_group", "ncloud_access_control_group_rule", "ncloud_server", "ncloud_launch_configuration", "ncloud_network_acl_rule"];
-    const VENDOR = { "AWS": "#D37833", "NCP": "#E1FFB1" };
     if (SECURITY_TYPE.includes(item)) return ('#FFECFF');
-    else if (RESOURCE.includes(item)) return ('#D5FDFF');
-    else return (VENDOR[item]);
   }
   return (
     <>
@@ -112,12 +108,17 @@ function RuleDetail({ detail }) {
               </Filters>
             </Top>
             <Content>
-              {detail.description === "" ? (null) :
+              {detail.description === "" ? (
+                <ItemBox>
+                  <Item>Description</Item>
+                  <Description>TBD</Description>
+                </ItemBox>
+              ) : (
                 <ItemBox>
                   <Item>Description</Item>
                   <Description>{detail.description}</Description>
                 </ItemBox>
-              }
+              )}
               {detail.explanation === "" ? (null) :
                 <ItemBox>
                   <Item>Explanation</Item>

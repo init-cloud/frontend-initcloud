@@ -52,7 +52,7 @@ const Toggle = styled.label`
   margin-left: 20px;
 `
 const ToggleLabel = styled.h2`
-  margin-left: 10px;
+  margin: 0px 10px;
   width: 40px;
 `
 const ToggleBtn = styled.span`

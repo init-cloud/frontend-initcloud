@@ -3,8 +3,8 @@ import CodeBlock from "../components/CodeBlock";
 
 const A4 = styled.article`
   background-color: white;
-  width: 620px;
-  height: 820px;
+  width: 460px;
+  height: 650px;
   align-items: center;
   color: #0F3D53;
 `

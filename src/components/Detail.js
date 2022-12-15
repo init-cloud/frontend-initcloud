@@ -52,6 +52,11 @@ const Content = styled.div`
     margin-bottom: 10px;
   }
 `
+const ItemBox = styled.div`
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+`
 
 function Detail({ detail }) {
   const statusColor = {
@@ -71,10 +76,10 @@ function Detail({ detail }) {
         <Item>Target Resource : <span>{detail.target_resource}</span></Item>
         <Item>Target File : <span>{detail.target_file}</span></Item>
         {detail.detail !== 'No' ? (
-          <>
+          <ItemBox>
             <Item style={{ textAlign: "center", fontSize: "25px", marginTop: "20px" }}>Detail</Item>
             <CodeBlock code={detail.detail} />
-          </>
+          </ItemBox>
         ) : (
           null)}
       </Content>

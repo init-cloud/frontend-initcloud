@@ -70,7 +70,9 @@ const ButtonBox = styled.div`
 
 const Provider = styled.select`
   padding: 3px 5px;
-  font-size: 20px;
+  font-size: 16px;
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+  font-weight: bold;
   background-color: white;
   color: ${(props) => props.color};
   border: 2px solid rgba(46,54,80,.125);
@@ -92,7 +94,7 @@ const Message = styled.span`
 function Scan() {
   const [loading, setLoding] = useState(false);
   const [tf, setTf] = useState();
-  const [provider, setProvider] = useState();
+  const [provider, setProvider] = useState("Select Provider");
   const [result, setResult] = useState();
   const [parse, setParse] = useState();
   const [modalOn, setModalOn] = useState(false);
@@ -109,8 +111,12 @@ function Scan() {
   }
 
   const submit = async () => {
-    if (!provider) {
-      Swal.fire('You should select provider');
+    if (provider === "Select Provider") {
+      Swal.fire({
+        title: 'Provider is not selected',
+        text: 'Please select a provider for accurate scanning',
+        icon: 'error'
+      });
       return;
     }
     const fd = new FormData();
@@ -120,8 +126,13 @@ function Scan() {
       headers: {
         "Content-Type": `multipart/form-data ;`
       }
-    }).catch(() => {
+    }).catch((err) => {
       setLoding(false);
+      Swal.fire({
+        title: 'Error',
+        text: 'There is a possibility that there is no file uploaded or there is a network error',
+        icon: 'error'
+      })
     });
     setResult(response?.data);
     //console.log(response?.data);
