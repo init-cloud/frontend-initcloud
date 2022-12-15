@@ -1,10 +1,9 @@
 import styled from "styled-components";
-import { CodeBlock, rainbow } from "react-code-blocks";
 
 const A4 = styled.article`
   background-color: white;
-  width: 620px;
-  height: 820px;
+  width: 460px;
+  height: 650px;
   align-items: center;
   color: #0F3D53;
 `
@@ -12,7 +11,7 @@ const Content = styled.div`
   padding: 0px 58px;
   display: flex;
   flex-direction: column;
-  gap: 6px
+  gap: 6px;
 `
 const Header = styled.div`
   width: 100%;
@@ -50,16 +49,7 @@ const Th = styled.th`
   text-align: center;
   font-weight: bold;
 `
-function RulePdf({ option }) {
-  const data = {
-    "date": "22.11.29",
-    "account": "Taein",
-    "csp": "ncloud",
-    "target": "initCloud.tf",
-    "total": 19,
-    "passed": 11,
-    "failed": 8
-  }
+function RulePdf({ data }) {
   return (
     <A4>
       <Header />
@@ -85,15 +75,17 @@ function RulePdf({ option }) {
               <Th>ControlName</Th>
               <Th>Article</Th>
             </Tr>
-            <Tr>
-              <Th>CKV_NCP_2</Th>
-              <Td>Ensure every access control groups rule has a description</Td>
-              <Td>Low</Td>
-              <Td>F</Td>
-              <Td>Link</Td>
-              <Td>ISMS-P</Td>
-              <Td>2.10.2</Td>
-            </Tr>
+            {data?.map((item, seq) => (
+              <Tr key={seq}>
+                <Th>{item.ruleID}</Th>
+                <Td>{item.description}</Td>
+                <Td>{item.severity}</Td>
+                <Td>{item.result}</Td>
+                <Td>Link</Td>
+                <Td>ISMS-P</Td>
+                <Td>2.10.2</Td>
+              </Tr>
+            ))}
           </tbody>
         </Table>
       </Content>

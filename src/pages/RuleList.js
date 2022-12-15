@@ -131,7 +131,7 @@ const RuleList = React.memo(({ data, onClickCard }) => {
     if (data) {
       newRules = [...data];
       for (let i = 0; i < filters.length; i++) {
-        newRules = newRules.filter(data => 
+        newRules = newRules.filter(data =>
           data.description.toLowerCase().includes(filters[i].toLowerCase()) || data.id.toLowerCase().includes(filters[i].toLowerCase())
         );
       }
@@ -153,11 +153,11 @@ const RuleList = React.memo(({ data, onClickCard }) => {
     event.preventDefault();
     if (filter === "") return;
     if (filters.length === 4) {
-      Swal.fire("Too many filters!!");
+      Swal.fire({ title: "Too many filters!!", text: "Up to 4 filters can be used." });
       return;
     }
     if (filters.includes(filter)) {
-      Swal.fire("This tag has already been entered");
+      Swal.fire("This tag has already\n been entered");
       setFilter("");
       return;
     }
@@ -205,13 +205,17 @@ const RuleList = React.memo(({ data, onClickCard }) => {
         <OnOffStatus On={OnCount} Off={OffCount} custom={customCount} />
         <Content>
           {rules ? (
-            rules.map((data) => (
-              <RuleCard
-                key={data.seq}
-                rule={data}
-                onClickCard={onClickCard}
-              />
-            ))
+            rules.length === 0 ? (
+              <h3>No Search Results.</h3>
+            ) : (
+              rules.map((data) => (
+                <RuleCard
+                  key={data.seq}
+                  rule={data}
+                  onClickCard={onClickCard}
+                />
+              ))
+            )
           ) : (
             <h2 style={{ textAlign: "center", lineHeight: "55px" }}>Loading...</h2>
           )}

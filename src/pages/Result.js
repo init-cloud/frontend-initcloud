@@ -3,6 +3,7 @@ import ResultTotal from "../components/ResultTotal";
 import ResultCard from "../components/ResultCard";
 import Detail from "../components/Detail";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const Box = styled.div`
   border: 1px solid rgba(46,54,80,.125);
@@ -54,6 +55,10 @@ function Result({ result }) {
   const onClickCard = (details) => {
     setDetail(details)
   };
+
+  useEffect(()=>{
+    if(!result) setDetail(null);
+  },[result])
 
   return (
     <div>

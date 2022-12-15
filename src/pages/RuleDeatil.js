@@ -77,17 +77,17 @@ const Item = styled.span`
 const Description = styled.span`
   font-size: 15px;
   font-weight : lighter;
-  
+`
+const ItemBox = styled.div`
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
 `
 
 function RuleDetail({ detail }) {
   const colorTable = (item) => {
     const SECURITY_TYPE = ["INCIDENT RESPONSE", "ACCESS CONTROL", "MEDIA PROTECTION", "IDENTIFICATION AND AUTHENTICATION", "AUDIT AND ACCOUNTABILITY", "CONFIGURATION MANAGEMENT", "SYSTEM AND INFORMATION INTEGRITY", "SYSTEM AND COMMUNICATIONS PROTECTION", "CONTINGENCY PLANNING", "PERFORMANCE IMPROVEMENTS"];
-    const RESOURCE = ["ncloud_lb_target_group", "ncloud_access_control_group_rule", "ncloud_server", "ncloud_launch_configuration", "ncloud_network_acl_rule"];
-    const VENDOR = { "AWS": "#D37833", "NCP": "#E1FFB1" };
     if (SECURITY_TYPE.includes(item)) return ('#FFECFF');
-    else if (RESOURCE.includes(item)) return ('#D5FDFF');
-    else return (VENDOR[item]);
   }
   return (
     <>
@@ -108,46 +108,53 @@ function RuleDetail({ detail }) {
               </Filters>
             </Top>
             <Content>
-              {detail.description === "" ? (null) :
-                <>
+              {detail.description === "" ? (
+                <ItemBox>
+                  <Item>Description</Item>
+                  <Description>TBD</Description>
+                </ItemBox>
+              ) : (
+                <ItemBox>
                   <Item>Description</Item>
                   <Description>{detail.description}</Description>
-                </>
-              }
+                </ItemBox>
+              )}
               {detail.explanation === "" ? (null) :
-                <>
+                <ItemBox>
                   <Item>Explanation</Item>
                   <Description>{detail.explanation}</Description>
-                </>
+                </ItemBox>
               }
-              {detail.possibleImpact === "\n" ? (null) :
-                <>
+              {detail.possibleImpact === "" || detail.possibleImpact === "\n" ? (null) :
+                <ItemBox>
                   <Item>Possible Impact</Item>
                   <Description>{detail.possibleImpact}</Description>
-                </>
+                </ItemBox>
               }
-              {detail.insecureExample === "" ? (null) :
-                <>
+              {detail.insecureExample === "" || detail.insecureExample === "\n" ? (null) :
+                <ItemBox>
                   <Item>Insecure Example</Item>
                   <CodeBlock code={detail.insecureExample} />
-                </>
+                </ItemBox>
               }
-              {detail.secureExample === "" ? (null) :
-                <>
+              {detail.secureExample === "" || detail.secureExample === "\n" ? (null) :
+                <ItemBox>
                   <Item>Secure Example</Item>
                   <CodeBlock code={detail.secureExample} />
-                </>
+                </ItemBox>
               }
-              {detail.solution ? (null) :
-                <>
+              {detail.solution && (detail.solution.sol !== "" || detail.solution.code !== "") ? (
+                <ItemBox>
                   <Item>Solution</Item>
-                  {detail.solution.sol === ""?(null):                  
-                  <Description>{detail.solution.sol}</Description>
+                  {detail.solution.sol === "" ? (null) :
+                    <Description>{detail.solution.sol}</Description>
                   }
-                  {detail.solution.code === ""?(null):                  
-                  <CodeBlock code={detail.solution.code} />
+                  {detail.solution.code === "" ? (null) :
+                    <CodeBlock code={detail.solution.code} />
                   }
-                </>
+                </ItemBox>
+              ) :
+                (null)
               }
             </Content>
           </>

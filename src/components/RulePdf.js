@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { CodeBlock, rainbow } from "react-code-blocks";
+import CodeBlock from "../components/CodeBlock";
 
 const A4 = styled.article`
   background-color: white;
-  width: 620px;
-  height: 820px;
+  width: 460px;
+  height: 650px;
   align-items: center;
   color: #0F3D53;
 `
@@ -12,7 +12,7 @@ const Content = styled.div`
   padding: 0px 58px;
   display: flex;
   flex-direction: column;
-  gap: 6px
+  gap: 6px;
 `
 const Header = styled.div`
   width: 100%;
@@ -76,29 +76,23 @@ const TitleBox = styled.div`
   align-items: center;
   gap: 50px;
 `
-function RulePdf({ option }) {
-  const data = {
-    "date": "22.11.29",
-    "account": "Taein",
-    "csp": "ncloud",
-    "target": "initCloud.tf",
-    "total": 19,
-    "passed": 11,
-    "failed": 8
-  }
+function RulePdf({ data }) {
+
   return (
     <A4>
       <Header />
       <Content>
         <TitleBox>
-          <Title>CKV_NCP_2</Title>
+          <Title>{data.ruleID}</Title>
           <Table>
-            <Tr>
-              <TdBold>Result</TdBold>
-              <Td style={{color:"rgb(231, 76, 60)"}}>Fail</Td>
-              <TdBold>Severity</TdBold>
-              <Td style={{color:"rgb(46, 204, 113)"}}>Low</Td>
-            </Tr>
+            <tbody>
+              <Tr>
+                <TdBold>Result</TdBold>
+                <Td style={{ color: "rgb(231, 76, 60)" }}>Failed</Td>
+                <TdBold>Severity</TdBold>
+                <Td style={{ color: "rgb(46, 204, 113)" }}>{data.severity}</Td>
+              </Tr>
+            </tbody>
           </Table>
         </TitleBox>
         <SubTitle>Rule Description</SubTitle>
@@ -106,19 +100,19 @@ function RulePdf({ option }) {
           <tbody>
             <Tr>
               <TdBold>Description</TdBold>
-              <Td colSpan={3}>Ensure every access control groups rule has</Td>
+              <Td colSpan={3}>{data.description}</Td>
             </Tr>
             <Tr>
               <TdBold>Type</TdBold>
-              <Td>AUDIT AND ACCOUNTABILITY</Td>
+              <Td>{data.type.join(',')}</Td>
               <TdBold>Problematic location</TdBold>
-              <Td>{`file name: main.tf\nline: 5-10`}</Td>
+              <Td>{`file name: ${data.fileName}\nline: ${data.line}`}</Td>
             </Tr>
             <Tr>
               <TdBold>Resource</TdBold>
-              <Td>ncloud_access_control_group</Td>
+              <Td>{data.resource}</Td>
               <TdBold>Resource name</TdBold>
-              <Td>test_acg</Td>
+              <Td>{data.resourceName}</Td>
             </Tr>
             <Tr>
               <TdBold>Compliance</TdBold>
@@ -128,14 +122,11 @@ function RulePdf({ option }) {
             </Tr>
           </tbody>
         </Table>
-        <SubTitle>Draw Back</SubTitle>
+        <SubTitle>DrawBack</SubTitle>
         <Box>
           <Label>Problematic Code</Label>
           <CodeBlock
-            language="python"
-            text='printf("hello world")'
-            theme={rainbow}
-            wrapLines={true}
+            code={data.problematicCode}
           />
           <Label>Unfulfilled Compliance</Label>
           <Table>
@@ -174,25 +165,15 @@ function RulePdf({ option }) {
               </Tr>
             </tbody>
           </Table>
-          <Label>Possible impact</Label>
-          <Txt>
-            People who don't know the rules can experience inconvenience
-            when using infrastructure. When a co-worker tri es to create
-            a new rule, he or she can overlap or conflict with it.
-          </Txt>
+          <Label>Possible Impact</Label>
+          <Txt>{data.possibleImpact}</Txt>
         </Box>
         <SubTitle>Solution</SubTitle>
         <Box>
           <CodeBlock
-            language="python"
-            text='printf("hello world")'
-            theme={rainbow}
-            wrapLines={true}
+            code={data.solutionSample}
           />
-          <Txt>
-            A description should be set for the rules of
-            all access control groups to help them understand the rules.
-          </Txt>
+          <Txt>{data.solution}</Txt>
         </Box>
       </Content>
     </A4>

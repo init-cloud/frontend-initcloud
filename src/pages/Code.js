@@ -40,7 +40,7 @@ const FileName = styled.div`
   border: 1px solid black;
   border-radius: 1rem;
   font-weight: bold;
-  z-index: 999;
+  z-index: 1;
   background-color: white;
   padding: 0px 10px;
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
@@ -85,7 +85,7 @@ const DropBar = styled.div`
   line-height: 25px;
   transition: all .15s;
   position: relative;
-  z-index: 998;
+  z-index: 1;
   cursor: pointer;
   &:hover {
     background-color: #848484;
@@ -186,7 +186,7 @@ function Code({ terraform }) {
         {terraform ? (
           <CodeBlock code={zipFiles[currentIndex]} />
         ) : (
-          <div style={{ textAlign: 'center' }}>If you upload Terraform file, you can see it here.</div>
+          <div style={{ textAlign: 'center', marginTop: '20px' }}>If you upload Terraform file, you can see it here.</div>
         )}
       </CodeBox>
     </Box>
