@@ -192,7 +192,47 @@ const Label = styled.label`
     transform: scale(1.008);
   }
 `
-
+const Range = styled.input`
+  overflow: hidden;
+  height: 24px;
+  -webkit-appearance: none;
+  margin: 10px 0;
+  width: 300px;
+  background: transparent;
+  border-radius: 10px;
+  &:focus {
+    outline: none;
+  }
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid #004D9D;
+    border-radius: 10px;
+  }
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 7px;
+    background-color: white;
+    border: 2px solid #004D9D;
+    cursor: pointer;
+    box-shadow: -100vw 0 0 100vw #004D9D;
+}
+`
+const Footer = styled.div`
+  display: flex;
+  gap: 1rem;
+`
+const Page = styled.div`
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+`
 function Report() {
   const [option, setOption] = useState();
   const [lists, setLists] = useState();
@@ -221,8 +261,8 @@ function Report() {
     infinite: false,
     slidesToShow: 1,
     slidesToScroll: 1,
-    afterChange: () => (setUpdateCount((current) => current+1)),
-    beforeChange: (current, next) => (setSlideIndex(next)) 
+    afterChange: () => (setUpdateCount((current) => current + 1)),
+    beforeChange: (current, next) => (setSlideIndex(next))
   };
 
   const makePdf = async (e) => {
@@ -344,7 +384,7 @@ function Report() {
           <PdfBox>
             {reportData ? (
               <PdfSlider ref={slider} {...settings}>
-                <ReportPdf option={option} data={reportData.summary} />
+                <ReportPdf option={option} data={reportData.summary} name={reportData.details[0].fileName}/>
                 <TablePdf data={detailData} />
                 {detailData?.map((item, seq) => (
                   <RulePdf
@@ -363,14 +403,19 @@ function Report() {
                 </DemoContainer>
               </>
             )}
-            <input
-              onChange={e => slider.current.slickGoTo(e.target.value)}
-              value={slideIndex}
-              type="range"
-              min={0}
-              max={detailData ? detailData.length + 1 : 1}
-              style={{zIndex:10}}
-            />
+            {reportData ? (
+              <Footer>
+                <Page>Current Page : {slideIndex + 1}</Page>
+                <Range
+                  onChange={e => slider.current.slickGoTo(e.target.value)}
+                  value={slideIndex}
+                  type="range"
+                  min={0}
+                  max={detailData ? detailData.length + 1 : 1}
+                  style={{ zIndex: 10 }}
+                />
+              </Footer>
+            ) : (null)}
           </PdfBox>
         </Box>
       </Layout>

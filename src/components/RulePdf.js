@@ -78,14 +78,19 @@ const TitleBox = styled.div`
 `
 function RulePdf({ data }) {
   const stateColor = {
-    "passed" : "rgb(46, 204, 113)",
-    "failed" : "rgb(231, 76, 60)"
+    "passed": "rgb(46, 204, 113)",
+    "failed": "rgb(231, 76, 60)"
   };
   const levelColor = {
-    "Low" : "rgb(46, 204, 113)",
-    "Medium" : "rgb(241, 196, 15)",
-    "High" : "rgb(231, 76, 60)"
+    "Low": "rgb(46, 204, 113)",
+    "Medium": "rgb(241, 196, 15)",
+    "High": "rgb(231, 76, 60)"
   };
+  const getComplianceNumber = (compliance) => {
+    let arr = [];
+    compliance?.map((item) => (arr.push(item.complianceNumber)));
+    return arr.join(', ');
+  }
   return (
     <A4>
       <Header />
@@ -112,9 +117,9 @@ function RulePdf({ data }) {
             </Tr>
             <Tr>
               <TdBold>Type</TdBold>
-              <Td>{data.type.join(',')}</Td>
+              <Td>{data.type.join(', ')}</Td>
               <TdBold>Problematic location</TdBold>
-              <Td>file name: {data.fileName}<br/>line: {data.line}</Td>
+              <Td>file name: {data.fileName}<br />line: {data.line}</Td>
             </Tr>
             <Tr>
               <TdBold>Resource</TdBold>
@@ -126,7 +131,7 @@ function RulePdf({ data }) {
               <TdBold>Compliance</TdBold>
               <Td>ISMS-P</Td>
               <TdBold>Article</TdBold>
-              <Td>2.10.2</Td>
+              <Td>{data.compliance ? getComplianceNumber(data.compliance) : ('x')}</Td>
             </Tr>
           </tbody>
         </Table>
@@ -136,47 +141,32 @@ function RulePdf({ data }) {
             <>
               <Label>Problematic Code</Label>
               <CodeBlock
-                code={data.problematicCode.replaceAll('\t', '  ')}
+                code={data.problematicCode.replaceAll('\t', ' ')}
               />
               <Label>Unfulfilled Compliance</Label>
             </>
           )}
-          <Table>
-            <colgroup>
-              <col style={{ width: '20%' }} />
-              <col style={{ width: '80%' }} />
-            </colgroup>
-            <tbody>
-              <Tr>
-                <TdBold>ISMS-P</TdBold>
-                <TdBold>Details</TdBold>
-              </Tr>
-              <Tr>
-                <TdBold>2.6.1</TdBold>
-                <Td>
-                  Public access must be blocked to control unauthorized person's access to NKS.
-                </Td>
-              </Tr>
-              <Tr>
-                <TdBold>2.6.2</TdBold>
-                <Td>
-                  Public access should be blocked to control users accessing NKS and accessible locations.
-                </Td>
-              </Tr>
-              <Tr>
-                <TdBold>2.6.7</TdBold>
-                <Td>
-                  Public access should be prevented to control Internet access to NKS, which performs major duties or handles personal information.
-                </Td>
-              </Tr>
-              <Tr>
-                <TdBold>2.10.9</TdBold>
-                <Td>
-                  Public access should be blocked to prevent NKS from receiving malicious code.
-                </Td>
-              </Tr>
-            </tbody>
-          </Table>
+          {data.compliance.length > 0 ? (
+            <Table>
+              <colgroup>
+                <col style={{ width: '20%' }} />
+                <col style={{ width: '80%' }} />
+              </colgroup>
+
+              <tbody>
+                <Tr>
+                  <TdBold>ISMS-P</TdBold>
+                  <TdBold>Details</TdBold>
+                </Tr>
+                {data.compliance?.map((item, seq) => (
+                  <Tr key={seq}>
+                    <TdBold>{item.complianceNumber}</TdBold>
+                    <Td>{item.description}</Td>
+                  </Tr>
+                ))}
+              </tbody>
+            </Table>
+          ) : (null)}
           {data.possibleImpact === "" ? (null) :
             (<>
               <Label>Possible Impact</Label>

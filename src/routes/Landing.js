@@ -72,12 +72,12 @@ const SecBox = styled.div`
   }
   word-break:break-all;
 `
-const Div_space = styled.div`
+const DivSpace = styled.div`
   width:100%;
   height:50px;
   background-color: white;
 `
-const Div_title = styled.div`
+const DivTitle = styled.div`
   width:100%;
   height:400px;
   box-sizing: border-box;
@@ -87,13 +87,12 @@ const Div_title = styled.div`
   align-items: center;
   font-size : 50px;
 `
-const Div_body = styled.div`
+const DivBody = styled.div`
   width: 100%;
   height:400px;
   box-sizing: border-box;
-  background-color: brown;
 `
-const Div1_1 = styled.div`
+const Div11 = styled.div`
   width:30%;
   height:100%;
   float:left;
@@ -101,29 +100,38 @@ const Div1_1 = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 1px solid rgba(46,54,80,.125);
+  box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
+  border-radius: 40px;
   background: #f5f8fb;
 `
-const Div1_2 = styled.div`
+const Div12 = styled.div`
   width:70%;
   height: 100%;
   float:right;
   box-sizing: border-box;
   font-size: 40px;
   text-align: center;
-  background : #D9D9D9;
+  border: 1px solid rgba(46,54,80,.125);
+  box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
+  background-color: white;
+  border-radius: 40px;
   padding : 100px 0;
 `
-const Div2_1 = styled.div`
+const Div21 = styled.div`
   width:70%;
   height: 100%;
   float:left;
   box-sizing: border-box;
   font-size: 40px;
   text-align: center;
-  background : #D9D9D9;
+  border: 1px solid rgba(46,54,80,.125);
+  box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
+  background-color: white;
+  border-radius: 40px;
   padding : 100px 0;
 `
-const Div2_2 = styled.div`
+const Div22 = styled.div`
   width:30%;
   height:100%;
   float:right;
@@ -131,9 +139,12 @@ const Div2_2 = styled.div`
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  border: 1px solid rgba(46,54,80,.125);
+  box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
+  border-radius: 40px;
   background: #f5f8fb;
 `
-const Div_footer = styled.div`
+const DivFooter = styled.div`
   width:100%;
   height:1200px;
   box-sizing: border-box;
@@ -141,9 +152,10 @@ const Div_footer = styled.div`
   text-align: center;
   font-size : 50px;
 `
-const Div_footer_title = styled.div`
+const DivFooterTitle = styled.div`
   width:100%;
   height:100px;
+  padding: 70px;
   box-sizing: border-box;
   background: #f5f8fb;
   display: flex;
@@ -151,7 +163,7 @@ const Div_footer_title = styled.div`
   align-items: center;
   font-size : 50px;
 `
-const Div_footer_main = styled.div`
+const DivFooterMain = styled.div`
   width:100%;
   height:400px;
   box-sizing: border-box;
@@ -161,20 +173,25 @@ const Div_footer_main = styled.div`
   align-items: center;
   font-size : 50px;
 `
-const Div_footer_thread = styled.div`
+const DivFooterThread = styled.div`
   display: flex;
   width:100%;
   height: 500px;
   box-sizing: border-box;
   background: white;
+  padding: 0px 20px;
 `
-const Div_footer_div = styled.div`
+const DivFooterFiv = styled.div`
   width:30%;
   height: 500px;
+  padding-top: 20px;
+  border: 1px solid rgba(46,54,80,.125);
+  box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
+  background-color: white;
+  border-radius: 1rem;
   box-sizing: border-box;
-  background: #D9D9D9;   
 `
-const Div_footer_div_1 = styled.div`
+const DivFooterDiv1 = styled.div`
   width:100%;
   height:250px;
   box-sizing: border-box;
@@ -182,7 +199,7 @@ const Div_footer_div_1 = styled.div`
   justify-content: center;
   align-items: center;
 `
-const Div_footer_div_2 = styled.div`
+const DivFooterDiv2 = styled.div`
   width:100%;
   height:250px;
   box-sizing: border-box;
@@ -192,18 +209,18 @@ const Div_footer_div_2 = styled.div`
   justify-content: center;
   align-items: center;
 `
-const Div_footer_space = styled.div`
+const DivFooterSpace = styled.div`
   width:5%;
   height: 500px;
   box-sizing: border-box;
   background: #f5f8fb;
 `
-const Sec_Img = styled.img`
+const SecImg = styled.img`
   box-sizing: border-box;
   width: 250px;
   height: 250px;
 `
-const Sec_footer_Img = styled.img`
+const SecFooterImg = styled.img`
   box-sizing: border-box;
   width: auto;
   height: auto;
@@ -222,72 +239,75 @@ function Landing() {
         </NewLink>
       </Header>
       <SecBox>
-        <Div_space></Div_space>
-        <Div_title>
+        <DivSpace></DivSpace>
+        <DivTitle>
           <strong>InitCloud provides security services for IaC.</strong>
-        </Div_title>
-        <Div_space></Div_space>
-        <Div_body>
-          <Div1_1>
-            <Sec_Img src={`${process.env.PUBLIC_URL}/terraform.png`} alt="terraform logo"/>
-          </Div1_1>
-          <Div1_2>
-            Infrastructure as Code (IaC) can improve<br/><strong>infrastructure consistency</strong> and <strong>speed of deployment</strong><br/> by managing infrastructure as code.
-          </Div1_2>
-        </Div_body>
-        <Div_body>
-          <Div2_1>
-            <strong>IaC (HCL)</strong> has been named <br/> the number one influential open source <br/> to change the world announced by <strong>Github</strong> in 2022.
-          </Div2_1>
-          <Div2_2>
-            <Sec_Img src={`${process.env.PUBLIC_URL}/github.png`} alt="github logo"/>
-          </Div2_2>
-        </Div_body>
-        <Div_body>
-          <Div1_1>
-            <Sec_Img src={`${process.env.PUBLIC_URL}/paloalto.png`} alt="paloalto logo"/>
-          </Div1_1>
-          <Div1_2>
-            However, the Paloalto report states that <br/><strong>22%</strong> of IaCs<br/> have <strong>unsafe configurations</strong>.
-          </Div1_2>
-        </Div_body>
-        <Div_space></Div_space>
-        <Div_footer>
-          <Div_footer_title>
+        </DivTitle>
+        <DivSpace></DivSpace>
+        <DivBody>
+          <Div11>
+            <SecImg src={`${process.env.PUBLIC_URL}/terraform.png`} alt="terraform logo" />
+          </Div11>
+          <Div12>
+            Infrastructure as Code (IaC) can improve<br /><strong>infrastructure consistency</strong> and <strong>speed of deployment</strong><br /> by managing infrastructure as code.
+          </Div12>
+        </DivBody>
+        <DivSpace></DivSpace>
+        <DivBody>
+          <Div21>
+            <strong>IaC (HCL)</strong> has been named <br /> the number one influential open source <br /> to change the world announced by <strong>Github</strong> in 2022.
+          </Div21>
+          <Div22>
+            <SecImg src={`${process.env.PUBLIC_URL}/github.png`} alt="github logo" />
+          </Div22>
+        </DivBody>
+        <DivSpace></DivSpace>
+        <DivBody>
+          <Div11>
+            <SecImg src={`${process.env.PUBLIC_URL}/paloalto.png`} alt="paloalto logo" />
+          </Div11>
+          <Div12>
+            However, the Paloalto report states that <br /><strong>22%</strong> of IaCs<br /> have <strong>unsafe configurations</strong>.
+          </Div12>
+        </DivBody>
+        <DivSpace></DivSpace>
+        <DivSpace></DivSpace>
+        <DivFooter>
+          <DivFooterTitle>
             <strong>Manage IaC Security Threats in InitCloud.</strong>
-          </Div_footer_title>
-          <Div_footer_main>
-            <Sec_footer_Img src={`${process.env.PUBLIC_URL}/initcloud.png`} alt="initcloud logo"/>
-          </Div_footer_main>
-          <Div_footer_title>
+          </DivFooterTitle>
+          <DivFooterMain>
+            <SecFooterImg src={`${process.env.PUBLIC_URL}/initcloud.png`} alt="initcloud logo" />
+          </DivFooterMain>
+          <DivFooterTitle>
             <strong>InitCloud is different from other services.</strong>
-          </Div_footer_title>
-          <Div_footer_thread>
-            <Div_footer_div>
-              <Div_footer_div_1>
-                <Sec_Img src={`${process.env.PUBLIC_URL}/div_2.png`} alt="terraform logo"/>
-              </Div_footer_div_1>
-              <Div_footer_div_2><strong>Provides reports that help <br/>you determine compliance, <br/>such as isms-p</strong>
-              </Div_footer_div_2>
-            </Div_footer_div>
-            <Div_footer_space>
-            </Div_footer_space>
-            <Div_footer_div>
-              <Div_footer_div_1>
-                <Sec_Img src={`${process.env.PUBLIC_URL}/div_3.png`} alt="terraform logo"/>
-              </Div_footer_div_1>
-              <Div_footer_div_2><strong>View security threats  <br/>as well as the architecture</strong></Div_footer_div_2>
-            </Div_footer_div>
-            <Div_footer_space>
-            </Div_footer_space>
-            <Div_footer_div>
-              <Div_footer_div_1>
-                <Sec_Img src={`${process.env.PUBLIC_URL}/div_1.png`} alt="terraform logo"/>
-              </Div_footer_div_1>
-              <Div_footer_div_2><strong>Scan possible configuration <br/>errors <br/>within Terraform code</strong></Div_footer_div_2>
-            </Div_footer_div>
-          </Div_footer_thread>
-        </Div_footer>
+          </DivFooterTitle>
+          <DivFooterThread>
+            <DivFooterFiv>
+              <DivFooterDiv1>
+                <SecImg src={`${process.env.PUBLIC_URL}/div_1.png`} alt="terraform logo" />
+              </DivFooterDiv1>
+              <DivFooterDiv2><strong>Scan possible configuration <br />errors <br />within Terraform code</strong></DivFooterDiv2>
+            </DivFooterFiv>
+            <DivFooterSpace>
+            </DivFooterSpace>
+            <DivFooterFiv>
+              <DivFooterDiv1>
+                <SecImg src={`${process.env.PUBLIC_URL}/div_3.png`} alt="terraform logo" />
+              </DivFooterDiv1>
+              <DivFooterDiv2><strong>View security threats  <br />as well as the architecture</strong></DivFooterDiv2>
+            </DivFooterFiv>
+            <DivFooterSpace>
+            </DivFooterSpace>
+            <DivFooterFiv>
+              <DivFooterDiv1>
+                <SecImg src={`${process.env.PUBLIC_URL}/div_2.png`} alt="terraform logo" />
+              </DivFooterDiv1>
+              <DivFooterDiv2><strong>Provides reports that help <br />you determine compliance, <br />such as isms-p</strong>
+              </DivFooterDiv2>
+            </DivFooterFiv>
+          </DivFooterThread>
+        </DivFooter>
       </SecBox>
     </Box>
   )

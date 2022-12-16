@@ -95,7 +95,7 @@ const Formular = styled.div`
   color: #9E9E9E;
   font-size: 10px;
 `
-function ReportPdf({ option, data }) {
+function ReportPdf({ option, data, name }) {
 
   return (
     <A4>
@@ -114,6 +114,8 @@ function ReportPdf({ option, data }) {
             <Tr>
               <TdBold>Cloud Service Provider</TdBold>
               <Td>{data.csp}</Td>
+              <TdBold>File Name</TdBold>
+              <Td>{name}</Td>
             </Tr>
             <Tr>
               <TdBold>Scan Target</TdBold>
