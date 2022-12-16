@@ -140,6 +140,7 @@ const Content = styled.div`
 const PdfSlider = styled(Slider)`
   width: 620px;
   height: 820px;
+  overflow: hidden;
 `
 const DemoContainer = styled.div`
   filter: blur(2px) brightness(70%);
@@ -255,7 +256,6 @@ function Report() {
   const [reportOption, setReportOption] = useState('a');
   const [detailData, setDetailData] = useState();
   const [slideIndex, setSlideIndex] = useState(0);
-  const [updateCount, setUpdateCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const pdf = Pdf();
   const slider = useRef();
@@ -295,7 +295,6 @@ function Report() {
     infinite: false,
     slidesToShow: 1,
     slidesToScroll: 1,
-    afterChange: () => (setUpdateCount((current) => current + 1)),
     beforeChange: (current, next) => (setSlideIndex(next))
   };
 

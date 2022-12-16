@@ -4,7 +4,7 @@ import ApexChart from "react-apexcharts"
 const A4 = styled.article`
   background-color: white;
   width: 620px;
-  height: 820px;
+  min-height: 820px;
   align-items: center;
   color: #0F3D53;
 `
@@ -168,16 +168,43 @@ function ReportPdf({ option, data, name }) {
         <Label>Fail Status by Resource</Label>
         <Table >
           <tbody>
-            <Tr>
-              {data.failedResource?.map((item, seq) => (
-                <TdBold key={seq}>{item.name.split('.')[0]}</TdBold>
-              ))}
-            </Tr>
-            <Tr>
-              {data.failedResource?.map((item, seq) => (
-                <TdBold key={seq}>{item.count}</TdBold>
-              ))}
-            </Tr>
+            {data.failedResource.length > 10 ? (
+              <>
+                <Tr>
+                  {data.failedResource?.slice(data.failedResource.length / 2).map((item, seq) => (
+                    <TdBold key={seq}>{item.name.split('.')[0]}</TdBold>
+                  ))}
+                </Tr>
+                <Tr>
+                  {data.failedResource?.slice(data.failedResource.length / 2).map((item, seq) => (
+                    <TdBold key={seq}>{item.count}</TdBold>
+                  ))}
+                </Tr>
+                <Tr>
+                  {data.failedResource?.slice(0, data.failedResource.length / 2).map((item, seq) => (
+                    <TdBold key={seq}>{item.name.split('.')[0]}</TdBold>
+                  ))}
+                </Tr>
+                <Tr>
+                  {data.failedResource?.slice(0, data.failedResource.length / 2).map((item, seq) => (
+                    <TdBold key={seq}>{item.count}</TdBold>
+                  ))}
+                </Tr>
+              </>
+            ) : (
+              <>
+                <Tr>
+                  {data.failedResource?.map((item, seq) => (
+                    <TdBold key={seq}>{item.name.split('.')[0]}</TdBold>
+                  ))}
+                </Tr>
+                <Tr>
+                  {data.failedResource?.map((item, seq) => (
+                    <TdBold key={seq}>{item.count}</TdBold>
+                  ))}
+                </Tr>
+              </>
+            )}
           </tbody>
         </Table>
         <Label>Fail Status by ISMS-P</Label>

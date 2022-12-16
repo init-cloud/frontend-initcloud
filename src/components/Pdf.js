@@ -16,16 +16,21 @@ const Pdf = () => {
     }
 
     const converToPdf = (canvases) => {
-        
-        let position = 0
-        const doc = new jsPDF("p", "mm", "a4");        
+
+        const doc = new jsPDF("p", "mm", "a4");
         for (let i = 0; i < canvases.length; i++) {
             const imageFile = canvases[i].toDataURL("image/png", 0.5);
-
             const imgWidth = doc.internal.pageSize.getWidth();
             const imgHeight = doc.internal.pageSize.getHeight();
+            let position = 0
             doc.addImage(imageFile, "PNG", 0, position, imgWidth, imgHeight);
-            if(i === canvases.length - 1) break;    
+            // while (heightLeft >= 0) {
+            //     position = heightLeft - imgHeight;
+            //     doc.addPage();
+            //     doc.addImage(imageFile, 'PNG', 0, position, imgWidth, imgHeight);
+            //     heightLeft -= pageHeight;
+            // }
+            if (i === canvases.length - 1) break;
             doc.addPage();
         }
 
