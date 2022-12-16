@@ -3,13 +3,13 @@ import CodeBlock from "../components/CodeBlock";
 
 const A4 = styled.article`
   background-color: white;
-  width: 460px;
-  height: 650px;
+  width: 620px;
+  height: 820px;
   align-items: center;
   color: #0F3D53;
 `
 const Content = styled.div`
-  padding: 0px 58px;
+  padding: 0px 40px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -77,7 +77,15 @@ const TitleBox = styled.div`
   gap: 50px;
 `
 function RulePdf({ data }) {
-
+  const stateColor = {
+    "passed" : "rgb(46, 204, 113)",
+    "failed" : "rgb(231, 76, 60)"
+  };
+  const levelColor = {
+    "Low" : "rgb(46, 204, 113)",
+    "Medium" : "rgb(241, 196, 15)",
+    "High" : "rgb(231, 76, 60)"
+  };
   return (
     <A4>
       <Header />
@@ -88,9 +96,9 @@ function RulePdf({ data }) {
             <tbody>
               <Tr>
                 <TdBold>Result</TdBold>
-                <Td style={{ color: "rgb(231, 76, 60)" }}>Failed</Td>
+                <Td style={{ color: `${stateColor[data.result]}` }}>{data.result}</Td>
                 <TdBold>Severity</TdBold>
-                <Td style={{ color: "rgb(46, 204, 113)" }}>{data.severity}</Td>
+                <Td style={{ color: `${levelColor[data.severity]}` }}>{data.severity}</Td>
               </Tr>
             </tbody>
           </Table>
@@ -106,13 +114,13 @@ function RulePdf({ data }) {
               <TdBold>Type</TdBold>
               <Td>{data.type.join(',')}</Td>
               <TdBold>Problematic location</TdBold>
-              <Td>{`file name: ${data.fileName}\nline: ${data.line}`}</Td>
+              <Td>file name: {data.fileName}<br/>line: {data.line}</Td>
             </Tr>
             <Tr>
               <TdBold>Resource</TdBold>
-              <Td>{data.resource}</Td>
+              <Td>{data.resource.split('.')[0]}</Td>
               <TdBold>Resource name</TdBold>
-              <Td>{data.resourceName}</Td>
+              <Td>{data.resource.split('.')[1]}</Td>
             </Tr>
             <Tr>
               <TdBold>Compliance</TdBold>
@@ -124,11 +132,15 @@ function RulePdf({ data }) {
         </Table>
         <SubTitle>DrawBack</SubTitle>
         <Box>
-          <Label>Problematic Code</Label>
-          <CodeBlock
-            code={data.problematicCode}
-          />
-          <Label>Unfulfilled Compliance</Label>
+          {data.problematicCode === "No" ? (null) : (
+            <>
+              <Label>Problematic Code</Label>
+              <CodeBlock
+                code={data.problematicCode.replaceAll('\t', '  ')}
+              />
+              <Label>Unfulfilled Compliance</Label>
+            </>
+          )}
           <Table>
             <colgroup>
               <col style={{ width: '20%' }} />
@@ -165,16 +177,24 @@ function RulePdf({ data }) {
               </Tr>
             </tbody>
           </Table>
-          <Label>Possible Impact</Label>
-          <Txt>{data.possibleImpact}</Txt>
+          {data.possibleImpact === "" ? (null) :
+            (<>
+              <Label>Possible Impact</Label>
+              <Txt>{data.possibleImpact}</Txt>
+            </>)}
         </Box>
-        <SubTitle>Solution</SubTitle>
-        <Box>
-          <CodeBlock
-            code={data.solutionSample}
-          />
-          <Txt>{data.solution}</Txt>
-        </Box>
+        {data.solution?.length < 2 ? (null) :
+          (<>
+            <SubTitle>Solution</SubTitle>
+            <Box>
+              <CodeBlock
+                code={data.solutionSample}
+              />
+              <Txt>{data.solution}</Txt>
+            </Box>
+          </>)
+        }
+
       </Content>
     </A4>
   );

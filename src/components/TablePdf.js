@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 const A4 = styled.article`
   background-color: white;
-  width: 460px;
-  height: 650px;
+  width: 620px;
+  height: 820px;
   align-items: center;
   color: #0F3D53;
 `
 const Content = styled.div`
-  padding: 0px 58px;
+  padding: 0px 40px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -57,13 +57,13 @@ function RulePdf({ data }) {
         <SubTitle>02. Scan Details</SubTitle>
         <Table>
           <colgroup>
-            <col style={{ width: '13%' }} />
+            <col style={{ width: '16%' }} />
             <col style={{ width: '31%' }} />
-            <col style={{ width: '10%' }} />
+            <col style={{ width: '12%' }} />
             <col style={{ width: '11%' }} />
             <col style={{ width: '10%' }} />
-            <col style={{ width: '13%' }} />
             <col style={{ width: '12%' }} />
+            <col style={{ width: '11%' }} />
           </colgroup>
           <tbody>
             <Tr>
@@ -78,7 +78,7 @@ function RulePdf({ data }) {
             {data?.map((item, seq) => (
               <Tr key={seq}>
                 <Th>{item.ruleID}</Th>
-                <Td>{item.description}</Td>
+                <Td>{item.description === "" ? "TBD" : item.description}</Td>
                 <Td>{item.severity}</Td>
                 <Td>{item.result}</Td>
                 <Td>Link</Td>

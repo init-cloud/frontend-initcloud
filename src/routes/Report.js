@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -45,10 +45,12 @@ const Layout = styled.div`
    min-width: 610px;
    flex-grow: 1;
    flex-wrap: wrap;
-   gap: 1rem;
 `
 const SubTitle = styled.h3`
   margin: 0;
+`
+const Strong = styled.strong`
+  font-size: 26px;
 `
 const boxFade = keyframes`
   0% {
@@ -61,6 +63,7 @@ const boxFade = keyframes`
   }
 `
 const Box = styled.div`
+  position: relative;
   min-height: 500px;
   min-width: 610px;
   height: 100%;
@@ -75,15 +78,16 @@ const PdfBox = styled.div`
   height: 100%;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 `
 const LeftBox = styled.div`
   display: flex;
-  height: 90%;
+  height: 95%;
   flex-direction: column;
   flex-grow: 1;
   align-items: baseline;
   justify-content: space-around;
-  gap: 1rem;
+  gap: 0px;
   outline: 10px solid transparent;
 `
 const Input = styled.input`
@@ -104,7 +108,7 @@ const Content = styled.div`
   display: flex;
   overflow: auto;
   width: calc(100% - 20px);
-  height: 150px;
+  height: 180px;
   padding: 10px;
   border: 1px solid rgba(46,54,80,.125);
   border-radius: 1rem;
@@ -134,8 +138,8 @@ const Content = styled.div`
   }
 `
 const PdfSlider = styled(Slider)`
-  width: 460px;
-  height: 650px;
+  width: 620px;
+  height: 820px;
 `
 const DemoContainer = styled.div`
   filter: blur(2px) brightness(70%);
@@ -144,17 +148,14 @@ const DemoContainer = styled.div`
 `
 const DemoBox = styled.div`
   position: absolute;
-  width: 460px;
-  height: 650px;
+  top: 45%;
+  width: 620px;
   z-index: 10;
-  padding-top: 210px;
-`
-const Message = styled.div`
   color: white;
   word-wrap: break-all;
   text-shadow: 1px 2px 2px rgba(0,0,0,0.2), 0px -3px 20px rgba(255,255,255,0.4);
   font-weight: bold;
-  font-size: 32px;
+  font-size: 38px;
   text-align: center;
 `
 const UserOptionBox = styled.div`
@@ -167,33 +168,61 @@ const UserOptionBox = styled.div`
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
   background-color: white;
   overflow: hidden;
-  flex-direction: column;
   justify-content: center;
   gap: 1rem;
   align-items: center;
+`
+const Label = styled.label`
+  width: 240px;
+  height: 40px;
+  border-radius: 0.5rem;
+  text-align: center;
+  line-height: 40px;
+  font-weight: bold;
+  border: 2px solid rgba(46,54,80,.125);
+  box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
+  cursor: pointer;
+  transition: all 0.5s;
+  &:hover {
+    filter: brightness(80%);
+    background-color: #FAFAFA;
+  }
+  &:active {
+    opacity: 0.9;
+    transform: scale(1.008);
+  }
 `
 
 function Report() {
   const [option, setOption] = useState();
   const [lists, setLists] = useState();
   const [reportData, setReportData] = useState();
+  const [reportOption, setReportOption] = useState('a');
+  const [detailData, setDetailData] = useState();
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [updateCount, setUpdateCount] = useState(0);
   const pdf = Pdf();
+  const slider = useRef();
 
   const demoData = {
-    data: '2022-12-18',
+    date: '2022-12-18',
     csp: 'AWS',
     scanTarget: 'main.tf',
     passed: 32,
     skipped: 5,
     failed: 49,
-    score: 77
+    score: 77,
+    high: 30,
+    medium: 5,
+    low: 10
   }
-
   const settings = {
-    dots: true,
+    dots: false,
     infinite: false,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    afterChange: () => (setUpdateCount((current) => current+1)),
+    beforeChange: (current, next) => (setSlideIndex(next)) 
   };
 
   const makePdf = async (e) => {
@@ -218,10 +247,21 @@ function Report() {
       ).catch((err) => {
         console.log(err);
       });
-      setReportData(res.data.scan);
+      setReportData({ ...res.data.scan });
+
+      if (reportOption === 'f') {
+        let arr = res.data.scan.details.filter((item) => (item.result === "failed"));
+        setDetailData(arr);
+      } else {
+        setDetailData([...res.data.scan.details]);
+      }
       console.log(res.data.scan);
     };
     req(id);
+  }
+
+  const selectOption = (e) => {
+    setReportOption(e.target.value);
   }
 
   useEffect(() => {
@@ -237,17 +277,28 @@ function Report() {
     req();
   }, []);
 
+  useEffect(() => {
+    if (reportData) {
+      if (reportOption === "f") {
+        let arr = reportData.details.filter((item) => (item.result === "failed"));
+        setDetailData(arr);
+      } else {
+        setDetailData([...reportData.details])
+      }
+    }
+  }, [reportOption, reportData])
+
   return (
     <Service>
       <Layout>
         <Box time={"0.3s"}>
           <h1>Report</h1>
           <LeftBox>
-            <SubTitle>Step 1:<br />Put your account ID</SubTitle>
+            <SubTitle><Strong>Step 1:</Strong><br />Put your account ID</SubTitle>
             <Input onChange={onChange} />
-            <SubTitle>Step 2:<br />Here is your 10 recent scan.<br />Select Scan result that you want to get a report</SubTitle>
+            <SubTitle><Strong>Step 2:</Strong><br />Here is your 10 recent scan.<br />Select Scan result that you want to get a report</SubTitle>
             <Content>
-              {lists ? (
+              {lists && lists.length > 0 ? (
                 lists?.map((item) => (
                   <RecentResultCard
                     key={item.id}
@@ -256,11 +307,34 @@ function Report() {
                   />
                 ))
               ) : (
-                <h2>loading</h2>
+                <h3 style={{ textAlign: 'center' }}>
+                  There are no recent scan results.<br />
+                  If you go to the Scan Page and try Scan, you can check the Report.
+                </h3>
               )}
             </Content>
-            <SubTitle>Step 3:<br />Custom your Report</SubTitle>
-            <UserOptionBox></UserOptionBox>
+            <SubTitle><Strong>Step 3:</Strong><br />Custom your Report</SubTitle>
+            <UserOptionBox>
+              <Label>
+                See All Result
+                <input
+                  type="radio"
+                  value="a"
+                  name="select"
+                  onChange={selectOption}
+                  defaultChecked
+                />
+              </Label>
+              <Label>
+                Only Failed Result
+                <input
+                  type="radio"
+                  value="f"
+                  name="select"
+                  onChange={selectOption}
+                />
+              </Label>
+            </UserOptionBox>
             <Button text="Generate Report PDF" onClick={makePdf}></Button>
           </LeftBox>
         </Box>
@@ -269,10 +343,10 @@ function Report() {
         <Box time={"0.45s"}>
           <PdfBox>
             {reportData ? (
-              <PdfSlider {...settings}>
+              <PdfSlider ref={slider} {...settings}>
                 <ReportPdf option={option} data={reportData.summary} />
-                <TablePdf data={reportData.details} />
-                {reportData.details?.map((item, seq) => (
+                <TablePdf data={detailData} />
+                {detailData?.map((item, seq) => (
                   <RulePdf
                     key={seq}
                     data={item}
@@ -281,11 +355,22 @@ function Report() {
               </PdfSlider>
             ) : (
               <>
+                <DemoBox>
+                  Follow the steps on the left<br />and check the report here
+                </DemoBox>
                 <DemoContainer>
                   <ReportPdf data={demoData} />
                 </DemoContainer>
               </>
             )}
+            <input
+              onChange={e => slider.current.slickGoTo(e.target.value)}
+              value={slideIndex}
+              type="range"
+              min={0}
+              max={detailData ? detailData.length + 1 : 1}
+              style={{zIndex:10}}
+            />
           </PdfBox>
         </Box>
       </Layout>

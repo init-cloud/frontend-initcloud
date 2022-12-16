@@ -3,13 +3,13 @@ import ApexChart from "react-apexcharts"
 
 const A4 = styled.article`
   background-color: white;
-  width: 460px;
-  height: 650px;
+  width: 620px;
+  height: 820px;
   align-items: center;
   color: #0F3D53;
 `
 const Content = styled.div`
-  padding: 0px 58px;
+  padding: 0px 40px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -95,8 +95,8 @@ const Formular = styled.div`
   color: #9E9E9E;
   font-size: 10px;
 `
-function ReportPdf({option, data}) {
-  
+function ReportPdf({ option, data }) {
+
   return (
     <A4>
       <Header />
@@ -109,13 +109,15 @@ function ReportPdf({option, data}) {
               <TdBold>Scan Date</TdBold>
               <Td>{data.date}</Td>
               <TdBold>Account</TdBold>
-              <Td>{option?(option):("Acoount Name")}</Td>
+              <Td>{option ? (option) : ("Acoount Name")}</Td>
             </Tr>
             <Tr>
               <TdBold>Cloud Service Provider</TdBold>
               <Td>{data.csp}</Td>
+            </Tr>
+            <Tr>
               <TdBold>Scan Target</TdBold>
-              <Td>{data.scanTarget}</Td>
+              <Td colSpan={3}>{data.scanTargetHash}</Td>
             </Tr>
           </tbody>
         </Table>
@@ -128,7 +130,7 @@ function ReportPdf({option, data}) {
               <TdBold>Failed Rules</TdBold>
             </Tr>
             <Tr>
-              <Td>{Number(data.passed) + Number(data.skipped) + Number(data.failed)}</Td>
+              <Td>{data.totalScanned}</Td>
               <Td>{data.passed}</Td>
               <Td>{data.skipped}</Td>
               <Td>{data.failed}</Td>
@@ -140,12 +142,9 @@ function ReportPdf({option, data}) {
             <Label>Scan Result</Label>
             <ApexChart
               type="donut"
-              series={[Number(data.passed), Number(data.skipped),Number(data.failed)]}
+              series={[Number(data.passed), Number(data.skipped), Number(data.failed)]}
               options={{
-                chart: {
-                  width: 200
-                },
-                labels: ["Passed", "Skipped" ,"Failed"],
+                labels: ["Passed", "Skipped", "Failed"],
               }}
               width="250"
               height="250"
@@ -155,10 +154,8 @@ function ReportPdf({option, data}) {
             <Label>Fail Status by Severity</Label>
             <ApexChart
               type="donut"
-              series={[6, 2, 3]}
+              series={[Number(data.high), Number(data.medium), Number(data.low)]}
               options={{
-                chart: {
-                },
                 labels: ["High", "Medium", "Low"],
               }}
               width="250"
@@ -170,18 +167,14 @@ function ReportPdf({option, data}) {
         <Table >
           <tbody>
             <Tr>
-              <TdBold>ACG</TdBold>
-              <TdBold>server</TdBold>
-              <TdBold>NACL</TdBold>
-              <TdBold>ASG</TdBold>
-              <TdBold>k8s cluster</TdBold>
+              {data.failedResource?.map((item, seq) => (
+                <TdBold key={seq}>{item.name.split('.')[0]}</TdBold>
+              ))}
             </Tr>
             <Tr>
-              <Td>2</Td>
-              <Td>1</Td>
-              <Td>3</Td>
-              <Td>1</Td>
-              <Td>1</Td>
+              {data.failedResource?.map((item, seq) => (
+                <TdBold key={seq}>{item.count}</TdBold>
+              ))}
             </Tr>
           </tbody>
         </Table>
@@ -189,16 +182,14 @@ function ReportPdf({option, data}) {
         <Table>
           <tbody>
             <Tr>
-              <TdBold>2.6 접근통제</TdBold>
-              <Td>11</Td>
-              <TdBold>2.9 시스템 및 서비스 운영관리</TdBold>
-              <Td>1</Td>
+              {data.failedCompliance?.map((item, seq) => (
+                <TdBold key={seq}>{item.name}</TdBold>
+              ))}
             </Tr>
             <Tr>
-              <TdBold>2.7 암호화 적용</TdBold>
-              <Td>1</Td>
-              <TdBold>2.10 시스템 및 서비스 보안관리</TdBold>
-              <Td>2</Td>
+              {data.failedCompliance?.map((item, seq) => (
+                <TdBold key={seq}>{item.count}</TdBold>
+              ))}
             </Tr>
           </tbody>
         </Table>
@@ -206,18 +197,14 @@ function ReportPdf({option, data}) {
         <Table >
           <tbody>
             <Tr>
-              <TdBold>AUDIT AND ACCOUNTABILTY</TdBold>
-              <TdBold>ACCESS CONTROL</TdBold>
-              <TdBold>MEDIA PROTECTION</TdBold>
-              <TdBold>SYSTEM AND COMMUNICATIONS PROTECTION</TdBold>
-              <TdBold>SYSYEM AND INFORMATION INTEGRITY</TdBold>
+              {data.failedSecurityThreat?.map((item, seq) => (
+                <TdBold key={seq}>{item.name}</TdBold>
+              ))}
             </Tr>
             <Tr>
-              <Td>2</Td>
-              <Td>2</Td>
-              <Td>2</Td>
-              <Td>4</Td>
-              <Td>3</Td>
+              {data.failedSecurityThreat?.map((item, seq) => (
+                <TdBold key={seq}>{item.count}</TdBold>
+              ))}
             </Tr>
           </tbody>
         </Table>

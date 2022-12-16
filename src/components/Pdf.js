@@ -35,7 +35,6 @@ const Pdf = () => {
     return {
         viewWithPdf: async () => {
             const canvases = await converToImg()
-            console.log(canvases);
             converToPdf(canvases);
         }
     }
