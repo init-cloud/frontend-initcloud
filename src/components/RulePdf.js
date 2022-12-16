@@ -131,7 +131,7 @@ function RulePdf({ data }) {
               <TdBold>Compliance</TdBold>
               <Td>ISMS-P</Td>
               <TdBold>Article</TdBold>
-              <Td>{data.compliance ? getComplianceNumber(data.compliance) : ('x')}</Td>
+              <Td>{data.compliance?.length > 0 ? getComplianceNumber(data.compliance) : ('x')}</Td>
             </Tr>
           </tbody>
         </Table>
@@ -143,16 +143,16 @@ function RulePdf({ data }) {
               <CodeBlock
                 code={data.problematicCode.replaceAll('\t', ' ')}
               />
-              <Label>Unfulfilled Compliance</Label>
             </>
           )}
           {data.compliance.length > 0 ? (
-            <Table>
+            <>
+              <Label>Unfulfilled Compliance</Label>
+              <Table>
               <colgroup>
                 <col style={{ width: '20%' }} />
                 <col style={{ width: '80%' }} />
               </colgroup>
-
               <tbody>
                 <Tr>
                   <TdBold>ISMS-P</TdBold>
@@ -166,6 +166,8 @@ function RulePdf({ data }) {
                 ))}
               </tbody>
             </Table>
+
+            </>
           ) : (null)}
           {data.possibleImpact === "" ? (null) :
             (<>

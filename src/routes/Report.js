@@ -208,7 +208,7 @@ const Range = styled.input`
     height: 100%;
     cursor: pointer;
     border-radius: 5px;
-    border: 2px solid #004D9D;
+    border: 2px solid #262b40;
     border-radius: 10px;
   }
   &::-webkit-slider-thumb {
@@ -217,9 +217,9 @@ const Range = styled.input`
     height: 20px;
     border-radius: 7px;
     background-color: white;
-    border: 2px solid #004D9D;
+    border: 2px solid #262b40;
     cursor: pointer;
-    box-shadow: -100vw 0 0 100vw #004D9D;
+    box-shadow: -100vw 0 0 100vw #262b40;
 }
 `
 const Footer = styled.div`
@@ -231,16 +231,32 @@ const Page = styled.div`
   text-align: center;
   line-height: 20px;
   font-weight: bold;
+  font-size: 20px;
   margin-top: 10px;
 `
+const FakeBox = styled.div`
+  position: absolute;
+  height: calc(100% - 60px);
+  left: calc(50% - 310px);
+  width: 620px;
+  z-index: 10;
+  color: white;
+  word-wrap: break-all;
+  text-shadow: 1px 2px 2px rgba(0,0,0,0.2), 0px -3px 20px rgba(255,255,255,0.4);
+  font-weight: bold;
+  font-size: 38px;
+  text-align: center;
+  background-color: #262b40;
+`
 function Report() {
-  const [option, setOption] = useState();
+  const [option, setOption] = useState("");
   const [lists, setLists] = useState();
   const [reportData, setReportData] = useState();
   const [reportOption, setReportOption] = useState('a');
   const [detailData, setDetailData] = useState();
   const [slideIndex, setSlideIndex] = useState(0);
   const [updateCount, setUpdateCount] = useState(0);
+  const [loading, setLoading] = useState(false);
   const pdf = Pdf();
   const slider = useRef();
 
@@ -254,7 +270,25 @@ function Report() {
     score: 77,
     high: 30,
     medium: 5,
-    low: 10
+    low: 10,
+    failedResource: [
+      { name: "ACG", count: 2 },
+      { name: "server", count: 1 },
+      { name: "NACL", count: 4 },
+      { name: "ASG", count: 2 },
+      { name: "k8s", count: 3 }
+    ],
+    failedCompliance: [
+      { name: "2.6 접근통제", count: 11 },
+      { name: "2.7 암호화 적용", count: 1 },
+      { name: "2.10 시스템 및 서비스 보안관리", count: 2 },
+    ],
+    failedSecurityThreat: [
+      { name: "AUDIT AND ACCOUNTABILTY", count: 3 },
+      { name: "ACCESS CONTROL", count: 4 },
+      { name: "MEDIA PROTECTION", count: 2 },
+      { name: "SYSTEM AND COMMUNICATIONS PROTECTION", count: 2 },
+    ]
   }
   const settings = {
     dots: false,
@@ -275,7 +309,9 @@ function Report() {
       });
       return;
     }
+    setLoading(true);
     await pdf.viewWithPdf();
+    setLoading(false);
   };
   const onChange = (e) => {
     setOption(e.target.value);
@@ -295,7 +331,6 @@ function Report() {
       } else {
         setDetailData([...res.data.scan.details]);
       }
-      console.log(res.data.scan);
     };
     req(id);
   }
@@ -312,7 +347,6 @@ function Report() {
         console.log(err);
       });
       setLists(res.data.scan);
-      console.log(res.data.scan);
     };
     req();
   }, []);
@@ -381,10 +415,11 @@ function Report() {
       </Layout>
       <Layout>
         <Box time={"0.45s"}>
+          {loading ? (<FakeBox><br /><br /><br /><br /><br /><br />Generating pdf...</FakeBox>) : (null)}
           <PdfBox>
             {reportData ? (
               <PdfSlider ref={slider} {...settings}>
-                <ReportPdf option={option} data={reportData.summary} name={reportData.details[0].fileName}/>
+                <ReportPdf option={option} data={reportData.summary} name={reportData.details[0].fileName} />
                 <TablePdf data={detailData} />
                 {detailData?.map((item, seq) => (
                   <RulePdf

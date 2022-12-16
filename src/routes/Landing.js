@@ -217,7 +217,7 @@ const DivFooterSpace = styled.div`
 `
 const SecImg = styled.img`
   box-sizing: border-box;
-  width: 250px;
+  width: fit-content;
   height: 250px;
 `
 const SecFooterImg = styled.img`
@@ -234,7 +234,7 @@ function Landing() {
           <Img src={`${process.env.PUBLIC_URL}/initcloud.png`} alt="init.cloud logo" />
         </Circle>
         <h1 style={{ paddingTop: '5px' }}>initCloud</h1>
-        <NewLink to="/service">
+        <NewLink to="/service/scan">
           Go to Service
         </NewLink>
       </Header>

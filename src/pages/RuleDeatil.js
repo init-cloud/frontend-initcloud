@@ -34,11 +34,12 @@ const Filters = styled.ul`
 `
 const Filter = styled.li`
   display: inline-block;
-  font-size: 11px;
+  font-size: 15px;
   font-weight: bold;
-  height: 15px;
-  line-height: 15px;
-  padding: 0px 10px;
+  height: 20px;
+  color: whitesmoke;
+  line-height: 20px;
+  padding: 0px 12px;
   text-align: center;
   border: 1px solid ${(props) => props.color};
   box-shadow: 0 0 8px 4px rgba(0,0,0,.1);
@@ -85,10 +86,19 @@ const ItemBox = styled.div`
 `
 
 function RuleDetail({ detail }) {
-  const colorTable = (item) => {
-    const SECURITY_TYPE = ["INCIDENT RESPONSE", "ACCESS CONTROL", "MEDIA PROTECTION", "IDENTIFICATION AND AUTHENTICATION", "AUDIT AND ACCOUNTABILITY", "CONFIGURATION MANAGEMENT", "SYSTEM AND INFORMATION INTEGRITY", "SYSTEM AND COMMUNICATIONS PROTECTION", "CONTINGENCY PLANNING", "PERFORMANCE IMPROVEMENTS"];
-    if (SECURITY_TYPE.includes(item)) return ('#FFECFF');
-  }
+  const SECURITY_TYPE = {
+    "INCIDENT RESPONSE": "#a5dff9",
+    "ACCESS CONTROL": "#ef5285",
+    "MEDIA PROTECTION": "#60c5ba",
+    "IDENTIFICATION AND AUTHENTICATION": "#75D701",
+    "AUDIT AND ACCOUNTABILITY": "#2b90d9",
+    "CONFIGURATION MANAGEMENT": "#ff5f2e",
+    "SYSTEM AND INFORMATION INTEGRITY": "#fcbe32",
+    "SYSTEM AND COMMUNICATIONS PROTECTION": "#282c37",
+    "CONTINGENCY PLANNING": "#5c196b",
+    "PERFORMANCE IMPROVEMENTS": "#ef9e9f",
+    "LOGIC ERROR": "#004e66"
+  };
   return (
     <>
       <h1>Detail</h1>
@@ -101,7 +111,7 @@ function RuleDetail({ detail }) {
                 {detail.tags?.map((item, index) => (
                   <Filter
                     key={index}
-                    color={colorTable(item.tag)}>
+                    color={SECURITY_TYPE[item.tag] || "black"}>
                     {item.tag}
                   </Filter>
                 ))}

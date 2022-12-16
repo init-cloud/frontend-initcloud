@@ -7,7 +7,6 @@ import { useEffect } from "react";
 
 cytoscape.use(dagre);
 
-
 const Vis = styled(CytoscapeComponent)`
   width: 99%;
   height: 498px;
@@ -110,7 +109,6 @@ function Visualize({ elements, onNodeClick }) {
           elements={elements}
           layout={layout}
           stylesheet={style}
-          zoom={1}
           minZoom={0.1}
           maxZoom={1.5}
           cy={(cy) => {

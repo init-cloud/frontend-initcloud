@@ -59,7 +59,7 @@ function SideBar() {
   return (
     <Side>
       <Menu>
-        <NavLink to="/service" key="main">
+        <NavLink to="/service/scan" key="main">
           <Circle>
             <Img src={`${process.env.PUBLIC_URL}/initcloud.png`} alt="init.cloud logo" />
           </Circle>

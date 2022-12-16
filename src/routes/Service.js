@@ -18,7 +18,7 @@ function Service() {
       <Center>
         <SideBar />
         <Routes>
-          <Route path="" element={<Main />} />
+          {/* <Route path="" element={<Main />} /> */}
           <Route path="scan" element={<Scan />} />
           <Route path="checklist" element={<Checklist />} />
           <Route path="report" element={<Report />} />

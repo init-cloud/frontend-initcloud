@@ -85,8 +85,8 @@ function ResultCard({ result, onClick }) {
         </RuleId>
         <Description>{result.description.slice(1,-1)}</Description>
       </Info>
-      <Level level={levelColor[result.level]}>
-        {result.level}
+      <Level level={levelColor[result.level ? result.level : "Low"]}>
+        {result.level ? result.level : "Low"}
       </Level>
     </Box>
   );

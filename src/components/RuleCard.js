@@ -85,7 +85,7 @@ const RuleCard = React.memo(({ rule, onClickCard }) => {
           <State state={stateColor[rule.state]}>{stateLetter[rule.state]}</State>
           <State state="darkorange">{rule.isModified === 'y'?"Custom":null}</State>
         </RuleId>
-        <Description>{rule.description}</Description>
+        <Description>{rule.description === "" ? ("TBD") : rule.description}</Description>
       </Info>
       <Level level={levelColor[rule.level]}>
         {rule.level}

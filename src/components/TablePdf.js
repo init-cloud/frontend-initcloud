@@ -50,6 +50,11 @@ const Th = styled.th`
   font-weight: bold;
 `
 function RulePdf({ data }) {
+  const getComplianceNumber = (compliance) => {
+    let arr = [];
+    compliance?.map((item) => (arr.push(item.complianceNumber)));
+    return arr.join(', ');
+  }
   return (
     <A4>
       <Header />
@@ -61,8 +66,7 @@ function RulePdf({ data }) {
             <col style={{ width: '31%' }} />
             <col style={{ width: '12%' }} />
             <col style={{ width: '11%' }} />
-            <col style={{ width: '10%' }} />
-            <col style={{ width: '12%' }} />
+            <col style={{ width: '13%' }} />
             <col style={{ width: '11%' }} />
           </colgroup>
           <tbody>
@@ -71,7 +75,6 @@ function RulePdf({ data }) {
               <Th>Policy</Th>
               <Th>Severity</Th>
               <Th>ScanResult</Th>
-              <Th>Solution</Th>
               <Th>ControlName</Th>
               <Th>Article</Th>
             </Tr>
@@ -81,9 +84,8 @@ function RulePdf({ data }) {
                 <Td>{item.description === "" ? "TBD" : item.description}</Td>
                 <Td>{item.severity}</Td>
                 <Td>{item.result}</Td>
-                <Td>Link</Td>
                 <Td>ISMS-P</Td>
-                <Td>2.10.2</Td>
+                <Td>{item.compliance?.length > 0 ? getComplianceNumber(item.compliance) : ('x')}</Td>
               </Tr>
             ))}
           </tbody>

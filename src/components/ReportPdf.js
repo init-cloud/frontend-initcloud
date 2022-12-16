@@ -109,7 +109,7 @@ function ReportPdf({ option, data, name }) {
               <TdBold>Scan Date</TdBold>
               <Td>{data.date}</Td>
               <TdBold>Account</TdBold>
-              <Td>{option ? (option) : ("Acoount Name")}</Td>
+              <Td>{option}</Td>
             </Tr>
             <Tr>
               <TdBold>Cloud Service Provider</TdBold>
