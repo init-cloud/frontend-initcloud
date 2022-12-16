@@ -75,7 +75,7 @@ function Result({ result }) {
         <Box>
           <CardBox>
             {result ? (
-              result.scan.result.map((result, index) => (
+              result.scan.result.slice(0).reverse().map((result, index) => (
                 <ResultCard
                   key={index}
                   result={result}
